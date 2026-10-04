@@ -368,15 +368,15 @@ mark.clue{background:#FFF1B8;color:inherit;padding:0 .1em;border-radius:2px}
 
   <details class="bk vguide">
     <summary>音声をきれいにするには（iPhone・iPad）</summary>
-    <p class="why">読み上げには、iPhone・iPadに入っている声を使います。高音質の声をダウンロードしておくと、アプリが自動でその声を使います。</p>
+    <p class="why">読み上げには、iPhone・iPadに入っている声を使います。設定で高音質の声をダウンロードして選んでおくと、アプリでもその声で読み上げます。</p>
     <ol class="vsteps">
       <li>「設定」アプリを開く</li>
       <li>「アクセシビリティ」→「読み上げコンテンツ」→「声」を開く</li>
       <li>「英語」を選び、「Ava」「Zoe」「Samantha」などの声を開く</li>
-      <li>名前に「プレミアム」または「拡張」と付いた声の、ダウンロードの印を押す</li>
+      <li>名前に「プレミアム」または「拡張」と付いた声をダウンロードし、その声をタップしてチェックを付ける（選んだ状態にする）</li>
       <li>ダウンロードが終わったら、Safari（またはChrome）を一度閉じて、このページを開き直す</li>
     </ol>
-    <p class="why">声のデータは大きいので、Wi-Fiにつないでいるときにダウンロードしてください。設定の画面の名前は、iOSのバージョンによって少しちがうことがあります。どの声が使われているかは、各練習の設定画面の「テスト再生」で確かめられます。ブラウザによっては、ダウンロードした声が使われないこともあります。</p>
+    <p class="why">声のデータは大きいので、Wi-Fiにつないでいるときにダウンロードしてください。設定の画面の名前は、iOSのバージョンによって少しちがうことがあります。「テスト再生」を押したとき、「端末の設定で選んだ声」と表示されれば、設定で選んだ声が使われています。</p>
   </details>
   <p class="note">問題はすべて書き下ろしです。学習の記録は、この端末の中だけに保存され、ほかの人には見えません。語の選定には『CEFR-J Wordlist Version 1.6』（東京外国語大学投野由紀夫研究室）を参照しています。</p>
   <details class="bk">
@@ -2604,7 +2604,8 @@ function pickVoice(){
     for(i=0;i<vs.length;i++){if(vs[i].lang&&vs[i].lang.replace("_","-")==="en-US")us.push(vs[i]);}
     if(!us.length)return null;
     function pref(v){for(var j=0;j<VOICE_PREF.length;j++){if(v.name.indexOf(VOICE_PREF[j])>=0)return j;}return VOICE_PREF.length;}
-    us.sort(function(a,b){return (voiceQuality(b)-voiceQuality(a))||(pref(a)-pref(b));});
+    /* 高音質の声がなければ、端末の設定で選ばれている声（default）を優先する */
+    us.sort(function(a,b){return (voiceQuality(b)-voiceQuality(a))||((b["default"]?1:0)-(a["default"]?1:0))||(pref(a)-pref(b));});
     return us[0];
   }catch(e){return null;}
 }
@@ -2657,7 +2658,7 @@ function testSpeech(){
   function fin(m){if(done)return;done=true;SP.msg=m;rerenderSetup();}
   var hadVoices=!!(window.speechSynthesis.getVoices()||[]).length;
   speak("Hello. This is a test of the English voice.",{
-    start:function(){var v=pickVoice();fin("再生しました（"+(v?v.name:"標準の音声")+"）");},
+    start:function(){var v=pickVoice();fin(v?"再生しました（"+v.name+"）":"再生しました（iPhone・iPadなどの端末の設定で選んだ声）");},
     error:function(e){fin("再生できませんでした（"+((e&&e.error)||"原因不明")+"）");}
   });
   setTimeout(function(){
