@@ -325,6 +325,9 @@ mark.clue{background:#FFF1B8;color:inherit;padding:0 .1em;border-radius:2px}
 .bk .btn{width:100%;margin-top:10px;min-height:46px;font-size:15px}
 .bk .copybox{min-height:90px}
 .warn b{color:var(--shu)}
+
+.vguide{margin-top:14px}
+.vsteps{margin:6px 0 8px;padding-left:1.4em;font-size:15px;line-height:1.8}
 </style>
 </head>
 <body>
@@ -363,6 +366,18 @@ mark.clue{background:#FFF1B8;color:inherit;padding:0 .1em;border-radius:2px}
     </button>
   </div>
 
+  <details class="bk vguide">
+    <summary>音声をきれいにするには（iPhone・iPad）</summary>
+    <p class="why">読み上げには、iPhone・iPadに入っている声を使います。高音質の声をダウンロードしておくと、アプリが自動でその声を使います。</p>
+    <ol class="vsteps">
+      <li>「設定」アプリを開く</li>
+      <li>「アクセシビリティ」→「読み上げコンテンツ」→「声」を開く</li>
+      <li>「英語」を選び、「Ava」「Zoe」「Samantha」などの声を開く</li>
+      <li>名前に「プレミアム」または「拡張」と付いた声の、ダウンロードの印を押す</li>
+      <li>ダウンロードが終わったら、Safari（またはChrome）を一度閉じて、このページを開き直す</li>
+    </ol>
+    <p class="why">声のデータは大きいので、Wi-Fiにつないでいるときにダウンロードしてください。設定の画面の名前は、iOSのバージョンによって少しちがうことがあります。どの声が使われているかは、各練習の設定画面の「テスト再生」で確かめられます。ブラウザによっては、ダウンロードした声が使われないこともあります。</p>
+  </details>
   <p class="note">問題はすべて書き下ろしです。学習の記録は、この端末の中だけに保存され、ほかの人には見えません。語の選定には『CEFR-J Wordlist Version 1.6』（東京外国語大学投野由紀夫研究室）を参照しています。</p>
   <details class="bk">
     <summary>記録の引き継ぎ（バックアップ）</summary>
@@ -2575,15 +2590,22 @@ function record(ok,id,ms){
 
 /* ===== 読み上げ（アメリカ英語）===== */
 var SP={ok:!!(window.speechSynthesis&&window.SpeechSynthesisUtterance),utt:null,timer:null,msg:""};
-var VOICE_PREF=["Samantha","Google US English","Microsoft Aria","Microsoft Jenny","Microsoft Guy","Ava","Allison","Nicky"];
+var VOICE_PREF=["Ava","Zoe","Samantha","Google US English","Microsoft Aria","Microsoft Jenny","Microsoft Guy","Allison","Nicky"];
+/* 声の品質：プレミアム＞拡張＞標準（iPhone・iPadの「設定」でダウンロードした高音質の声を優先する） */
+function voiceQuality(v){
+  var t=((v.voiceURI||"")+" "+(v.name||"")).toLowerCase();
+  if(/premium|プレミアム/.test(t))return 2;
+  if(/enhanced|拡張/.test(t))return 1;
+  return 0;
+}
 function pickVoice(){
   try{
-    var vs=window.speechSynthesis.getVoices()||[],us=[],i,j;
+    var vs=window.speechSynthesis.getVoices()||[],us=[],i;
     for(i=0;i<vs.length;i++){if(vs[i].lang&&vs[i].lang.replace("_","-")==="en-US")us.push(vs[i]);}
-    for(j=0;j<VOICE_PREF.length;j++){
-      for(i=0;i<us.length;i++){if(us[i].name.indexOf(VOICE_PREF[j])>=0)return us[i];}
-    }
-    return us.length?us[0]:null;
+    if(!us.length)return null;
+    function pref(v){for(var j=0;j<VOICE_PREF.length;j++){if(v.name.indexOf(VOICE_PREF[j])>=0)return j;}return VOICE_PREF.length;}
+    us.sort(function(a,b){return (voiceQuality(b)-voiceQuality(a))||(pref(a)-pref(b));});
+    return us[0];
   }catch(e){return null;}
 }
 if(SP.ok){try{window.speechSynthesis.onvoiceschanged=function(){};}catch(e){}}
