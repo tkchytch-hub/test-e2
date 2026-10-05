@@ -328,6 +328,55 @@ mark.clue{background:#FFF1B8;color:inherit;padding:0 .1em;border-radius:2px}
 
 .vguide{margin-top:14px}
 .vsteps{margin:6px 0 8px;padding-left:1.4em;font-size:15px;line-height:1.8}
+
+/* ===== 二次試験 意見を述べる ===== */
+.scard{background:var(--card);border:1px solid var(--rule);border-radius:4px;padding:12px 14px;margin-bottom:12px}
+.spat{margin:0 0 6px;font-size:12px;color:var(--muted)}
+.stopic{display:inline-block;border:1px solid var(--rule);border-radius:999px;padding:0 8px;margin-left:4px}
+.sq{font-size:calc(19px*var(--fs,1));line-height:1.6;font-weight:600;margin:0}
+.sq.off{color:var(--muted);font-weight:400;font-size:15px}
+.sqja{margin:6px 0 0;font-size:calc(14px*var(--fs,1));color:var(--muted)}
+.stances{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stb{display:flex;flex-direction:column;align-items:center;gap:2px;padding:16px 8px;border-radius:6px;border:2px solid var(--rule);background:var(--card);color:var(--ink);font:inherit;cursor:pointer}
+.stb .en{font-size:calc(20px*var(--fs,1));font-weight:700}
+.stb.pro{border-color:var(--midori)} .stb.pro .en{color:var(--midori)}
+.stb.con{border-color:var(--shu)} .stb.con .en{color:var(--shu)}
+.stimer{position:relative;height:22px;background:var(--rule);border-radius:999px;overflow:hidden;margin:4px 0 10px}
+.stimer.none{display:none}
+.stimer i{position:absolute;left:0;top:0;bottom:0;background:var(--ai);border-radius:999px;transition:width .2s linear}
+.stimer span{position:absolute;right:10px;top:0;line-height:22px;font-size:12px;color:var(--ink);font-weight:700}
+.schosen{margin:0 0 10px;font-size:15px}
+.schosen .linkbtn{margin-left:10px;font-size:13px}
+.stpl{border:1px dashed var(--rule);border-radius:4px;padding:6px 12px;margin-bottom:10px;background:var(--paper)}
+.stpl-t{margin:0;font-size:12px;color:var(--muted)}
+.stpl .en{margin:2px 0 0;font-size:calc(15px*var(--fs,1))}
+.sans{width:100%;min-height:130px;font-size:calc(17px*var(--fs,1));line-height:1.6;padding:10px 12px;border:1px solid var(--rule);border-radius:4px;background:var(--card);color:var(--ink)}
+.btn.mic{width:100%}
+.btn.mic.on{background:var(--shu);color:#fff;border-color:var(--shu)}
+.seval,.smodel,.salt{background:var(--card);border:1px solid var(--rule);border-radius:4px;padding:12px 14px;margin-top:12px}
+.seval-h,.smodel-h{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:0 0 8px;font-weight:700}
+.sscore{font-size:14px;color:var(--ai)}
+.sme{margin:0 0 8px;padding:8px 10px;background:var(--paper);border-radius:4px;font-size:calc(15px*var(--fs,1))}
+.schecks,.swatch,.sself{list-style:none;margin:0 0 8px;padding:0}
+.schecks li{display:flex;gap:8px;align-items:center;padding:3px 0;font-size:14px}
+.sy.w{color:#B7791F;font-weight:700} .sy.x{color:var(--shu);font-weight:700} .sy.o{color:var(--midori);font-weight:700}
+.sw-t{margin:8px 0 4px;font-size:13px;color:var(--muted);font-weight:700}
+.swatch li{padding:6px 0;border-top:1px dashed var(--rule);font-size:14px}
+.sfix{display:block;margin-top:2px;color:var(--midori)}
+.ssb{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:10px 8px;border:1px solid var(--rule);border-radius:4px;background:var(--card);color:var(--ink);font:inherit;margin-bottom:6px;cursor:pointer}
+.ssb .box{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border:2px solid var(--muted);border-radius:4px;color:#fff;font-weight:700}
+.ssb.on .box{background:var(--midori);border-color:var(--midori)}
+.lvs{display:flex;gap:4px}
+.lvb{border:1px solid var(--rule);background:var(--card);color:var(--ink);border-radius:999px;padding:2px 10px;font:inherit;font-size:13px;cursor:pointer}
+.lvb.on{background:var(--ai);color:#fff;border-color:var(--ai)}
+.sja{margin:0 0 6px;font-size:calc(14px*var(--fs,1));color:var(--muted);line-height:1.7}
+.sen{margin:0;font-size:calc(17px*var(--fs,1));line-height:1.75}
+.snote{margin:8px 0 0;font-size:13px;color:var(--muted)}
+.sph-t{margin:10px 0 4px;font-size:12px;color:var(--muted);font-weight:700}
+.sph{margin:0;display:flex;flex-wrap:wrap;gap:6px}
+.sph span{border:1px solid var(--rule);border-radius:999px;padding:1px 10px;font-size:14px;background:var(--paper)}
+.salt{border-style:dashed;opacity:.92}
+.salt-h{margin:0 0 6px;font-size:13px;color:var(--muted)}
 </style>
 </head>
 <body>
@@ -362,6 +411,10 @@ mark.clue{background:#FFF1B8;color:inherit;padding:0 .1em;border-radius:2px}
     <div class="part off"><span class="tx"><b>ライティング</b><span>英文を書く練習をします</span></span><span class="tag">準備中</span></div>
     <button class="part on" data-act="h-setup">
       <span class="tx"><b>リスニング（読んで解く）</b><span>対話や英文を読んで、言いかえと根拠を確かめます</span></span>
+      <span class="tag">練習する</span>
+    </button>
+    <button class="part on" data-act="s-setup">
+      <span class="tx"><b>二次試験　意見を述べる（No.3・No.4）</b><span>立場を選んで、理由をとっさに英語で言う練習です</span></span>
       <span class="tag">練習する</span>
     </button>
   </div>
@@ -487,6 +540,25 @@ mark.clue{background:#FFF1B8;color:inherit;padding:0 .1em;border-radius:2px}
   <div class="pbar"><i id="hpbar"></i></div>
   <div id="hbody"></div>
   <div class="fb" id="hfb" hidden aria-live="polite"></div>
+</section>
+
+<!-- 二次試験：設定 -->
+<section id="ssetup" class="screen set" aria-label="二次試験 意見を述べる問題の設定">
+  <button class="back" data-act="go-top">トップにもどる</button>
+  <h2>二次試験　意見を述べる（No.3・No.4）</h2>
+  <p class="sub">質問を聞いて立場を選び、理由をとっさに英語で言う練習です。40問・賛成と反対の両方の解答例つきです。</p>
+  <div id="ssetup-body"></div>
+</section>
+
+<!-- 二次試験：出題 -->
+<section id="squiz" class="screen" aria-label="二次試験 意見を述べる問題">
+  <div class="qhead">
+    <button class="quit" data-act="s-quit">やめる</button>
+    <span class="qno" id="sqno"></span>
+  </div>
+  <div class="pbar"><i id="spbar"></i></div>
+  <div id="sbody"></div>
+  <div class="fb" id="sfb" hidden aria-live="polite"></div>
 </section>
 
 <!-- 一覧 -->
@@ -2448,6 +2520,9 @@ hq({set:2,part:2,no:30,L:[["W","Good evening, everyone. Thank you for coming to 
  m:{"Rules for the audience during the concert.":"コンサート中の観客のきまり。","The new start time of tonight's concert.":"今夜のコンサートの新しい開始時刻。","A change in the performers for the show.":"公演の出演者の変更。","How to buy tickets for the next concert.":"次のコンサートのチケットの買い方。"},
  clue:"please turn off your mobile phones",para:["turn off ～ / not allowed","Rules"],
  e:"「電源を切ってください」「撮影は禁止です」と、観客へのお願いやきまりが続きます。「主に何について」は、全体をまとめた選択肢を選びます。"});
+
+/* ===== 二次試験 意見を述べる（No.3・No.4）：以前作成した「英検2級 Speaking Lab」の40問を移植 ===== */
+var SQ=[{"t": "環境", "p": "A", "en": "Do you think people should use fewer plastic products?", "ja": "人々はプラスチック製品をもっと使わないようにすべきだと思いますか。", "pro": {"s": "Yes.", "js": "はい。", "r1": "plastic waste often ends up in the ocean and harms sea animals.", "r2": "many stores now sell paper or cloth bags, so it is easy to change.", "ex": "some fish eat small pieces of plastic by mistake.", "j1": "プラスチックごみは海に流れ着き、海の生き物を傷つけるからです。", "j2": "今は多くの店が紙や布の袋を売っているので、変えるのは簡単だからです。", "jx": "小さなプラスチックのかけらを、魚がまちがえて食べてしまうこともあります。", "ph": ["end up in the ocean", "harm sea animals", "paper or cloth bags"]}, "con": {"s": "No.", "js": "いいえ。", "r1": "plastic is cheap and light, so small shops rely on it every day.", "r2": "many products, like medicine bottles, must use plastic for safety.", "ex": "the bento shop near my school uses plastic containers because paper leaks.", "j1": "プラスチックは安くて軽いので、小さな店は毎日それに頼っているからです。", "j2": "薬のびんなど、安全のためにプラスチックを使わなければならない製品も多いからです。", "jx": "学校近くのお弁当屋さんは、紙だと汁がもれるのでプラスチック容器を使っています。", "ph": ["cheap and light", "medicine bottles", "for safety"]}}, {"t": "テクノロジー", "p": "A", "en": "Do you think AI will take away people's jobs in the future?", "ja": "将来AIが人々の仕事を奪うと思いますか。", "pro": {"s": "Yes.", "js": "はい。", "r1": "computers can already do simple office work faster than people.", "r2": "companies want to cut costs, so they will use AI more and more.", "ex": "a computer can check hundreds of documents in a few seconds.", "j1": "コンピューターはもう、簡単な事務作業を人より速くできるからです。", "j2": "企業はコストを下げたいので、AIをますます使うようになるからです。", "jx": "何百もの書類を数秒で確認することもできます。", "ph": ["simple office work", "cut costs", "more and more"]}, "con": {"s": "No.", "js": "いいえ。", "r1": "AI still makes many mistakes, so people need to check its work.", "r2": "new technology creates new kinds of jobs that did not exist before.", "ex": "many companies now hire people to write good instructions for AI.", "j1": "AIはまだ多くの間違いをするので、人が確認する必要があるからです。", "j2": "新しい技術は、以前にはなかった新しい種類の仕事を生み出すからです。", "jx": "AIに指示を出す仕事に、人を雇う会社も増えています。", "ph": ["make many mistakes", "check its work", "new kinds of jobs"]}}, {"t": "買い物", "p": "A", "en": "Do you think more people will buy secondhand goods in the future?", "ja": "将来、中古品を買う人はもっと増えると思いますか。", "pro": {"s": "Yes.", "js": "はい。", "r1": "used items are much cheaper, so people can save money.", "r2": "apps make it easy to sell things you do not need.", "ex": "last month I bought a used textbook for half the price.", "j1": "中古品はずっと安いので、お金を節約できるからです。", "j2": "アプリのおかげで、いらない物を売るのが簡単になったからです。", "jx": "先月、私は中古の教科書を半額で買いました。", "ph": ["much cheaper", "for half the price", "things you do not need"]}, "con": {"s": "No.", "js": "いいえ。", "r1": "many people worry about the quality of used goods, so they still choose new ones.", "r2": "new products come with a warranty, so buyers feel safer.", "ex": "my mother would never buy a used bag because she cannot check it well online.", "j1": "中古品の品質を心配する人が多く、今も新品を選ぶからです。", "j2": "新品には保証がついてくるので、買う側は安心できるからです。", "jx": "母はネットではよく見えないので、中古のバッグは決して買いません。", "ph": ["worry about the quality", "a warranty", "feel safer"]}}, {"t": "働き方", "p": "A", "en": "Do you think people in Japan work too much?", "ja": "日本の人々は働きすぎだと思いますか。", "pro": {"s": "Yes.", "js": "はい。", "r1": "many people go home late at night, so they have almost no time to rest.", "r2": "some workers feel bad about taking holidays, so they never use them.", "ex": "my father usually gets home after nine.", "j1": "夜遅くに帰る人が多く、休む時間がほとんどないからです。", "j2": "休みを取ることに気がひける人もいて、有給を使わないからです。", "jx": "私の父もたいてい9時過ぎに帰ってきます。", "ph": ["no time to rest", "feel bad about", "take holidays"]}, "con": {"s": "No.", "js": "いいえ。", "r1": "more companies now limit overtime, so the situation is getting better.", "r2": "young workers today value their free time more than the older generation did.", "ex": "my brother's company makes everyone go home by seven o'clock.", "j1": "残業を制限する企業が増え、状況は良くなってきているからです。", "j2": "今の若い世代は上の世代より、自分の時間を大切にしているからです。", "jx": "兄の会社では、全員7時までに帰ることになっています。", "ph": ["limit overtime", "value free time", "go home by seven"]}}, {"t": "教育", "p": "A", "en": "Do you think more students should study abroad?", "ja": "もっと多くの学生が留学すべきだと思いますか。", "pro": {"s": "Yes.", "js": "はい。", "r1": "students have to use English every day, so they improve quickly.", "r2": "they learn how people in other countries think.", "ex": "they need English just to buy food or ask for help.", "j1": "毎日英語を使わなければならないので、上達が速いからです。", "j2": "他の国の人の考え方を学べるからです。", "jx": "食べ物を買ったり助けを求めたりするだけでも、英語が必要になります。", "ph": ["improve quickly", "ask for help", "other countries"]}, "con": {"s": "No.", "js": "いいえ。", "r1": "studying abroad costs a lot of money, so many families cannot afford it.", "r2": "students can now learn about foreign cultures online, so they do not need to go.", "ex": "one year abroad often costs more than three million yen.", "j1": "留学は多額の費用がかかるので、多くの家庭が出せないからです。", "j2": "今は外国の文化をネットで学べるので、行かなくてもよいからです。", "jx": "1年の留学だと、300万円以上かかることも多いです。", "ph": ["cannot afford it", "learn online", "three million yen"]}}, {"t": "健康", "p": "A", "en": "Do you think people today are more interested in their health than before?", "ja": "今の人々は以前より健康に関心があると思いますか。", "pro": {"s": "Yes.", "js": "はい。", "r1": "many people use apps to count their steps, so they walk more than before.", "r2": "convenience stores now sell low-sugar and low-salt food, so eating well is easier.", "ex": "my mother checks her step count every night.", "j1": "歩数を数えるアプリを使う人が多く、以前より歩くようになったからです。", "j2": "コンビニでも低糖・減塩の食品を売っていて、健康的に食べやすくなったからです。", "jx": "私の母も毎晩、歩数を確認しています。", "ph": ["count their steps", "low-sugar food", "eat well"]}, "con": {"s": "No.", "js": "いいえ。", "r1": "many people are too busy, so they still eat instant food every day.", "r2": "the number of people with lifestyle diseases has not gone down.", "ex": "my father knows he should walk more, but he never has time.", "j1": "多くの人が忙しすぎて、今も毎日インスタント食品を食べているからです。", "j2": "生活習慣病の人の数も減っていないからです。", "jx": "父は、もっと歩いた方がよいと分かっていますが、その時間がありません。", "ph": ["too busy", "instant food", "lifestyle diseases"]}}, {"t": "高齢化", "p": "A", "en": "Do you think Japan is a good country for elderly people to live in?", "ja": "日本は高齢者が暮らしやすい国だと思いますか。", "pro": {"s": "Yes.", "js": "はい。", "r1": "hospitals are close and medical care is not too expensive, so older people can see a doctor easily.", "r2": "many towns hold free classes and events, so they can meet other people.", "ex": "my grandmother goes to a free English class at the city hall.", "j1": "病院が近く医療費も高すぎないので、お年寄りが受診しやすいからです。", "j2": "無料の教室や催しを開く自治体も多く、人と交流できるからです。", "jx": "私の祖母も、市役所の無料の英語教室に通っています。", "ph": ["medical care", "see a doctor easily", "free classes"]}, "con": {"s": "No.", "js": "いいえ。", "r1": "in the countryside, bus services have been cut, so elderly people cannot go shopping.", "r2": "many older people live alone and feel very lonely.", "ex": "my grandfather in Nagano has to ask his neighbor for a ride to the hospital.", "j1": "地方ではバスが減らされ、お年寄りが買い物にも行けないからです。", "j2": "一人暮らしの高齢者が多く、とても孤独に感じているからです。", "jx": "長野の祖父は、病院に行くのに、隣の人に車を頼まないといけません。", "ph": ["bus services", "live alone", "ask for a ride"]}}, {"t": "観光", "p": "A", "en": "Do you think more foreign tourists will visit Japan in the future?", "ja": "将来、日本を訪れる外国人観光客は増えると思いますか。", "pro": {"s": "Yes.", "js": "はい。", "r1": "food and anime from Japan are popular around the world, so many people want to come here.", "r2": "airlines now offer more cheap flights, so traveling here is easier than before.", "ex": "some of my friends overseas say they want to see cherry blossoms.", "j1": "日本の食べ物やアニメは世界中で人気なので、来たいと思う人が多いからです。", "j2": "格安の便が増え、以前より来やすくなったからです。", "jx": "海外の友人にも、桜を見たいと言う人がいます。", "ph": ["popular around the world", "cheap flights", "easier than before"]}, "con": {"s": "No.", "js": "いいえ。", "r1": "prices in Japan are rising, so some tourists may choose cheaper countries.", "r2": "popular places are already too crowded, so visitors may get tired of it.", "ex": "hotels in Kyoto are now twice as expensive as five years ago.", "j1": "日本の物価が上がっているので、より安い国を選ぶ観光客もいるからです。", "j2": "人気の場所はすでに混みすぎで、うんざりされてしまうかもしれないからです。", "jx": "京都のホテル代は、5年前の2倍になっています。", "ph": ["cheaper countries", "get tired of", "twice as expensive"]}}, {"t": "食", "p": "A", "en": "Do you think eating out has become too expensive?", "ja": "外食は高くなりすぎたと思いますか。", "pro": {"s": "Yes.", "js": "はい。", "r1": "food prices have gone up, so restaurants have raised their prices too.", "r2": "many restaurants add a service charge, so the total becomes even higher.", "ex": "a bowl of ramen now costs over a thousand yen.", "j1": "食材の値段が上がり、飲食店も値上げしているからです。", "j2": "サービス料を取る店も多く、合計はさらに高くなるからです。", "jx": "ラーメン一杯が今では千円を超えます。", "ph": ["gone up", "raise prices", "a service charge"]}, "con": {"s": "No.", "js": "いいえ。", "r1": "family restaurants still offer cheap lunch sets, so people can eat out on a budget.", "r2": "many chains use apps to give big discounts to their customers.", "ex": "my friends and I often eat lunch for under a thousand yen at Saizeriya.", "j1": "ファミリーレストランには安いランチセットもあり、工夫すれば外食できるからです。", "j2": "多くのチェーン店はアプリで大きな割引を出しているからです。", "jx": "友人と私はサイゼリヤで、1000円以下でよく昼食を食べます。", "ph": ["lunch sets", "big discounts", "on a budget"]}}, {"t": "SNS", "p": "A", "en": "Do you think social media has a bad influence on young people?", "ja": "SNSは若者に悪い影響を与えていると思いますか。", "pro": {"s": "Yes.", "js": "はい。", "r1": "young people compare their lives with other people's photos, so they lose confidence.", "r2": "false information spreads quickly, so they sometimes believe things that are not true.", "ex": "some of my classmates feel sad after looking at travel photos online.", "j1": "他人の写真と自分の生活を比べてしまい、自信をなくすからです。", "j2": "誤った情報が広まりやすく、本当でないことを信じてしまうからです。", "jx": "旅行の写真を見て落ち込むクラスメートもいます。", "ph": ["compare their lives", "lose confidence", "spread quickly"]}, "con": {"s": "No.", "js": "いいえ。", "r1": "young people can find friends with the same interests, so they feel less lonely.", "r2": "social media lets them learn about the world for free.", "ex": "my classmate found a study group for university tests on Instagram.", "j1": "同じ趣味の友達を見つけられるので、孤独を感じにくくなるからです。", "j2": "無料で世界のことを学べるからです。", "jx": "同級生はインスタで、大学入試の勉強会を見つけました。", "ph": ["the same interests", "less lonely", "for free"]}}, {"t": "交通", "p": "A", "en": "Do you think more people will stop using cars in the future?", "ja": "将来、車を使わなくなる人が増えると思いますか。", "pro": {"s": "Yes.", "js": "はい。", "r1": "trains and buses are cheaper than owning a car, so young people are choosing them.", "r2": "cities are building more bicycle lanes, so short trips are easy without a car.", "ex": "many of my friends say they will never buy a car.", "j1": "電車やバスの方が車を持つより安いので、若い人が選んでいるからです。", "j2": "自転車レーンを増やす都市が多く、近い距離なら車がいらないからです。", "jx": "私の友人にも、車は買わないと言う人が何人もいます。", "ph": ["own a car", "bicycle lanes", "short trips"]}, "con": {"s": "No.", "js": "いいえ。", "r1": "in the countryside there are few buses, so people still need cars every day.", "r2": "families with small children need a car to carry many things.", "ex": "my aunt drives her kids to school because the bus stops running at eight.", "j1": "地方はバスが少ないので、人々は今も毎日車を必要としているからです。", "j2": "小さな子どもがいる家族は、たくさんの物を運ぶために車が必要だからです。", "jx": "おばはバスが8時で終わるので、子どもたちを車で学校に送っています。", "ph": ["few buses", "carry many things", "stops running"]}}, {"t": "お金", "p": "A", "en": "Do you think schools should teach students about money?", "ja": "学校はお金について教えるべきだと思いますか。", "pro": {"s": "Yes.", "js": "はい。", "r1": "many young people start using credit cards without knowing the risks.", "r2": "students who learn about saving can plan their future more easily.", "ex": "some of my friends spend all their pocket money in one week.", "j1": "リスクを知らないままクレジットカードを使い始める若者が多いからです。", "j2": "貯金について学んだ生徒は、将来の計画を立てやすくなるからです。", "jx": "一週間でおこづかいを使い切ってしまう友人もいます。", "ph": ["without knowing the risks", "plan their future", "pocket money"]}, "con": {"s": "No.", "js": "いいえ。", "r1": "students already have many subjects, so there is not enough time for another one.", "r2": "children can learn about money at home from their parents.", "ex": "my mother taught me how to save when I got my first pocket money.", "j1": "生徒はすでに科目が多く、もう一つ増やす時間がないからです。", "j2": "お金のことは、家で親から学ぶことができるからです。", "jx": "母は、私が初めておこづかいをもらったときに、貯金のしかたを教えてくれました。", "ph": ["many subjects", "not enough time", "save money"]}}, {"t": "運動", "p": "A", "en": "Do you think people should exercise more in their daily lives?", "ja": "人々は日常生活でもっと運動すべきだと思いますか。", "pro": {"s": "Yes.", "js": "はい。", "r1": "most people sit at a desk all day, so their bodies get weak.", "r2": "light exercise reduces stress, so they can sleep better.", "ex": "walking one station before work takes only fifteen minutes.", "j1": "多くの人は一日中机に向かうので、体が弱ってしまうからです。", "j2": "軽い運動はストレスを減らし、よく眠れるようになるからです。", "jx": "一駅手前で降りて歩いても、15分ほどです。", "ph": ["sit at a desk", "reduce stress", "sleep better"]}, "con": {"s": "No.", "js": "いいえ。", "r1": "people are already busy, so telling them to exercise only adds pressure.", "r2": "some people have jobs that already make them move all day.", "ex": "delivery workers walk more than twenty kilometers every day.", "j1": "みんなすでに忙しいので、運動しろと言われても負担が増えるだけだからです。", "j2": "一日中体を動かす仕事の人もいるからです。", "jx": "配達員の人は、毎日20キロ以上歩いています。", "ph": ["adds pressure", "move all day", "delivery workers"]}}, {"t": "ボランティア", "p": "A", "en": "Do you think more young people should do volunteer work?", "ja": "もっと多くの若者がボランティアをすべきだと思いますか。", "pro": {"s": "Yes.", "js": "はい。", "r1": "volunteering lets students meet people of different ages, so they learn how society works.", "r2": "it helps them when they apply for jobs later.", "ex": "cleaning a local park takes only two hours on a weekend.", "j1": "いろいろな年齢の人と出会えて、社会の仕組みを学べるからです。", "j2": "あとで就職するときにも役立つからです。", "jx": "近所の公園の清掃なら、週末の2時間で終わります。", "ph": ["different ages", "apply for jobs", "local park"]}, "con": {"s": "No.", "js": "いいえ。", "r1": "students are busy with study and club activities, so they have little free time.", "r2": "many young people work part-time to help their family.", "ex": "my friend does two part-time jobs to pay for her school lunches.", "j1": "生徒は勉強や部活で忙しく、自由な時間がほとんどないからです。", "j2": "家計を助けるためにアルバイトをする若者も多いからです。", "jx": "友人は、給食費のためにアルバイトを2つ掛け持ちしています。", "ph": ["club activities", "little free time", "part-time"]}}, {"t": "都市と田舎", "p": "A", "en": "Do you think it is better to live in the countryside than in a big city?", "ja": "大都市より田舎に住む方が良いと思いますか。", "pro": {"s": "Yes.", "js": "はい。", "r1": "the countryside is quiet and rents are low, so people can relax more.", "r2": "children can grow up close to nature.", "ex": "my cousin's family bought a big house in Nagano for very little money.", "j1": "田舎は静かで家賃も安いので、ゆったり暮らせるからです。", "j2": "子どもが自然の近くで育つことができるからです。", "jx": "いとこの家族は、長野で大きな家をとても安く買いました。", "ph": ["rents are low", "close to nature", "for very little money"]}, "con": {"s": "No.", "js": "いいえ。", "r1": "cities have more hospitals, schools and job choices, so life is easier there.", "r2": "trains run often, so people can go anywhere without a car.", "ex": "my cousin has to drive forty minutes to the nearest supermarket.", "j1": "都市の方が病院や学校、仕事の選択肢が多く、生活しやすいからです。", "j2": "電車の本数が多く、車がなくてもどこへでも行けるからです。", "jx": "いとこは、一番近いスーパーまで車で40分かかります。", "ph": ["job choices", "run often", "the nearest supermarket"]}}, {"t": "読書", "p": "A", "en": "Do you think young people read fewer books than before?", "ja": "若者は以前より本を読まなくなったと思いますか。", "pro": {"s": "Yes.", "js": "はい。", "r1": "videos and games are more exciting, so students choose them instead.", "r2": "they are busy with study and club activities, so they have little free time.", "ex": "most of my classmates read only the books their teachers give them.", "j1": "動画やゲームの方が刺激的なので、そちらを選んでしまうからです。", "j2": "勉強や部活で忙しく、自由な時間が少ないからです。", "jx": "クラスメートの多くは、先生に渡された本しか読みません。", "ph": ["more exciting", "instead", "little free time"]}, "con": {"s": "No.", "js": "いいえ。", "r1": "e-books make reading easier, so some young people read more than before.", "r2": "reading is popular on video sites now, so young people are getting new titles.", "ex": "my classmates share book recommendations on TikTok.", "j1": "電子書籍で読みやすくなり、以前よりよく読む若者もいるからです。", "j2": "動画サイトで読書が人気になっていて、若い人が新しい本を知る機会も増えているからです。", "jx": "クラスメートはTikTokで、おすすめの本を紹介し合っています。", "ph": ["e-books", "video sites", "book recommendations"]}}, {"t": "ペット", "p": "A", "en": "Do you think keeping a pet is good for children?", "ja": "ペットを飼うことは子どもにとって良いと思いますか。", "pro": {"s": "Yes.", "js": "はい。", "r1": "children learn to take care of a living thing, so they become more responsible.", "r2": "playing with a pet helps them relax after school.", "ex": "my little brother feeds our dog every morning without being told.", "j1": "生き物の世話を通して、責任感が育つからです。", "j2": "ペットと遊ぶことで、学校のあとにリラックスできるからです。", "jx": "弟は言われなくても、毎朝、犬にえさをやっています。", "ph": ["take care of", "become responsible", "relax"]}, "con": {"s": "No.", "js": "いいえ。", "r1": "pets cost a lot of money and time, so busy families should think carefully.", "r2": "some children are allergic to animals, so keeping a pet can make them sick.", "ex": "my aunt's dog needs to visit the vet almost every month.", "j1": "ペットにはお金も時間もかかるので、忙しい家庭はよく考えるべきだからです。", "j2": "動物アレルギーの子どももいて、飼うと具合が悪くなることもあるからです。", "jx": "おばの犬は、ほぼ毎月動物病院に行かなければなりません。", "ph": ["cost a lot", "allergic to animals", "the vet"]}}, {"t": "防災", "p": "A", "en": "Do you think people are well prepared for natural disasters?", "ja": "人々は自然災害に十分備えていると思いますか。", "pro": {"s": "Yes.", "js": "はい。", "r1": "schools and city offices hold drills every year, so people know what to do.", "r2": "many families now buy emergency food and water at the supermarket.", "ex": "my school runs a full evacuation drill twice a year.", "j1": "学校や市役所が毎年訓練をしているので、どうすべきか分かっているからです。", "j2": "スーパーで非常食や水を買う家庭も増えているからです。", "jx": "私の学校は、年に2回本格的な避難訓練を行っています。", "ph": ["hold drills", "emergency food", "evacuation drill"]}, "con": {"s": "No.", "js": "いいえ。", "r1": "many families do not keep enough water or food at home.", "r2": "people often ignore evacuation drills, so they do not know where to go.", "ex": "my neighbors have never checked their emergency bags.", "j1": "十分な水や食料を家に備えていない家庭が多いからです。", "j2": "避難訓練を軽く見る人が多く、どこへ行けばいいか分かっていないからです。", "jx": "近所の人は、非常用の持ち出し袋を確認したことがありません。", "ph": ["enough water", "evacuation drills", "emergency bags"]}}, {"t": "外国語", "p": "A", "en": "Do you think everyone should learn a foreign language?", "ja": "誰もが外国語を学ぶべきだと思いますか。", "pro": {"s": "Yes.", "js": "はい。", "r1": "people can get information from other countries directly, so they see more points of view.", "r2": "learning a language makes it easier to understand other cultures.", "ex": "reading foreign news in English shows a different side of a story.", "j1": "他の国の情報を直接得られるので、より多くの見方に触れられるからです。", "j2": "言語を学ぶと、他の文化を理解しやすくなるからです。", "jx": "英語で外国のニュースを読むと、同じ出来事の別の面が見えます。", "ph": ["points of view", "other cultures", "foreign news"]}, "con": {"s": "No.", "js": "いいえ。", "r1": "translation apps are getting better, so not everyone needs to spend years studying.", "r2": "many people never leave their country, so they use their own language every day.", "ex": "my grandfather uses a phone app to talk with foreign visitors at his shop.", "j1": "翻訳アプリが良くなっているので、全員が何年もかける必要はないからです。", "j2": "自分の国を離れない人も多く、日常は自国の言葉で足りるからです。", "jx": "祖父は店で、スマホのアプリを使って外国のお客さんと話しています。", "ph": ["translation apps", "leave their country", "phone app"]}}, {"t": "家族", "p": "A", "en": "Do you think families spend enough time together these days?", "ja": "最近の家族は一緒に過ごす時間が十分にあると思いますか。", "pro": {"s": "Yes.", "js": "はい。", "r1": "more parents now work from home, so they see their children more often.", "r2": "family activities like camping have become popular again.", "ex": "my friend's father plays video games with his son every Saturday.", "j1": "在宅で働く親が増え、以前より子どもと過ごせているからです。", "j2": "キャンプなど家族で楽しむ活動が、また人気になっているからです。", "jx": "友人の父は、毎週土曜日に息子とゲームをしています。", "ph": ["work from home", "family activities", "every Saturday"]}, "con": {"s": "No.", "js": "いいえ。", "r1": "parents work late and children have club activities, so they rarely eat together.", "r2": "everyone looks at their own phone at home, so they hardly talk.", "ex": "my family eats dinner together only on Sundays.", "j1": "親は遅くまで働き、子どもは部活があるので、一緒に食事をすることがほとんどないからです。", "j2": "家でもそれぞれスマホを見ていて、ほとんど会話がないからです。", "jx": "うちも家族そろって夕食を食べるのは、日曜だけです。", "ph": ["work late", "eat together", "hardly talk"]}}, {"t": "環境", "p": "B", "en": "Some people say that companies should do more to protect the environment. What do you think about that?", "ja": "企業は環境を守るためにもっと努力すべきだと言う人がいます。どう思いますか。", "pro": {"s": "I agree.", "js": "賛成です。", "r1": "companies use a lot of energy, so they have a bigger influence than individuals.", "r2": "customers today choose companies that care about the environment.", "ex": "a factory can cut its CO2 by changing to solar power.", "j1": "企業は大量のエネルギーを使うので、個人より影響が大きいからです。", "j2": "今は環境に配慮する企業を選ぶ消費者が増えているからです。", "jx": "工場が太陽光に切り替えれば、CO2を大きく減らせます。", "ph": ["a bigger influence", "solar power", "care about the environment"]}, "con": {"s": "I disagree.", "js": "反対です。", "r1": "individuals also waste a lot, so companies alone cannot solve the problem.", "r2": "if companies spend too much on the environment, product prices will go up.", "ex": "many families throw away food that is still safe to eat.", "j1": "個人も多くの無駄を出しているので、企業だけでは解決できないからです。", "j2": "企業が環境対策にお金を使いすぎると、商品の値段が上がってしまうからです。", "jx": "多くの家庭が、まだ食べられる食品を捨てています。", "ph": ["waste a lot", "spend too much", "safe to eat"]}}, {"t": "テクノロジー", "p": "B", "en": "Some people say that smartphones make it harder for children to concentrate. What do you think about that?", "ja": "スマートフォンは子どもの集中を妨げると言う人がいます。どう思いますか。", "pro": {"s": "I agree.", "js": "賛成です。", "r1": "messages and games arrive all the time, so children stop studying to check them.", "r2": "they stay up late using their phones, so they get sleepy in class.", "ex": "my friend looks at his phone every few minutes while doing homework.", "j1": "メッセージやゲームがひっきりなしに届き、勉強を中断して確認してしまうからです。", "j2": "夜遅くまでスマホを使い、授業中に眠くなるからです。", "jx": "友人は宿題中も、数分おきにスマホを見ています。", "ph": ["all the time", "stop studying", "stay up late"]}, "con": {"s": "I disagree.", "js": "反対です。", "r1": "children can use apps to study, so phones can also help them focus.", "r2": "many teachers now use phone tools in class, so students learn to use them well.", "ex": "my cousin studies English every day with a free app on her phone.", "j1": "勉強アプリも使えるので、スマホが集中を助けることもあるからです。", "j2": "授業でスマホのツールを使う先生も増え、生徒は上手な使い方を学べるからです。", "jx": "いとこは無料のアプリで、毎日英語を勉強しています。", "ph": ["study apps", "phone tools", "every day"]}}, {"t": "買い物", "p": "B", "en": "Some people say that online shopping is bad for small local shops. What do you think about that?", "ja": "ネット通販は地元の小さな店にとって良くないと言う人がいます。どう思いますか。", "pro": {"s": "I agree.", "js": "賛成です。", "r1": "online stores sell things at lower prices, so customers stop visiting local shops.", "r2": "small shops do not have enough money to make their own websites.", "ex": "two bookstores near my house closed last year.", "j1": "ネット通販の方が安く、客が地元の店に行かなくなるからです。", "j2": "小さな店にはウェブサイトを作るお金がないからです。", "jx": "家の近くの書店も、去年2軒閉まりました。", "ph": ["at lower prices", "stop visiting", "their own websites"]}, "con": {"s": "I disagree.", "js": "反対です。", "r1": "small shops can also sell online, so they can reach new customers.", "r2": "many people still prefer to see products with their own eyes.", "ex": "a shop near my house sells local vegetables through a delivery service.", "j1": "小さな店もネットで売れるので、新しい客に届けられるからです。", "j2": "自分の目で商品を見たい人も、まだ多いからです。", "jx": "家の近くの店は、配達サービスで地元の野菜を売っています。", "ph": ["sell online", "with their own eyes", "delivery service"]}}, {"t": "働き方", "p": "B", "en": "Some people say that working from home is better than working at an office. What do you think about that?", "ja": "在宅勤務はオフィス勤務より良いと言う人がいます。どう思いますか。", "pro": {"s": "I agree.", "js": "賛成です。", "r1": "people do not have to spend an hour on crowded trains, so they feel less stress.", "r2": "they can finish work earlier, so they have more time with their families.", "ex": "my aunt now has breakfast with her children every morning.", "j1": "満員電車に1時間乗らずに済むので、ストレスが減るからです。", "j2": "早く仕事を終えられ、家族と過ごす時間が増えるからです。", "jx": "おばは今、毎朝子どもと朝食をとっています。", "ph": ["crowded trains", "less stress", "more time with family"]}, "con": {"s": "I disagree.", "js": "反対です。", "r1": "it is harder to talk with team members at home, so work often takes longer.", "r2": "new workers cannot learn from senior workers when they are alone.", "ex": "my sister said her first year at work was lonely because she started at home.", "j1": "家では同僚と話しにくく、かえって仕事が長引くからです。", "j2": "新人が一人で働いていると、先輩から学ぶ機会がなくなるからです。", "jx": "姉は、初めての年に在宅で働いていて寂しかったと言っていました。", "ph": ["takes longer", "senior workers", "lonely"]}}, {"t": "教育", "p": "B", "en": "Some people say that students today have too much homework. What do you think about that?", "ja": "今の学生は宿題が多すぎると言う人がいます。どう思いますか。", "pro": {"s": "I agree.", "js": "賛成です。", "r1": "students have club activities after school, so they only have a few hours at home.", "r2": "if they get too much homework, they just copy the answers and do not really learn.", "ex": "my classmates often finish their worksheets on the train.", "j1": "放課後に部活があり、家にいられるのは数時間しかないからです。", "j2": "宿題が多すぎると、答えを写すだけで身につかないからです。", "jx": "クラスメートは、電車の中でプリントを終わらせています。", "ph": ["club activities", "copy the answers", "a few hours"]}, "con": {"s": "I disagree.", "js": "反対です。", "r1": "students forget things quickly, so they need homework to review.", "r2": "doing homework helps them build the habit of studying alone.", "ex": "students who do their homework carefully usually get better test scores.", "j1": "人はすぐ忘れるので、復習のために宿題は必要だからです。", "j2": "宿題は、一人で勉強する習慣を作る助けになるからです。", "jx": "宿題を丁寧にする生徒は、テストの点も良いことが多いです。", "ph": ["forget quickly", "the habit of studying", "test scores"]}}, {"t": "健康", "p": "B", "en": "Some people say that young people do not get enough sleep. What do you think about that?", "ja": "若い人は十分な睡眠をとっていないと言う人がいます。どう思いますか。", "pro": {"s": "I agree.", "js": "賛成です。", "r1": "many students use their phones in bed, so they fall asleep after midnight.", "r2": "they have to get up early for club practice, so they sleep only five or six hours.", "ex": "most of my friends sleep less than six hours on weekdays.", "j1": "ベッドでスマホを使い、寝るのが夜中を過ぎてしまうからです。", "j2": "部活の朝練で早起きするので、5〜6時間しか眠れないからです。", "jx": "私の友人もほとんどが、平日6時間も寝ていません。", "ph": ["fall asleep", "get up early", "five or six hours"]}, "con": {"s": "I disagree.", "js": "反対です。", "r1": "some schools now start later, so students in those areas sleep longer.", "r2": "sleep apps help students track their sleep and go to bed earlier.", "ex": "my school changed the start time to nine, and everyone looks less tired.", "j1": "始業を遅くする学校も出てきて、その地域では長く眠れているからです。", "j2": "睡眠アプリのおかげで、生徒が自分の睡眠を確認して早く寝られるからです。", "jx": "私の学校は始業を9時にしてから、みんな眠そうではなくなりました。", "ph": ["start later", "track their sleep", "less tired"]}}, {"t": "高齢化", "p": "B", "en": "Some people say that more elderly people should keep working. What do you think about that?", "ja": "もっと多くの高齢者が働き続けるべきだと言う人がいます。どう思いますか。", "pro": {"s": "I agree.", "js": "賛成です。", "r1": "there are not enough young workers, so companies really need older people.", "r2": "working gives them a reason to go out every day, so they stay healthy.", "ex": "the man at my local station is over seventy and still works there.", "j1": "若い働き手が足りず、企業は高齢者を必要としているからです。", "j2": "働くことで毎日外に出る理由ができ、健康を保てるからです。", "jx": "近所の駅には、70歳を超えて働いている方がいます。", "ph": ["young workers", "a reason to go out", "stay healthy"]}, "con": {"s": "I disagree.", "js": "反対です。", "r1": "some jobs are hard on the body, so older workers may hurt themselves.", "r2": "older workers should be able to enjoy the free time they saved for.", "ex": "my grandfather's back gets worse when he works at the farm too long.", "j1": "体に負担の大きい仕事もあり、高齢者はけがをする恐れがあるからです。", "j2": "高齢者は、長い間備えてきた自由な時間を楽しむべきだからです。", "jx": "祖父は、畑で長く働くと腰の調子が悪くなります。", "ph": ["hard on the body", "hurt themselves", "enjoy the free time"]}}, {"t": "観光", "p": "B", "en": "Some people say that too many tourists cause problems for local people. What do you think about that?", "ja": "観光客が多すぎて地元の人が困っていると言う人がいます。どう思いますか。", "pro": {"s": "I agree.", "js": "賛成です。", "r1": "trains and buses become very crowded, so local people cannot get to work on time.", "r2": "some tourists leave trash in quiet neighborhoods.", "ex": "my aunt in Kyoto often cannot get on her usual bus.", "j1": "電車やバスがとても混み、地元の人が時間どおりに通勤できないからです。", "j2": "静かな住宅街にごみを置いていく観光客もいるからです。", "jx": "京都のおばは、いつものバスに乗れないことがよくあります。", "ph": ["get to work on time", "leave trash", "cannot get on"]}, "con": {"s": "I disagree.", "js": "反対です。", "r1": "tourists bring money to small towns, so local shops and hotels can survive.", "r2": "meeting people from other countries makes local people more open-minded.", "ex": "the small town where my grandmother lives got new cafes thanks to tourists.", "j1": "観光客はお金を落とすので、地元の店や宿が続けられるからです。", "j2": "外国の人と交流することで、地元の人の視野が広がるからです。", "jx": "祖母が住む小さな町にも、観光客のおかげで新しいカフェができました。", "ph": ["bring money", "open-minded", "thanks to tourists"]}}, {"t": "食", "p": "B", "en": "Some people say that people should cook at home more often. What do you think about that?", "ja": "人々はもっと家で料理をするべきだと言う人がいます。どう思いますか。", "pro": {"s": "I agree.", "js": "賛成です。", "r1": "cooking at home is much cheaper, so families can save money.", "r2": "they can choose how much salt and oil to use, so their meals become healthier.", "ex": "a homemade lunch costs about half the price of one from a shop.", "j1": "家で作る方がずっと安く、家計を助けられるからです。", "j2": "塩や油の量を自分で決められ、食事が健康的になるからです。", "jx": "手作りの弁当なら、買うより半分ほどの値段で済みます。", "ph": ["much cheaper", "how much salt", "healthier"]}, "con": {"s": "I disagree.", "js": "反対です。", "r1": "many people work late, so they have no time or energy to cook.", "r2": "supermarkets sell many healthy ready-made meals now.", "ex": "my aunt buys a salad and grilled fish set at the supermarket every weekday.", "j1": "遅くまで働く人は、料理をする時間も気力もないからです。", "j2": "スーパーでは健康的な調理済みの食品もたくさん売られているからです。", "jx": "おばは平日、スーパーでサラダと焼き魚のセットを買っています。", "ph": ["no time or energy", "ready-made meals", "grilled fish"]}}, {"t": "SNS", "p": "B", "en": "Some people say that people rely on the Internet too much for information. What do you think about that?", "ja": "人々は情報を得るためにインターネットに頼りすぎだと言う人がいます。どう思いますか。", "pro": {"s": "I agree.", "js": "賛成です。", "r1": "many people believe the first website they see, so they never check if it is correct.", "r2": "they stop asking real people for advice, so they get only one point of view.", "ex": "a false story about a train accident spread in my town last year.", "j1": "最初に見たサイトを信じてしまい、正しいか確かめないからです。", "j2": "人に相談しなくなり、一つの見方しか得られないからです。", "jx": "去年、私の町でも電車事故の誤った話が広まりました。", "ph": ["the first website", "check if it is correct", "one point of view"]}, "con": {"s": "I disagree.", "js": "反対です。", "r1": "the Internet lets people compare many sources, so they can find the truth faster.", "r2": "many articles now include the writer's name and background, so readers can judge them.", "ex": "a fact-check website helped my father spot a fake news story last week.", "j1": "ネットなら多くの情報源を比べられるので、かえって早く事実にたどり着けるからです。", "j2": "多くの記事は書き手の名前や経歴を載せていて、読者が判断できるからです。", "jx": "先週、ファクトチェックのサイトのおかげで、父はフェイクニュースに気づけました。", "ph": ["compare sources", "the writer's name", "fact-check website"]}}, {"t": "交通", "p": "B", "en": "Some people say that big cities should have fewer cars in the center. What do you think about that?", "ja": "大都市の中心部は車を減らすべきだと言う人がいます。どう思いますか。", "pro": {"s": "I agree.", "js": "賛成です。", "r1": "fewer cars mean cleaner air, so people can walk around comfortably.", "r2": "shops become easier to visit when the streets are quiet.", "ex": "the street near my station became popular after cars were stopped there.", "j1": "車が減れば空気がきれいになり、歩きやすくなるからです。", "j2": "通りが静かになると、店にも立ち寄りやすくなるからです。", "jx": "駅前の通りも、車を止めてから人気が出ました。", "ph": ["cleaner air", "walk around", "easier to visit"]}, "con": {"s": "I disagree.", "js": "反対です。", "r1": "delivery trucks and taxis are necessary, so a full ban would cause trouble.", "r2": "elderly and sick people need cars to reach hospitals easily.", "ex": "many patients ride a taxi from the station to the hospital near my home.", "j1": "配送のトラックやタクシーは必要なので、全面禁止は混乱を招くからです。", "j2": "お年寄りや病気の人は、病院に行くために車が必要だからです。", "jx": "家の近くの病院には、駅からタクシーで通う患者さんがたくさんいます。", "ph": ["a full ban", "cause trouble", "reach hospitals"]}}, {"t": "お金", "p": "B", "en": "Some people say that cashless payment is difficult for elderly people. What do you think about that?", "ja": "キャッシュレス決済は高齢者には難しいと言う人がいます。どう思いますか。", "pro": {"s": "I agree.", "js": "賛成です。", "r1": "many older people are not used to smartphones, so paying becomes stressful for them.", "r2": "small shops near their homes sometimes do not accept cards at all.", "ex": "my grandfather still carries cash because he cannot use the app.", "j1": "スマホに慣れていない高齢者が多く、支払いが負担になるからです。", "j2": "家の近くの小さな店では、カードが使えないこともあるからです。", "jx": "祖父はアプリが使えないので、今も現金を持ち歩いています。", "ph": ["be used to", "accept cards", "carries cash"]}, "con": {"s": "I disagree.", "js": "反対です。", "r1": "cashless payment is simple once you learn it, so older people can get used to it.", "r2": "banks and city offices now offer free classes to teach them.", "ex": "my grandmother learned to use a QR code app in one afternoon.", "j1": "キャッシュレスは一度覚えれば簡単なので、高齢者も慣れることができるからです。", "j2": "銀行や市役所も無料の講座を開いて教えてくれるからです。", "jx": "祖母は午後だけで、QRコードのアプリを使えるようになりました。", "ph": ["get used to", "free classes", "QR code"]}}, {"t": "運動", "p": "B", "en": "Some people say that schools should have more sports classes. What do you think about that?", "ja": "学校は体育の授業を増やすべきだと言う人がいます。どう思いますか。", "pro": {"s": "I agree.", "js": "賛成です。", "r1": "students sit in class all day, so they need time to move their bodies.", "r2": "playing sports together teaches them how to work in a team.", "ex": "students look more awake in the class after P.E.", "j1": "生徒は一日中座っているので、体を動かす時間が必要だからです。", "j2": "一緒に運動することで、協力の仕方も学べるからです。", "jx": "体育のあとの授業では、みんな目が覚めています。", "ph": ["move their bodies", "work in a team", "look more awake"]}, "con": {"s": "I disagree.", "js": "反対です。", "r1": "study time is already short, so adding sports classes would hurt other subjects.", "r2": "students can do sports in club activities after school.", "ex": "my school already offers over ten sports clubs to join.", "j1": "ただでさえ勉強時間が足りず、他の科目に影響が出るからです。", "j2": "生徒は放課後の部活動でスポーツができるからです。", "jx": "私の学校には、すでに10以上の運動部があります。", "ph": ["already short", "other subjects", "sports clubs"]}}, {"t": "ボランティア", "p": "B", "en": "Some people say that local communities are becoming weaker. What do you think about that?", "ja": "地域のつながりが弱くなっていると言う人がいます。どう思いますか。", "pro": {"s": "I agree.", "js": "賛成です。", "r1": "many people do not know their neighbors, so they never help each other.", "r2": "fewer young people join local festivals, so old traditions are disappearing.", "ex": "only about ten people came to the summer festival in my area.", "j1": "近所の人を知らない人が多く、助け合うことがないからです。", "j2": "地域の祭りに参加する若者が減り、伝統が消えつつあるからです。", "jx": "私の地域の夏祭りも、来たのは10人ほどでした。", "ph": ["their neighbors", "help each other", "old traditions"]}, "con": {"s": "I disagree.", "js": "反対です。", "r1": "people now connect through local apps and groups, so communities are just changing shape.", "r2": "young people join events on social media when their friends invite them.", "ex": "our neighborhood uses a Line group to share safety information every day.", "j1": "今はアプリや地域のグループでつながっているので、形が変わっただけだからです。", "j2": "若い人も、友達に誘われればSNSで催しに参加するからです。", "jx": "私たちの町内会は、毎日ラインのグループで安全情報を共有しています。", "ph": ["local apps", "changing shape", "safety information"]}}, {"t": "都市と田舎", "p": "B", "en": "Some people say that young people should move back to the countryside. What do you think about that?", "ja": "若者は田舎に戻るべきだと言う人がいます。どう思いますか。", "pro": {"s": "I agree.", "js": "賛成です。", "r1": "rents are low and nature is close, so young families can live comfortably.", "r2": "some local governments offer money to families who move there.", "ex": "one town in Hokkaido gave my friend's family five hundred thousand yen to move in.", "j1": "家賃が安く自然も近いので、若い家族が快適に暮らせるからです。", "j2": "移住する家族にお金を出す自治体もあるからです。", "jx": "北海道のある町は、友人の家族に引っ越し費用として50万円をくれました。", "ph": ["rents are low", "local governments", "money to move"]}, "con": {"s": "I disagree.", "js": "反対です。", "r1": "there are few jobs outside big cities, so young people cannot make a living there.", "r2": "hospitals and schools are far away, so daily life becomes inconvenient.", "ex": "my cousin left our town because there was no work for her.", "j1": "都市の外には仕事が少なく、生活していけないからです。", "j2": "病院や学校が遠く、日々の暮らしが不便になるからです。", "jx": "いとこは、仕事がなくて町を出ました。", "ph": ["few jobs", "far away", "inconvenient"]}}, {"t": "読書", "p": "B", "en": "Some people say that reading paper books is better than reading on a screen. What do you think about that?", "ja": "紙の本の方が画面で読むより良いと言う人がいます。どう思いますか。", "pro": {"s": "I agree.", "js": "賛成です。", "r1": "paper books do not send notifications, so readers can concentrate longer.", "r2": "it is easier to remember where information was on a page.", "ex": "students often mark important lines with a pencil.", "j1": "紙の本は通知が来ないので、長く集中できるからです。", "j2": "情報がページのどこにあったか、思い出しやすいからです。", "jx": "生徒は鉛筆で、大事な行に印をつけられます。", "ph": ["send notifications", "concentrate longer", "mark important lines"]}, "con": {"s": "I disagree.", "js": "反対です。", "r1": "e-books are light and cheap, so people can carry many books anywhere.", "r2": "you can change the letter size on a screen, so it is kinder to the eyes.", "ex": "my father reads three books on his tablet during long business trips.", "j1": "電子書籍は軽くて安いので、どこにでも何冊でも持ち歩けるからです。", "j2": "画面では文字の大きさを変えられるので、目にも優しいからです。", "jx": "父は出張のときに、タブレットで3冊も読みます。", "ph": ["light and cheap", "the letter size", "business trips"]}}, {"t": "ペット", "p": "B", "en": "Some people say that people should get pets from animal shelters instead of buying them. What do you think about that?", "ja": "ペットは店で買うより保護施設から引き取るべきだと言う人がいます。どう思いますか。", "pro": {"s": "I agree.", "js": "賛成です。", "r1": "many animals in shelters have nowhere to go, so they need families quickly.", "r2": "getting a pet from a shelter costs much less than buying one from a shop.", "ex": "a friend of mine found a healthy cat at a shelter for free.", "j1": "施設の動物には行き場がなく、早く家族が必要だからです。", "j2": "店で買うより、ずっと費用がかからないからです。", "jx": "友人は施設で、健康な猫を無料で引き取りました。", "ph": ["nowhere to go", "cost much less", "for free"]}, "con": {"s": "I disagree.", "js": "反対です。", "r1": "some families want a specific kind of dog, so pet shops still have a role.", "r2": "shops check the health of the animals, so buyers feel safer.", "ex": "my uncle needed a small dog for his tiny apartment, so he went to a shop.", "j1": "特定の犬種を望む家庭もあるので、ペットショップにも役割があるからです。", "j2": "店では動物の健康を確認するので、買う人は安心できるからです。", "jx": "おじは、狭いアパートに合う小さな犬が必要で、店に行きました。", "ph": ["a specific kind", "check the health", "tiny apartment"]}}, {"t": "防災", "p": "B", "en": "Some people say that schools should teach more about disaster safety. What do you think about that?", "ja": "学校は防災についてもっと教えるべきだと言う人がいます。どう思いますか。", "pro": {"s": "I agree.", "js": "賛成です。", "r1": "earthquakes can happen at any time, so students need to know what to do.", "r2": "children can teach their families what they learned at school.", "ex": "our school drill showed us the fastest way to the roof.", "j1": "地震はいつ起きるか分からないので、生徒が行動を知っておく必要があるからです。", "j2": "子どもが学んだことを、家族に伝えられるからです。", "jx": "学校の訓練で、屋上への一番早い道が分かりました。", "ph": ["at any time", "know what to do", "teach their families"]}, "con": {"s": "I disagree.", "js": "反対です。", "r1": "schools already hold drills every year, so more classes may not change much.", "r2": "children usually learn what to do from their parents at home.", "ex": "my parents told me about the family meeting place after every big earthquake.", "j1": "学校はすでに毎年訓練をしていて、授業を増やしても大きくは変わらないからです。", "j2": "子どもは、家で親から行動のしかたを学ぶことが多いからです。", "jx": "うちでは、大きな地震があるたびに親が集合場所を教えてくれます。", "ph": ["already hold drills", "not change much", "the meeting place"]}}, {"t": "外国語", "p": "B", "en": "Some people say that English should be taught from the first year of elementary school. What do you think about that?", "ja": "英語は小学1年生から教えるべきだと言う人がいます。どう思いますか。", "pro": {"s": "I agree.", "js": "賛成です。", "r1": "young children copy sounds easily, so their pronunciation becomes natural.", "r2": "starting early removes the fear of speaking.", "ex": "children who start young are not afraid of making mistakes.", "j1": "小さい子どもは音をまねるのが得意で、発音が自然になるからです。", "j2": "早く始めれば、話すことへの怖さがなくなるからです。", "jx": "早くから始めた子は、間違いを怖がりません。", "ph": ["copy sounds", "the fear of speaking", "make mistakes"]}, "con": {"s": "I disagree.", "js": "反対です。", "r1": "children should learn their own language well first, so English can wait.", "r2": "young children get confused when they study two languages at the same time.", "ex": "my cousin started English in first grade and now writes Japanese poorly.", "j1": "子どもはまず母語をしっかり学ぶべきなので、英語は後でもよいからです。", "j2": "小さな子どもは、二つの言語を同時に学ぶと混乱してしまうからです。", "jx": "いとこは1年生から英語を始めましたが、日本語が下手になりました。", "ph": ["their own language", "get confused", "in first grade"]}}, {"t": "家族", "p": "B", "en": "Some people say that parents today give too much freedom to their children. What do you think about that?", "ja": "今の親は子どもに自由を与えすぎだと言う人がいます。どう思いますか。", "pro": {"s": "I agree.", "js": "賛成です。", "r1": "children can buy almost anything online, so parents cannot see what they are doing.", "r2": "without clear rules, children stay up late and their health gets worse.", "ex": "some of my classmates play games until two in the morning.", "j1": "ネットでほとんど何でも買えて、親が把握できないからです。", "j2": "はっきりした決まりがないと夜更かしし、健康が悪くなるからです。", "jx": "夜中の2時までゲームをしているクラスメートもいます。", "ph": ["almost anything", "clear rules", "stay up late"]}, "con": {"s": "I disagree.", "js": "反対です。", "r1": "children learn from their own mistakes, so some freedom is necessary.", "r2": "when parents control everything, children cannot decide by themselves as adults.", "ex": "my friend chose to stop his club last year and became more serious about study.", "j1": "子どもは自分の失敗から学ぶので、ある程度の自由は必要だからです。", "j2": "親がすべて決めてしまうと、大人になってから自分で決められなくなるからです。", "jx": "友人は去年、自分で部活をやめると決めて、勉強に真剣に取り組むようになりました。", "ph": ["their own mistakes", "decide by themselves", "become more serious"]}}];
 </script>
 
 <script>
@@ -2479,6 +2554,7 @@ var VEXCL={};("bucket button hobby habit tunnel pilot poem fog fur insect season
 ["at first","look forward to","a cup of"].forEach(function(w){VEXCL[w]=1;});
 var LID={};if(typeof LP!=="undefined")LP.forEach(function(p){p.blanks.forEach(function(b){LID[p.id+"-"+b.no]=1;});});
 var HID={};if(typeof HQ!=="undefined")HQ.forEach(function(q){HID["H"+q.set+"-"+q.part+"-"+(q.no<10?"0":"")+q.no]=1;});
+var SID={};if(typeof SQ!=="undefined")SQ.forEach(function(q,i){SID["S-"+(i<9?"0":"")+(i+1)]=1;});
 var V=[],VID={};
 (function(){
   var typeOf={},ex={};
@@ -2523,7 +2599,7 @@ try{localStorage.setItem(KEY+"-t","1");localStorage.removeItem(KEY+"-t");}catch(
 
 function fresh(){
   return {streak:0,best:0,last:"",days:{},weak:{},seen:{},tq:{date:"",ok:{},ng:{}},
-          sets:{},lsets:{},hsets:{},cfg:{hset:1,hpart:"both",hpre:"on",hn:5,horder:"shuffle",lset:1,mode:"rand",set:1,scope:"mix",n:20,time:0,voice:"auto",ja:"after",mean:"always",size:"std",vform:"mix",vscope:"all",vn:20,vtime:0}};
+          sets:{},lsets:{},hsets:{},cfg:{sn:5,spat:"both",stime:30,smode:"flash",sq:"en",sa:"both",slv:4,srate:0.9,hset:1,hpart:"both",hpre:"on",hn:5,horder:"shuffle",lset:1,mode:"rand",set:1,scope:"mix",n:20,time:0,voice:"auto",ja:"after",mean:"always",size:"std",vform:"mix",vscope:"all",vn:20,vtime:0}};
 }
 function load(){
   var r=fresh();
@@ -2546,8 +2622,8 @@ function load(){
   }catch(e){}
   if(r.best<r.streak)r.best=r.streak;
   /* 問題の入れかえで使われなくなった番号の記録を整理する */
-  ["weak","seen"].forEach(function(k){for(var id in r[k]){if(!QID[id]&&!VID[id]&&!LID[id]&&!HID[id])delete r[k][id];}});
-  ["ok","ng"].forEach(function(k){for(var id in r.tq[k]){if(!QID[id]&&!VID[id]&&!LID[id]&&!HID[id])delete r.tq[k][id];}});
+  ["weak","seen"].forEach(function(k){for(var id in r[k]){if(!QID[id]&&!VID[id]&&!LID[id]&&!HID[id]&&!SID[id])delete r[k][id];}});
+  ["ok","ng"].forEach(function(k){for(var id in r.tq[k]){if(!QID[id]&&!VID[id]&&!LID[id]&&!HID[id]&&!SID[id])delete r.tq[k][id];}});
   if(["mix","w","i","extra","basic","weak"].indexOf(r.cfg.scope)<0)r.cfg.scope="mix";
   if(r.cfg.set<1||r.cfg.set>NSET)r.cfg.set=1;
   return r;
@@ -2634,7 +2710,7 @@ function speak(text,hooks){
     SP.timer=setTimeout(function(){
       try{
         var u=new SpeechSynthesisUtterance(text);
-        u.lang="en-US";u.rate=0.9;
+        u.lang="en-US";u.rate=(hooks&&hooks.rate)||0.9;
         var v=pickVoice();if(v)u.voice=v;
         if(hooks){u.onstart=hooks.start||null;u.onerror=hooks.error||null;}
         SP.utt=u; /* 再生中に破棄されないよう保持する */
@@ -2645,7 +2721,8 @@ function speak(text,hooks){
   }catch(e){}
 }
 function rerenderSetup(){
-  if($("hsetup").classList.contains("on"))hSetupRender();
+  if($("ssetup").classList.contains("on"))sSetupRender();
+  else if($("hsetup").classList.contains("on"))hSetupRender();
   else if($("lsetup").classList.contains("on"))lSetupRender();
   else if($("vsetup").classList.contains("on"))vRenderSetup();
   else if($("setup").classList.contains("on"))renderSetup();
@@ -2674,7 +2751,7 @@ function dock(html){
 }
 function show(id){
   stopSpeech();
-  ["top","setup","quiz","result","list","vsetup","vquiz","lsetup","lquiz","hsetup","hquiz"].forEach(function(k){$(k).classList.toggle("on",k===id);});
+  ["top","setup","quiz","result","list","vsetup","vquiz","lsetup","lquiz","hsetup","hquiz","ssetup","squiz"].forEach(function(k){$(k).classList.toggle("on",k===id);});
   dock(null);
   try{window.scrollTo(0,0);}catch(e){}
 }
@@ -3017,7 +3094,7 @@ document.addEventListener("click",function(e){
   else if(act==="csv"){doCSV();}
   else if(act==="seg"){
     var g=el.getAttribute("data-g"),i=parseInt(el.getAttribute("data-i"),10);
-    var map={mode:MODES,set:null,scope:SCOPES,n:NS,time:TS,ja:JS_,mean:MS,voice:VS,size:ZS,vform:VFORMS,vscope:VSCOPES,vn:VNS,vtime:VTS,hn:(typeof HN!=="undefined"?HN:null),horder:(typeof HORD!=="undefined"?HORD:null)};
+    var map={mode:MODES,set:null,scope:SCOPES,n:NS,time:TS,ja:JS_,mean:MS,voice:VS,size:ZS,vform:VFORMS,vscope:VSCOPES,vn:VNS,vtime:VTS,hn:(typeof HN!=="undefined"?HN:null),horder:(typeof HORD!=="undefined"?HORD:null),sn:(typeof SN!=="undefined"?SN:null),spat:(typeof SPAT!=="undefined"?SPAT:null),stime:(typeof STIME!=="undefined"?STIME:null),smode:(typeof SMODE!=="undefined"?SMODE:null),sq:(typeof SQL!=="undefined"?SQL:null),sa:(typeof SAL!=="undefined"?SAL:null),slv:(typeof SLV!=="undefined"?SLV:null),srate:(typeof SRATE!=="undefined"?SRATE:null)};
     rec.cfg[g]=(g==="set")?i+1:(g==="lset"?LSETS[i]:(g==="hset"?HSETOPT[i]:(g==="hpart"?HPARTS[i][0]:(g==="hpre"?HPRE[i][0]:map[g][i][0]))));save();
     if(g==="size")applySize();
     rerenderSetup();
@@ -3660,6 +3737,284 @@ document.addEventListener("keydown",function(e){
 });
 window.__hpart={HQ:HQ};
 
+
+
+/* ===================================================================
+   二次試験 意見を述べる（No.3・No.4）
+   立場を選ぶ → 考える時間 → 答える（声に出す／書く／音声入力）→ 解答例と確認
+   =================================================================== */
+SQ.forEach(function(q,i){q.id="S-"+(i<9?"0":"")+(i+1);q.no=i+1;});
+var SN=[[5,"5問"],[10,"10問"],[0,"全部"]];
+var SPAT=[["both","両方（40問）"],["A","Do you think ～?（20問）"],["B","Some people say ～（20問）"]];
+var STIME=[[20,"20秒"],[30,"30秒"],[45,"45秒"],[60,"60秒"],[0,"なし"]];
+var SMODE=[["flash","声に出す"],["type","書いて確かめる"],["voice","音声入力"]];
+var SQL=[["en","英語"],["both","英語＋日本語"],["ja","日本語"],["off","音声だけ"]];
+var SAL=[["both","英語＋日本語"],["en","英語"],["ja","日本語が先"]];
+var SLV=[[3,"3点"],[4,"4点"],[5,"5点"]];
+var SRATE=[[0.75,"ゆっくり"],[0.9,"ふつう"],[1,"本番に近い"]];
+var SX={list:[],i:0,ok:0,wrong:[],phase:"stance",stance:"pro",answer:"",ev:null,lv:4,enOpen:false,checks:{},t0:0,qStart:0,ms:0,tn:0,timer:null,left:0,rec:null,listening:false};
+
+function sCap(s){return s.charAt(0).toUpperCase()+s.slice(1);}
+function sSide(q,st){return q[st];}
+function sOther(st){return st==="pro"?"con":"pro";}
+function sModel(q,lv,st){
+  var d=q[st];
+  if(lv===3)return {s:d.s,lines:[sCap(d.r1)],js:d.js,jl:[d.j1],note:"立場は言えていて内容も伝わりますが、理由が1つ・1文だけです。3点の目安の形です。"};
+  if(lv===4)return {s:d.s,lines:["First, "+d.r1,"Also, "+d.r2],js:d.js,jl:["まず、"+d.j1,"それに、"+d.j2],note:"立場＋理由2つ。2文以上あるので4点の目安です。本番は、まずこの形で十分です。"};
+  return {s:d.s,lines:["First, "+d.r1,"For example, "+d.ex,"Also, "+d.r2],js:d.js,jl:["まず、"+d.j1,"たとえば、"+d.jx,"それに、"+d.j2],note:"立場＋理由＋具体例＋2つ目の理由。For example が入ると5点の目安の形になります。"};
+}
+function sModelText(m){return m.s+" "+m.lines.join(" ");}
+function srOK(){return !!(window.SpeechRecognition||window.webkitSpeechRecognition);}
+
+/* ルールでの確認（文法や内容の正しさは見ない。形がそろっているかの目安） */
+function sEval(q,st,answer){
+  var a=(answer||"").trim(),d=q[st];
+  if(!a)return {score:0,checks:{stance:0,two:0,reason:0,conn:0},watch:[{p:"まず立場を言う",d:"1語でもかまいません。最初に "+d.s+" と言うだけで、答えの形ができます。",f:d.s+" First, ..."}]};
+  var sentences=a.split(/[.!?]+/).filter(function(s){return s.trim().split(/\s+/).length>=3;});
+  var words=a.split(/\s+/).filter(Boolean).length;
+  var stance=/^\s*(yes|no|i\s+agree|i\s+disagree|i\s+think|i\s+don't\s+think)/i.test(a);
+  var conn=/\b(first|second|also|for example|for instance|because|so|in addition|another)\b/i.test(a);
+  var score=1+(stance?1:0)+(sentences.length>=2?1:0)+(conn?1:0)+(words>=22?1:0);if(score>5)score=5;
+  var watch=[];
+  if(!stance)watch.push({p:"立場を先に言う",d:"最初に "+d.s+" を単独で言うと、面接委員に伝わりやすくなります。",f:d.s+" "+a.split(/[.!?]/)[0].trim()+"."});
+  if(sentences.length<2)watch.push({p:"2文にする",d:"理由をもう1つ足して2文にすると、得点が安定します。",f:"Also, "+d.r2});
+  if(!conn)watch.push({p:"つなぎの言葉",d:"First / Also / For example を入れると、理由の区切りがはっきりします。",f:"First, "+d.r1+" Also, "+d.r2});
+  if(!watch.length)watch.push({p:"具体例",d:"For example で一言の具体例を足すと、5点の形になります。",f:"For example, "+d.ex});
+  return {score:score,checks:{stance:stance?2:0,two:sentences.length>=2?2:1,reason:words>=12?2:1,conn:conn?2:0},watch:watch.slice(0,3),words:words};
+}
+
+function sSetupRender(){
+  var pool=sPool(),tq=todayQ();
+  var left=pool.filter(function(q){return !tq.ok[q.id];}).length;
+  var n=rec.cfg.sn===0?pool.length:Math.min(rec.cfg.sn,pool.length);
+  var voiceNote=srOK()?"話した英語を文字にして、形を確かめます。マイクの使用を許可してください。":"このブラウザでは音声入力が使えません。「声に出す」か「書いて確かめる」を選んでください。";
+  $("ssetup-body").innerHTML=
+    grp("答え方","「声に出す」は、本番と同じように声で答え、解答例を見て自分で確かめます。「書いて確かめる」「音声入力」は、答えの形（立場・2文以上・つなぎの言葉）をアプリが確かめます。"+(rec.cfg.smode==="voice"?"<br>"+voiceNote:""),seg("smode",SMODE,rec.cfg.smode))+
+    grp("問題数","短く区切って練習できます。続けたいときは、結果画面の「続けて解く」で次に進めます。",seg("sn",SN,rec.cfg.sn))+
+    grp("質問の型","No.3・No.4 では、この2つの型の質問が出ます。",seg("spat",SPAT,rec.cfg.spat))+
+    '<p class="why" style="margin-top:12px">まだ解いていない問題や、「もう一度」にした問題を先に出し、今日「言えた」問題はあとまわしにします。今日まだ「言えた」になっていない問題は、この範囲で'+left+'問です。</p>'+
+    grp("考える時間","立場を選んでから、答え終わるまでの時間です。本番は、質問のあとすぐに答え始めます。",seg("stime",STIME,rec.cfg.stime))+
+    grp("質問の表示","「音声だけ」は、本番と同じく耳だけで聞き取る練習です。",seg("sq",SQL,rec.cfg.sq))+
+    grp("解答例の表示","「日本語が先」は、日本語で内容を見てから自分の英語で言い、そのあと英語の解答例を開きます。",seg("sa",SAL,rec.cfg.sa))+
+    grp("最初に見る解答例","解答例は3点・4点・5点の3段階あり、解答例の画面でも切りかえられます。",seg("slv",SLV,rec.cfg.slv))+
+    grp("読み上げの速さ","質問と解答例の読み上げの速さです。",seg("srate",SRATE,rec.cfg.srate))+
+    grp("英文の読み上げ（アメリカ英語）","「自動」にすると、質問が出たときに自動で読み上げます。",seg("voice",VS,rec.cfg.voice,null,!SP.ok))+
+    grp("文字の大きさ","質問・解答例・解説がまとめて大きくなります。",seg("size",ZS,rec.cfg.size));
+  dock('<button type="button" class="btn" data-act="s-start">始める（'+n+'問）</button>');
+}
+function sPool(){return SQ.filter(function(q){return rec.cfg.spat==="both"||q.p===rec.cfg.spat;});}
+function sBuild(){var pool=sPool();return rec.cfg.sn===0?shuffle(pool):pickList(pool,Math.min(rec.cfg.sn,pool.length));}
+function sBegin(list){
+  SX={list:list,i:0,ok:0,wrong:[],phase:"stance",stance:"pro",answer:"",ev:null,lv:rec.cfg.slv,enOpen:false,checks:{},t0:Date.now(),qStart:0,ms:0,tn:0,timer:null,left:0,rec:null,listening:false};
+  if(rec.cfg.smode==="voice"&&!srOK())rec.cfg.smode="type";
+  show("squiz");sStartQ();
+}
+function sStartQ(){
+  sStop();
+  SX.phase="stance";SX.answer="";SX.ev=null;SX.enOpen=false;SX.checks={};SX.lv=rec.cfg.slv;
+  sRender();
+  var q=SX.list[SX.i];
+  if(SP.ok&&(rec.cfg.voice==="auto"||rec.cfg.sq==="off"))speak(q.en,{rate:rec.cfg.srate});
+}
+function sQuestionHTML(q){
+  var h='<p class="spat">'+(q.p==="A"?"Do you think ～? の型":"Some people say ～ の型")+'　<span class="stopic">'+esc(q.t)+'</span></p>';
+  var m=rec.cfg.sq;
+  if(m==="en"||m==="both")h+='<p class="sq en">'+esc(q.en)+'</p>';
+  if(m==="both")h+='<p class="sqja">'+esc(q.ja)+'</p>';
+  if(m==="ja")h+='<p class="sq">'+esc(q.ja)+'</p><p class="why">日本語で意味をつかみ、英語で答えましょう。</p>';
+  if(m==="off")h+='<p class="sq off">（質問は音声だけで流れます）</p>';
+  if(SP.ok)h+='<p style="margin:6px 0 0"><button type="button" class="sp" data-act="s-say">質問を聞く</button></p>';
+  return h;
+}
+function sRender(){
+  var q=SX.list[SX.i];
+  $("sqno").textContent=(SX.i+1)+" / "+SX.list.length;
+  $("spbar").style.width=(SX.i/SX.list.length*100)+"%";
+  var h='<div class="scard">'+sQuestionHTML(q)+'</div>';
+  if(SX.phase==="stance"){
+    var a=q.pro.s,b=q.con.s;
+    h+='<p class="hstep">① まず立場を選びましょう。選ぶと、考える時間が始まります。</p>'+
+      '<div class="stances"><button type="button" class="stb pro" data-act="s-stance" data-v="pro"><span class="en">'+esc(a)+'</span><span>'+esc(q.pro.js)+'</span></button>'+
+      '<button type="button" class="stb con" data-act="s-stance" data-v="con"><span class="en">'+esc(b)+'</span><span>'+esc(q.con.js)+'</span></button></div>';
+    $("sbody").innerHTML=h;$("sfb").hidden=true;dock(null);return;
+  }
+  if(SX.phase==="think"){
+    var d=q[SX.stance],mode=rec.cfg.smode;
+    h+='<div class="stimer'+(rec.cfg.stime?'':' none')+'"><i id="sbar"></i><span id="sleft"></span></div>'+
+      '<p class="schosen">あなたの立場：<b class="en">'+esc(d.s)+'</b>（'+esc(d.js)+'）<button type="button" class="linkbtn" data-act="s-restance">立場を変える</button></p>'+
+      '<div class="stpl"><p class="stpl-t">答えの形</p><p class="en">'+esc(d.s)+' First, ～. For example, ～. Also, ～.</p></div>';
+    if(mode==="flash"){
+      h+='<p class="hstep">② 声に出して答えましょう。言い終わったら「解答例を見る」を押します。</p>';
+      dock('<button type="button" class="btn" data-act="s-reveal">解答例を見る</button>');
+    }else if(mode==="type"){
+      h+='<p class="hstep">② 答えを英語で書きましょう。</p><textarea id="sans" class="sans en" autocapitalize="sentences" autocomplete="off" spellcheck="false" placeholder="'+esc(d.s)+' First, ..."></textarea>';
+      dock('<button type="button" class="btn ghost" data-act="s-reveal">わからない</button><button type="button" class="btn" data-act="s-submit">答え合わせ</button>');
+    }else{
+      h+='<p class="hstep">② 「話す」を押して、英語で答えましょう。文字になったら、直してから答え合わせできます。</p>'+
+        '<p><button type="button" class="btn ghost mic" id="smic" data-act="s-mic">● 話す</button></p>'+
+        '<textarea id="sans" class="sans en" autocapitalize="sentences" autocomplete="off" spellcheck="false" placeholder="ここに、話した英語が文字で出ます"></textarea>';
+      dock('<button type="button" class="btn ghost" data-act="s-reveal">わからない</button><button type="button" class="btn" data-act="s-submit">答え合わせ</button>');
+    }
+    $("sbody").innerHTML=h;$("sfb").hidden=true;
+    if(SX.answer&&$("sans"))$("sans").value=SX.answer;
+    sTimerStart();
+    return;
+  }
+  /* 解答例 */
+  $("sbody").innerHTML=h+'<p class="schosen">あなたの立場：<b class="en">'+esc(q[SX.stance].s)+'</b>（'+esc(q[SX.stance].js)+'）</p>';
+  sRenderReveal();
+}
+function sTimerStart(){
+  clearInterval(SX.timer);
+  if(!rec.cfg.stime){SX.qStart=Date.now();return;}
+  var total=rec.cfg.stime*1000,st=Date.now();SX.qStart=st;
+  function tick(){
+    var left=Math.max(0,total-(Date.now()-st));
+    var bar=$("sbar"),lab=$("sleft");
+    if(bar)bar.style.width=(left/total*100)+"%";
+    if(lab)lab.textContent=Math.ceil(left/1000)+"秒";
+    if(left<=0){clearInterval(SX.timer);sTimeUp();}
+  }
+  tick();SX.timer=setInterval(tick,200);
+}
+function sTimeUp(){
+  if(SX.phase!=="think")return;
+  if(rec.cfg.smode==="flash")sReveal(null);else sSubmit(true);
+}
+function sStop(){clearInterval(SX.timer);sMicStop();}
+function sMicStart(){
+  var C=window.SpeechRecognition||window.webkitSpeechRecognition;if(!C)return;
+  try{
+    var r=new C();r.lang="en-US";r.continuous=true;r.interimResults=true;
+    var base=($("sans")&&$("sans").value)?$("sans").value.replace(/\s+$/,"")+" ":"";
+    r.onresult=function(e){
+      var fin="",tmp="";
+      for(var k=0;k<e.results.length;k++){if(e.results[k].isFinal)fin+=e.results[k][0].transcript+" ";else tmp+=e.results[k][0].transcript;}
+      var box=$("sans");if(box)box.value=(base+fin+tmp).replace(/\s+/g," ").trim();
+    };
+    r.onerror=function(){};
+    r.onend=function(){if(SX.listening){try{r.start();}catch(x){}}};
+    SX.rec=r;SX.listening=true;r.start();
+    var b=$("smic");if(b){b.textContent="■ 止める";b.classList.add("on");}
+  }catch(e){SX.listening=false;}
+}
+function sMicStop(){
+  SX.listening=false;
+  if(SX.rec){try{SX.rec.stop();}catch(e){}SX.rec=null;}
+  var b=$("smic");if(b){b.textContent="● 話す";b.classList.remove("on");}
+}
+function sSubmit(auto){
+  if(SX.phase!=="think")return;
+  sStop();
+  var box=$("sans");SX.answer=box?box.value:"";
+  SX.ev=sEval(SX.list[SX.i],SX.stance,SX.answer);
+  sReveal(SX.ev);
+}
+function sReveal(ev){
+  if(SX.phase!=="think")return;
+  sStop();
+  if(!ev&&$("sans"))SX.answer=$("sans").value;
+  SX.qms=Math.min(Date.now()-SX.qStart,300000);SX.ms+=SX.qms;SX.tn++;
+  SX.phase="reveal";SX.ev=ev;
+  sRender();
+  try{window.scrollTo(0,0);}catch(e){}
+}
+function sMark(v){return v===2?'<span class="sy o">○</span>':(v===1?'<span class="sy w">△</span>':'<span class="sy x">×</span>');}
+function sRenderReveal(){
+  var q=SX.list[SX.i],m=sModel(q,SX.lv,SX.stance),o=sModel(q,5,sOther(SX.stance)),h="";
+  if(SX.ev){
+    var ev=SX.ev;
+    h+='<div class="seval"><p class="seval-h">答えの形の確認<span class="sscore">'+ev.score+' / 5（目安）</span></p>'+
+      (SX.answer.trim()?'<p class="sme en">'+esc(SX.answer)+'</p>':'<p class="sme">（答えがありませんでした）</p>')+
+      '<ul class="schecks"><li>'+sMark(ev.checks.stance)+'最初に立場を言っている</li><li>'+sMark(ev.checks.two)+'2文以上で答えている</li><li>'+sMark(ev.checks.reason)+'理由に十分な長さがある</li><li>'+sMark(ev.checks.conn)+'つなぎの言葉（First / Also / For example など）がある</li></ul>'+
+      '<p class="sw-t">次に直すとよいところ</p><ul class="swatch">'+ev.watch.map(function(w){return '<li><b>'+esc(w.p)+'</b>　'+esc(w.d)+'<span class="en sfix">'+esc(w.f)+'</span></li>';}).join("")+'</ul>'+
+      '<p class="why">アプリが確かめているのは、答えの形だけです。文法や内容の正しさは、下の解答例と見比べて確かめてください。</p></div>';
+  }else{
+    var c=SX.checks,items=[["stance","最初に立場を言えた"],["two","2文以上で言えた"],["reason","質問に合った理由を言えた"],["ex","For example などで具体例を言えた"]];
+    h+='<div class="seval"><p class="seval-h">自分の答えを確かめましょう</p><ul class="sself">'+items.map(function(it){
+      return '<li><button type="button" class="ssb'+(c[it[0]]?' on':'')+'" data-act="s-check" data-k="'+it[0]+'"><span class="box">'+(c[it[0]]?'✓':'')+'</span>'+it[1]+'</button></li>';
+    }).join("")+'</ul></div>';
+  }
+  /* 解答例 */
+  var lvs=SLV.map(function(l){return '<button type="button" class="lvb'+(l[0]===SX.lv?' on':'')+'" data-act="s-lv" data-v="'+l[0]+'">'+l[1]+'</button>';}).join("");
+  var sa=rec.cfg.sa,showEn=(sa!=="ja"||SX.enOpen);
+  h+='<div class="smodel"><div class="smodel-h"><span>解答例</span><span class="lvs">'+lvs+'</span></div>';
+  if(sa!=="en")h+='<p class="sja">'+esc(m.js)+' '+m.jl.map(esc).join(" ")+'</p>';
+  if(showEn)h+='<p class="sen en"><b>'+esc(m.s)+'</b> '+m.lines.map(esc).join(" ")+'</p>'+(SP.ok?'<p style="margin:6px 0 0"><button type="button" class="sp" data-act="s-model">解答例を聞く</button></p>':'');
+  else h+='<p class="why">この内容を、まず自分の英語で言ってみましょう。</p><button type="button" class="btn ghost" style="width:100%" data-act="s-open">英語の解答例を開く</button>';
+  h+='<p class="snote">'+esc(m.note)+'</p>'+
+    '<p class="sph-t">使える表現</p><p class="sph">'+q[SX.stance].ph.map(function(p){return '<span class="en">'+esc(p)+'</span>';}).join("")+'</p></div>';
+  /* 選ばなかった立場 */
+  h+='<div class="salt"><p class="salt-h">こう答えることもできます　<b class="en">'+esc(o.s)+'</b>（'+esc(o.js)+'）</p>'+
+    '<p class="sja">'+esc(o.js)+' '+o.jl.map(esc).join(" ")+'</p>'+
+    '<p class="sen en"><b>'+esc(o.s)+'</b> '+o.lines.map(esc).join(" ")+'</p>'+
+    (SP.ok?'<p style="margin:6px 0 0"><button type="button" class="sp" data-act="s-alt">反対の立場を聞く</button></p>':'')+'</div>';
+  $("sfb").innerHTML=h;$("sfb").hidden=false;
+  var last=(SX.i+1>=SX.list.length);
+  if(SX.ev){
+    dock('<button type="button" class="btn" data-act="s-next" data-ok="'+(SX.ev.score>=4?1:0)+'">'+(last?"結果を見る":"次の問題")+'</button>');
+  }else{
+    dock('<button type="button" class="btn ghost" data-act="s-next" data-ok="0">もう一度練習</button><button type="button" class="btn" data-act="s-next" data-ok="1">言えた</button>');
+  }
+}
+function sNext(ok){
+  var q=SX.list[SX.i];
+  if(ok)SX.ok++;else SX.wrong.push({q:q,st:SX.stance});
+  record(!!ok,q.id,SX.qms||0);
+  stopSpeech();
+  SX.i++;
+  if(SX.i>=SX.list.length){sShowResult();return;}
+  sStartQ();try{window.scrollTo(0,0);}catch(e){}
+}
+function sShowResult(){
+  sStop();
+  var n=SX.list.length,c=SX.ok,pct=Math.round(c/n*100);
+  var tot=Math.round((Date.now()-SX.t0)/1000),mm=Math.floor(tot/60),ss=tot%60;
+  $("rtitle").textContent="二次試験 意見を述べる問題の結果";
+  $("rscore").innerHTML='<b>'+c+'</b><span> / '+n+'</span>';
+  $("rpct").textContent=(rec.cfg.smode==="flash"?"「言えた」":"形がそろった（4点以上の目安）")+" "+pct+"％";
+  $("rtime").textContent="所要時間 "+(mm?mm+"分":"")+ss+"秒";
+  $("rcmt").textContent=pct>=80?"答えの形が身についてきています。":"解答例を声に出して読み、形をまねするところから始めましょう。";
+  var h="";
+  if(SX.wrong.length){
+    h='<h2 class="sec">もう一度練習したい問題</h2><ul class="review">';
+    SX.wrong.forEach(function(w){
+      var m=sModel(w.q,4,w.st);
+      h+='<li><p class="r-n">'+esc(w.q.t)+'</p><p class="r-s en">'+esc(w.q.en)+'</p><p class="r-ja">'+esc(w.q.ja)+'</p><p class="r-s en">解答例：<b class="ans">'+esc(m.s)+'</b> '+m.lines.map(esc).join(" ")+'</p></li>';
+    });
+    h+='</ul><button type="button" class="btn ghost" style="margin-top:18px;width:100%" data-act="s-retry">この問題をもう一度</button>';
+  }else h='<p class="cmt">すべて「言えた」になりました。</p>';
+  $("rrev").innerHTML=h;
+  show("result");
+  var more=rec.cfg.sn===0?"もう一度解く":"続けて"+rec.cfg.sn+"問";
+  dock('<button type="button" class="btn ghost" data-act="go-top">トップへ</button><button type="button" class="btn" data-act="s-again">'+more+'</button>');
+}
+document.addEventListener("click",function(e){
+  var el=e.target.closest?e.target.closest("[data-act]"):null;
+  if(!el)return;
+  var act=el.getAttribute("data-act");
+  if(act==="s-setup"){show("ssetup");sSetupRender();}
+  else if(act==="s-start"||act==="s-again"){unlockSpeech();sBegin(sBuild());}
+  else if(act==="s-retry"){if(SX.wrong.length){var w=SX.wrong.map(function(x){return x.q;});unlockSpeech();sBegin(w);}}
+  else if(act==="s-say"){speak(SX.list[SX.i].en,{rate:rec.cfg.srate});}
+  else if(act==="s-stance"){SX.stance=el.getAttribute("data-v");SX.phase="think";stopSpeech();sRender();}
+  else if(act==="s-restance"){if($("sans"))SX.answer=$("sans").value;sStop();SX.phase="stance";sRender();}
+  else if(act==="s-reveal"){sReveal(null);}
+  else if(act==="s-submit"){sSubmit(false);}
+  else if(act==="s-mic"){if(SX.listening)sMicStop();else sMicStart();}
+  else if(act==="s-check"){var k=el.getAttribute("data-k");SX.checks[k]=!SX.checks[k];sRenderReveal();}
+  else if(act==="s-lv"){SX.lv=parseInt(el.getAttribute("data-v"),10);sRenderReveal();}
+  else if(act==="s-open"){SX.enOpen=true;sRenderReveal();}
+  else if(act==="s-model"){var q=SX.list[SX.i];speak(sModelText(sModel(q,SX.lv,SX.stance)),{rate:rec.cfg.srate});}
+  else if(act==="s-alt"){var q2=SX.list[SX.i];speak(sModelText(sModel(q2,5,sOther(SX.stance))),{rate:rec.cfg.srate});}
+  else if(act==="s-next"){sNext(el.getAttribute("data-ok")==="1");}
+  else if(act==="s-quit"){
+    if(el.getAttribute("data-armed")!=="1"){el.setAttribute("data-armed","1");el.textContent="もう一度押すと、やめます";
+      setTimeout(function(){el.removeAttribute("data-armed");el.textContent="やめる";},3500);}
+    else{el.removeAttribute("data-armed");el.textContent="やめる";sStop();stopSpeech();renderTop();show("top");}
+  }
+});
+window.__spart={SQ:SQ,sEval:sEval};
 
 /* ===================================================================
    記録の引き継ぎ（バックアップ）と、埋めこみ表示の注意
