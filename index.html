@@ -377,6 +377,18 @@ mark.clue{background:#FFF1B8;color:inherit;padding:0 .1em;border-radius:2px}
 .sph span{border:1px solid var(--rule);border-radius:999px;padding:1px 10px;font-size:14px;background:var(--paper)}
 .salt{border-style:dashed;opacity:.92}
 .salt-h{margin:0 0 6px;font-size:13px;color:var(--muted)}
+
+/* ===== まちがえた問題・先生への記録 ===== */
+.misslist{list-style:none;margin:8px 0 0;padding:0;max-height:420px;overflow:auto}
+.misslist li{border-top:1px dashed var(--rule);padding:8px 0}
+.misslist .mh{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 2px;align-items:center}
+.misslist .mt{margin:2px 0;font-size:14px;line-height:1.6}
+.misslist .ma{margin:2px 0 0;font-size:13px;color:var(--midori)}
+.sendbox{margin-top:14px}
+.sendh{margin:0 0 4px;font-weight:700;color:var(--ai)}
+.nickrow{display:flex;gap:8px;align-items:center}
+.nickrow input{flex:1;min-width:0;font:inherit;font-size:16px;padding:10px 12px;border:1px solid var(--rule);border-radius:4px;background:var(--card);color:var(--ink)}
+.nickrow .btn{width:auto;min-height:44px;margin:0;padding:0 18px}
 </style>
 </head>
 <body>
@@ -390,6 +402,7 @@ mark.clue{background:#FFF1B8;color:inherit;padding:0 .1em;border-radius:2px}
   </header>
 
   <p class="warn" id="warn" hidden>この画面では記録が保存されません。ブラウザの設定で、サイトのデータの保存が止められている可能性があります。下の「記録の引き継ぎ」でコードを保存しておくと、記録を戻せます。</p>
+  <p class="warn" id="nickwarn" hidden>先生に記録を送るために、ページの下の「先生への記録」でニックネームを入れてください。</p>
   <p class="warn" id="embnote" hidden>iPhone・iPadでこのページを開いているときは、<b>ブラウザを閉じると学習の記録が消えます</b>（ブラウザの仕組みによるものです）。記録を残したいときは、ページのいちばん下の「記録の引き継ぎ」でコードを保存しておいてください。</p>
   <div class="rec" id="rec" aria-live="polite"></div>
 
@@ -431,7 +444,18 @@ mark.clue{background:#FFF1B8;color:inherit;padding:0 .1em;border-radius:2px}
     </ol>
     <p class="why">声のデータは大きいので、Wi-Fiにつないでいるときにダウンロードしてください。設定の画面の名前は、iOSのバージョンによって少しちがうことがあります。「テスト再生」を押したとき、「端末の設定で選んだ声」と表示されれば、設定で選んだ声が使われています。</p>
   </details>
-  <p class="note">問題はすべて書き下ろしです。学習の記録は、この端末の中だけに保存され、ほかの人には見えません。語の選定には『CEFR-J Wordlist Version 1.6』（東京外国語大学投野由紀夫研究室）を参照しています。</p>
+  <details class="bk">
+    <summary>一度でもまちがえた問題（<span id="misscount">0問</span>）</summary>
+    <p class="why">一度でもまちがえた問題は、あとで正解しても、ここに残ります。まちがえた回数の多い順です。</p>
+    <div id="missbox"></div>
+  </details>
+  <div class="bk sendbox" id="sendbox" hidden>
+    <p class="sendh">先生への記録</p>
+    <p class="why">まちがえた問題を、ニックネームといっしょに先生に送ります。先生がわかるニックネームを入れてください。</p>
+    <div class="nickrow"><input id="nick" type="text" maxlength="20" autocomplete="off" placeholder="ニックネーム" aria-label="ニックネーム"><button type="button" class="btn ghost" data-act="nick-save">保存</button></div>
+    <p class="cmsg" id="sendst" aria-live="polite"></p>
+  </div>
+  <p class="note"><span id="datanote">学習の記録は、この端末の中だけに保存され、ほかの人には見えません。</span>問題はすべて書き下ろしです。語の選定には『CEFR-J Wordlist Version 1.6』（東京外国語大学投野由紀夫研究室）を参照しています。</p>
   <details class="bk">
     <summary>記録の引き継ぎ（バックアップ）</summary>
     <p class="why">学習の記録を、文字のコードにして保存できます。記録が消えたときや、別の端末で続けたいときに、そのコードを貼りつけると記録を戻せます。</p>
@@ -2598,7 +2622,7 @@ var storageOK=true;
 try{localStorage.setItem(KEY+"-t","1");localStorage.removeItem(KEY+"-t");}catch(e){storageOK=false;}
 
 function fresh(){
-  return {streak:0,best:0,last:"",days:{},weak:{},seen:{},tq:{date:"",ok:{},ng:{}},
+  return {streak:0,best:0,last:"",nick:"",miss:{},outbox:[],days:{},weak:{},seen:{},tq:{date:"",ok:{},ng:{}},
           sets:{},lsets:{},hsets:{},cfg:{sn:5,spat:"both",stime:30,smode:"flash",sq:"en",sa:"both",slv:4,srate:0.9,hset:1,hpart:"both",hpre:"on",hn:5,horder:"shuffle",lset:1,mode:"rand",set:1,scope:"mix",n:20,time:0,voice:"auto",ja:"after",mean:"always",size:"std",vform:"mix",vscope:"all",vn:20,vtime:0}};
 }
 function load(){
@@ -2611,7 +2635,9 @@ function load(){
         if(typeof o.streak==="number")r.streak=o.streak;
         if(typeof o.best==="number")r.best=o.best;
         if(typeof o.last==="string")r.last=o.last;
-        ["days","weak","seen","sets","lsets","hsets"].forEach(function(k){if(o[k]&&typeof o[k]==="object")r[k]=o[k];});
+        ["days","weak","seen","sets","lsets","hsets","miss"].forEach(function(k){if(o[k]&&typeof o[k]==="object")r[k]=o[k];});
+        if(Object.prototype.toString.call(o.outbox)==="[object Array]")r.outbox=o.outbox;
+        if(typeof o.nick==="string")r.nick=o.nick;
         if(o.tq&&typeof o.tq==="object"&&o.tq.ok&&o.tq.ng)r.tq=o.tq;
         if(o.cfg&&typeof o.cfg==="object"){
           for(var k in r.cfg){if(typeof o.cfg[k]===typeof r.cfg[k])r.cfg[k]=o.cfg[k];}
@@ -2640,7 +2666,7 @@ function currentStreak(){
   var t=dkey(new Date()),y=new Date();y.setDate(y.getDate()-1);
   return (rec.last===t||rec.last===dkey(y))?rec.streak:0;
 }
-function record(ok,id,ms){
+function record(ok,id,ms,info){
   var t=dkey(new Date()),tq=todayQ();
   if(rec.last!==t){
     var y=new Date();y.setDate(y.getDate()-1);
@@ -2658,10 +2684,12 @@ function record(ok,id,ms){
   }else{
     tq.ng[id]=1;delete tq.ok[id];
     rec.weak[id]=(rec.weak[id]||0)+1;
+    stockMiss(id,info);
   }
   var ks=Object.keys(rec.days).sort();
   while(ks.length>60){delete rec.days[ks.shift()];}
   save();
+  if(!ok)flushOutbox();
 }
 
 /* ===== 読み上げ（アメリカ英語）===== */
@@ -2790,6 +2818,7 @@ function renderTop(){
   wk+='</div><p class="legend"><i class="a"></i>上の青い棒と数字＝正答率（％）　<i class="b"></i>下の朱の棒と数字＝1問あたりの平均秒数　最下段＝曜日</p>'+
      '<p class="legend">これまでの最高：'+rec.best+'日連続</p>';
   $("rec").innerHTML=html+wk;
+  if(typeof renderReport==="function")renderReport();
 }
 
 /* ===== 設定 ===== */
@@ -2933,7 +2962,7 @@ function answer(i,timedOut){
   }
   var bl=$("blank");bl.textContent=q.k;bl.classList.add("filled");
   if(ok)S.ok++;else S.wrong.push(q);
-  record(ok,q.id,ms);
+  record(ok,q.id,ms,{mine:chosen===null?"（時間切れ）":chosen});
   var last=(S.i+1>=S.list.length);
   var mark=ok
     ?'<svg class="mark" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="17"/></svg>'
@@ -3115,7 +3144,7 @@ document.addEventListener("click",function(e){
   }
   else if(act==="reset"){
     if(!resetArmed){resetArmed=true;el.textContent="もう一度押すと、記録を消します";clearTimeout(resetT);resetT=setTimeout(disarm,3500);}
-    else{disarm();var keep=rec.cfg;rec=fresh();rec.cfg=keep;save();renderTop();}
+    else{disarm();var keep=rec.cfg,kn=rec.nick,ko=rec.outbox;rec=fresh();rec.cfg=keep;rec.nick=kn;rec.outbox=ko;save();renderTop();}
   }
 });
 document.addEventListener("keydown",function(e){
@@ -3285,7 +3314,8 @@ function vFinish(ok,detail){
   var ms=Math.min(Date.now()-D.qStart,120000);
   D.ms+=ms;D.tn++;
   if(ok)D.ok++;else D.wrong.push(o);
-  record(ok,o.id,ms);
+  var mine=detail.timeout?"（時間切れ）":(detail.pick!=null&&detail.pick>=0&&D.ch[detail.pick]?D.ch[detail.pick].j:(detail.mine||""));
+  record(ok,o.id,ms,{mine:mine});
   var last=(D.i+1>=D.list.length);
   var mark=ok
     ?'<svg class="mark" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="17"/></svg>'
@@ -3497,7 +3527,7 @@ function lPick(i){
     if(LX.ch[n]===b.k)btns[n].classList.add("ok");else if(n===i)btns[n].classList.add("ng");else btns[n].classList.add("dim");
   }
   if(ok)LX.ok++;else LX.wrong.push({p:p,b:b});
-  record(ok,lBlankId(p,b),ms);
+  record(ok,lBlankId(p,b),ms,{mine:chosen});
   LX.done[lBlankId(p,b)]=true;
   lRenderPassage();
   var mark=ok?'<svg class="mark" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="17"/></svg>'
@@ -3664,7 +3694,7 @@ function hPick(i){
     if(HX.ch[n]===q.k)btns[n].classList.add("ok");else if(n===i)btns[n].classList.add("ng");else btns[n].classList.add("dim");
   }
   if(ok)HX.ok++;else HX.wrong.push(q);
-  record(ok,q.id,ms);
+  record(ok,q.id,ms,{mine:chosen});
   $("hscript").innerHTML=hScriptHTML(q,true);
   var mark=ok?'<svg class="mark" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="17"/></svg>'
              :'<svg class="mark" viewBox="0 0 48 48" aria-hidden="true"><path d="M12 12 L36 36"/><path d="M36 12 L12 36"/></svg>';
@@ -3960,7 +3990,7 @@ function sRenderReveal(){
 function sNext(ok){
   var q=SX.list[SX.i];
   if(ok)SX.ok++;else SX.wrong.push({q:q,st:SX.stance});
-  record(!!ok,q.id,SX.qms||0);
+  record(!!ok,q.id,SX.qms||0,{mine:(SX.answer&&SX.answer.trim())?SX.answer.trim():"（自己判定：もう一度練習）"});
   stopSpeech();
   SX.i++;
   if(SX.i>=SX.list.length){sShowResult();return;}
@@ -4015,6 +4045,111 @@ document.addEventListener("click",function(e){
   }
 });
 window.__spart={SQ:SQ,sEval:sEval};
+
+
+/* ===================================================================
+   一度でもまちがえた問題のストックと、先生への送信
+   ・まちがえた問題は rec.miss に残す（あとで正解しても消さない）
+   ・REPORT_URL（先生のGoogle Apps Script のウェブアプリ）が設定されていれば、
+     まちがえるたびに「ニックネーム・日時・問題・選んだ答え・正解」を送る
+   ・通信できないときは rec.outbox にためておき、次に開いたときなどに送る
+   =================================================================== */
+var REPORT_URL="https://script.google.com/macros/s/AKfycbwcQTTJpoy7YK8O_BSth-LH46El76BGcv0Hy7rao5Yz3M_WEcT5sAmd2oaKCnVYez_z/exec";          /* 先生のウェブアプリのアドレス（https://script.google.com/macros/s/…/exec） */
+var REPORT_APP="英検2級トレーニング";
+var OUTBOX_MAX=500;
+
+function nowStamp(){
+  var d=new Date();function z(n){return (n<10?"0":"")+n;}
+  return d.getFullYear()+"-"+z(d.getMonth()+1)+"-"+z(d.getDate())+" "+z(d.getHours())+":"+z(d.getMinutes());
+}
+/* 問題の番号から、先生が見てわかる説明を作る */
+function describeItem(id){
+  try{
+    if(QID[id]){var q=QID[id];return {part:"大問1 語彙・文法",label:label(q)+" "+tagText(q),text:q.s.replace(/\n/g," / "),ans:q.k};}
+    if(VID[id]){var o=VID[id];return {part:"語彙ドリル",label:o.w,text:"意味："+o.j,ans:o.w+"（"+o.j+"）"};}
+    if(LID[id]){
+      var m=/^(.+)-(\d+)$/.exec(id),p=null,b=null;
+      LP.forEach(function(x){if(x.id===m[1])p=x;});
+      if(p)p.blanks.forEach(function(x){if(String(x.no)===m[2])b=x;});
+      if(p&&b)return {part:"大問2 長文",label:"第"+p.set+"回 長文"+p.part+" ("+b.no+")",text:p.title+"／"+(b.kind==="conn"?"つなぎの言葉":"内容に合う語句"),ans:b.k};
+    }
+    if(HID[id]){var h=null;HQ.forEach(function(x){if(x.id===id)h=x;});
+      if(h)return {part:"リスニング",label:"第"+h.set+"回 第"+h.part+"部 No."+h.no,text:h.q,ans:h.k};}
+    if(SID[id]){var s=null;SQ.forEach(function(x){if(x.id===id)s=x;});
+      if(s)return {part:"二次 意見を述べる",label:s.t,text:s.en,ans:"（解答例で確認）"};}
+  }catch(e){}
+  return {part:"",label:id,text:"",ans:""};
+}
+/* まちがえたときに呼ぶ（record から） */
+function stockMiss(id,info){
+  if(!rec.miss)rec.miss={};
+  var t=dkey(new Date()),m=rec.miss[id];
+  if(!m)m=rec.miss[id]={n:0,first:t,last:t};
+  m.n++;m.last=t;
+  if(!REPORT_URL)return;
+  var d=describeItem(id);
+  if(!rec.outbox)rec.outbox=[];
+  rec.outbox.push({at:nowStamp(),id:id,part:d.part,label:d.label,text:d.text,mine:(info&&info.mine!=null)?String(info.mine):"",ans:d.ans});
+  while(rec.outbox.length>OUTBOX_MAX)rec.outbox.shift();
+}
+var flushing=false;
+function flushOutbox(){
+  if(!REPORT_URL||flushing||!rec.outbox||!rec.outbox.length)return;
+  if(!rec.nick)return;
+  if(typeof navigator!=="undefined"&&navigator.onLine===false)return;
+  var batch=rec.outbox.slice(0,100);
+  var body=JSON.stringify({app:REPORT_APP,nick:rec.nick,rows:batch});
+  flushing=true;
+  try{
+    fetch(REPORT_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:body,keepalive:body.length<60000})
+    .then(function(){
+      /* 送れた分だけ取り除く */
+      rec.outbox=rec.outbox.slice(batch.length);save();flushing=false;renderReport();
+      if(rec.outbox.length)setTimeout(flushOutbox,500);
+    },function(){flushing=false;renderReport();});
+  }catch(e){flushing=false;}
+}
+function missList(){
+  var a=[];for(var id in (rec.miss||{}))a.push({id:id,m:rec.miss[id],d:describeItem(id)});
+  a.sort(function(x,y){return y.m.n-x.m.n||(x.m.last<y.m.last?1:-1);});
+  return a;
+}
+function renderReport(){
+  var box=$("missbox");if(!box)return;
+  var a=missList();
+  $("misscount").textContent=a.length+"問";
+  var h=a.length?'<ul class="misslist">'+a.slice(0,300).map(function(x){
+      return '<li><p class="mh"><span class="lid">'+esc(x.d.part)+'</span><span class="lid">'+esc(x.d.label)+'</span><span class="lx">×'+x.m.n+'</span></p>'+
+        (x.d.text?'<p class="mt en">'+esc(x.d.text)+'</p>':'')+'<p class="ma">正解：<span class="en">'+esc(x.d.ans)+'</span></p></li>';
+    }).join("")+'</ul>':'<p class="why">まだありません。まちがえた問題は、あとで正解しても、ここに残ります。</p>';
+  box.innerHTML=h;
+  /* 先生への送信の欄 */
+  var on=!!REPORT_URL;
+  $("sendbox").hidden=!on;
+  $("datanote").textContent=on
+    ?"まちがえた問題は、ニックネームといっしょに先生に送られます。それ以外の学習の記録は、この端末の中だけに保存されます。"
+    :"学習の記録は、この端末の中だけに保存され、ほかの人には見えません。";
+  if(!on)return;
+  var nk=$("nick");if(nk&&document.activeElement!==nk)nk.value=rec.nick||"";
+  var left=(rec.outbox||[]).length,st=$("sendst");
+  if(!rec.nick)st.textContent="ニックネームを入れると、まちがえた問題が先生に送られるようになります。";
+  else if(left)st.textContent="まだ先生に送れていない記録が"+left+"件あります（インターネットにつながると送ります）。";
+  else st.textContent="「"+rec.nick+"」として先生に送っています。";
+  $("nickwarn").hidden=!!rec.nick;
+}
+document.addEventListener("click",function(e){
+  var el=e.target.closest?e.target.closest("[data-act]"):null;
+  if(!el)return;
+  if(el.getAttribute("data-act")==="nick-save"){
+    var v=($("nick").value||"").replace(/\s+/g," ").trim().slice(0,20);
+    if(!v){$("sendst").textContent="ニックネームを入れてください。";return;}
+    rec.nick=v;save();renderReport();flushOutbox();
+  }
+});
+window.addEventListener("online",flushOutbox);
+document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")flushOutbox();});
+window.__report={describeItem:describeItem,missList:missList,setURL:function(u){REPORT_URL=u;renderReport();},
+  t:{get rec(){return rec;},get S(){return S;},record:record,renderTop:renderTop,show:show,Q:Q,V:V,LP:LP,HQ:HQ,SQ:SQ,QID:QID}};
 
 /* ===================================================================
    記録の引き継ぎ（バックアップ）と、埋めこみ表示の注意
@@ -4086,7 +4221,9 @@ document.addEventListener("click",function(e){
     readCode(code).then(function(o){
       var r=fresh();
       ["streak","best","last"].forEach(function(k){if(typeof o[k]===typeof r[k])r[k]=o[k];});
-      ["days","weak","seen","sets","lsets","hsets","tq"].forEach(function(k){if(o[k]&&typeof o[k]==="object")r[k]=o[k];});
+      ["days","weak","seen","sets","lsets","hsets","tq","miss"].forEach(function(k){if(o[k]&&typeof o[k]==="object")r[k]=o[k];});
+      if(Object.prototype.toString.call(o.outbox)==="[object Array]")r.outbox=o.outbox;
+      r.nick=(typeof o.nick==="string"&&o.nick)?o.nick:(rec.nick||"");
       if(o.cfg&&typeof o.cfg==="object"){for(var k in r.cfg){if(typeof o.cfg[k]===typeof r.cfg[k])r.cfg[k]=o.cfg[k];}}
       rec=r;save();applySize();renderTop();
       $("bkin").value="";
@@ -4101,6 +4238,7 @@ window.__bk={makeCode:makeCode,readCode:readCode};
 applySize();
 renderTop();
 renderBackup();
+flushOutbox();
 show("top");
 })();
 </script>
