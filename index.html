@@ -454,6 +454,7 @@ mark.clue{background:#FFF1B8;color:inherit;padding:0 .1em;border-radius:2px}
     <p class="why">まちがえた問題を、ニックネームといっしょに先生に送ります。先生がわかるニックネームを入れてください。</p>
     <div class="nickrow"><input id="nick" type="text" maxlength="20" autocomplete="off" placeholder="ニックネーム" aria-label="ニックネーム"><button type="button" class="btn ghost" data-act="nick-save">保存</button></div>
     <p class="cmsg" id="sendst" aria-live="polite"></p>
+    <button type="button" class="linkbtn" data-act="send-now">今すぐ送り直す</button>
   </div>
   <p class="note"><span id="datanote">学習の記録は、この端末の中だけに保存され、ほかの人には見えません。</span>問題はすべて書き下ろしです。語の選定には『CEFR-J Wordlist Version 1.6』（東京外国語大学投野由紀夫研究室）を参照しています。</p>
   <details class="bk">
@@ -4089,7 +4090,7 @@ function stockMiss(id,info){
   if(!REPORT_URL)return;
   var d=describeItem(id);
   if(!rec.outbox)rec.outbox=[];
-  rec.outbox.push({at:nowStamp(),id:id,part:d.part,label:d.label,text:d.text,mine:(info&&info.mine!=null)?String(info.mine):"",ans:d.ans});
+  rec.outbox.push({k:Date.now().toString(36)+Math.random().toString(36).slice(2,8),at:nowStamp(),id:id,part:d.part,label:d.label,text:d.text,mine:(info&&info.mine!=null)?String(info.mine):"",ans:d.ans});
   while(rec.outbox.length>OUTBOX_MAX)rec.outbox.shift();
 }
 var flushing=false;
@@ -4101,12 +4102,18 @@ function flushOutbox(){
   var body=JSON.stringify({app:REPORT_APP,nick:rec.nick,rows:batch});
   flushing=true;
   try{
-    fetch(REPORT_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:body,keepalive:body.length<60000})
-    .then(function(){
-      /* 送れた分だけ取り除く */
-      rec.outbox=rec.outbox.slice(batch.length);save();flushing=false;renderReport();
-      if(rec.outbox.length)setTimeout(flushOutbox,500);
-    },function(){flushing=false;renderReport();});
+    /* 受け取り口の返事（ok）を確かめてから、送れた分を取り除く。届かなかった分は端末に残して、あとで送り直す */
+    fetch(REPORT_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:body,redirect:"follow"})
+    .then(function(r){return r.text();})
+    .then(function(t){
+      flushing=false;
+      if(/^ok/.test(String(t).trim())){
+        var ks={};batch.forEach(function(x){ks[x.k||x.at+x.id]=1;});
+        rec.outbox=rec.outbox.filter(function(x){return !ks[x.k||x.at+x.id];});
+        rec.sendErr="";save();renderReport();
+        if(rec.outbox.length)setTimeout(flushOutbox,500);
+      }else{rec.sendErr=String(t).replace(/<[^>]*>/g," ").replace(/\s+/g," ").trim().slice(0,80)||"返事がありませんでした";save();renderReport();}
+    },function(){flushing=false;rec.sendErr="受け取り口につながりませんでした";save();renderReport();});
   }catch(e){flushing=false;}
 }
 function missList(){
@@ -4133,13 +4140,14 @@ function renderReport(){
   var nk=$("nick");if(nk&&document.activeElement!==nk)nk.value=rec.nick||"";
   var left=(rec.outbox||[]).length,st=$("sendst");
   if(!rec.nick)st.textContent="ニックネームを入れると、まちがえた問題が先生に送られるようになります。";
-  else if(left)st.textContent="まだ先生に送れていない記録が"+left+"件あります（インターネットにつながると送ります）。";
+  else if(left)st.textContent="まだ先生に送れていない記録が"+left+"件あります。"+(rec.sendErr?"（理由："+rec.sendErr+"）":"インターネットにつながると送ります。");
   else st.textContent="「"+rec.nick+"」として先生に送っています。";
   $("nickwarn").hidden=!!rec.nick;
 }
 document.addEventListener("click",function(e){
   var el=e.target.closest?e.target.closest("[data-act]"):null;
   if(!el)return;
+  if(el.getAttribute("data-act")==="send-now"){flushOutbox();return;}
   if(el.getAttribute("data-act")==="nick-save"){
     var v=($("nick").value||"").replace(/\s+/g," ").trim().slice(0,20);
     if(!v){$("sendst").textContent="ニックネームを入れてください。";return;}
