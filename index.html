@@ -402,7 +402,7 @@ mark.clue{background:#FFF1B8;color:inherit;padding:0 .1em;border-radius:2px}
   </header>
 
   <p class="warn" id="warn" hidden>この画面では記録が保存されません。ブラウザの設定で、サイトのデータの保存が止められている可能性があります。下の「記録の引き継ぎ」でコードを保存しておくと、記録を戻せます。</p>
-  <p class="warn" id="nickwarn" hidden>先生に記録を送るために、ページの下の「先生への記録」でニックネームを入れてください。</p>
+  <p class="warn" id="nickwarn" hidden>先生に学習の記録を送るために、ページの下の「先生への記録」でニックネームを入れてください。</p>
   <p class="warn" id="embnote" hidden>iPhone・iPadでこのページを開いているときは、<b>ブラウザを閉じると学習の記録が消えます</b>（ブラウザの仕組みによるものです）。記録を残したいときは、ページのいちばん下の「記録の引き継ぎ」でコードを保存しておいてください。</p>
   <div class="rec" id="rec" aria-live="polite"></div>
 
@@ -451,7 +451,7 @@ mark.clue{background:#FFF1B8;color:inherit;padding:0 .1em;border-radius:2px}
   </details>
   <div class="bk sendbox" id="sendbox" hidden>
     <p class="sendh">先生への記録</p>
-    <p class="why">まちがえた問題を、ニックネームといっしょに先生に送ります。先生がわかるニックネームを入れてください。</p>
+    <p class="why">練習した日時・解いた数・正解数と、まちがえた問題を、ニックネームといっしょに先生に送ります。先生がわかるニックネームを入れてください。</p>
     <div class="nickrow"><input id="nick" type="text" maxlength="20" autocomplete="off" placeholder="ニックネーム" aria-label="ニックネーム"><button type="button" class="btn ghost" data-act="nick-save">保存</button></div>
     <p class="cmsg" id="sendst" aria-live="polite"></p>
     <button type="button" class="linkbtn" data-act="send-now">今すぐ送り直す</button>
@@ -2991,7 +2991,7 @@ function next(){
 
 /* ===== 結果 ===== */
 function showResult(){
-  stopTimer();
+  stopTimer();logS(true);
   var n=S.list.length,c=S.ok,pct=Math.round(c/n*100);
   var tot=Math.round((Date.now()-S.t0)/1000),mm=Math.floor(tot/60),ss=tot%60;
   if(S.setNo){rec.sets[S.setNo]={c:c,n:n,d:dkey(new Date())};save();}
@@ -3137,7 +3137,7 @@ document.addEventListener("click",function(e){
   else if(act==="speak-w"){speak(el.getAttribute("data-w"));}
   else if(act==="quit"){
     if(!quitArmed){quitArmed=true;el.textContent="もう一度押すと、やめます";clearTimeout(quitT);quitT=setTimeout(disarm,3500);}
-    else{disarm();stopTimer();renderTop();show("top");}
+    else{disarm();stopTimer();logS(false);renderTop();show("top");}
   }
   else if(act==="again"){unlockSpeech();beginFromSetup();}
   else if(act==="retry-wrong"){
@@ -3387,7 +3387,7 @@ function vNext(){
   try{window.scrollTo(0,0);}catch(e){}
 }
 function vShowResult(){
-  vStopTimer();
+  vStopTimer();logD(true);
   var n=D.list.length,c=D.ok,pct=Math.round(c/n*100);
   var tot=Math.round((Date.now()-D.t0)/1000),mm=Math.floor(tot/60),ss=tot%60;
   $("rtitle").textContent="語彙ドリルの結果";
@@ -3426,7 +3426,7 @@ document.addEventListener("click",function(e){
   else if(act==="v-retry"){if(D.wrong.length){unlockSpeech();vBegin(shuffle(D.wrong));}}
   else if(act==="v-quit"){
     if(!vquitArmed){vquitArmed=true;el.textContent="もう一度押すと、やめます";clearTimeout(vquitT);vquitT=setTimeout(function(){vquitArmed=false;try{$("vquit").textContent="やめる";}catch(x){}},3500);}
-    else{vquitArmed=false;el.textContent="やめる";vStopTimer();renderTop();show("top");}
+    else{vquitArmed=false;el.textContent="やめる";vStopTimer();logD(false);renderTop();show("top");}
   }
 });
 document.addEventListener("keydown",function(e){
@@ -3557,6 +3557,7 @@ function lNext(){
   try{window.scrollTo(0,0);}catch(e){}
 }
 function lShowResult(){
+  logL(true);
   var n=LX.total,c=LX.ok,pct=Math.round(c/n*100);
   var tot=Math.round((Date.now()-LX.t0)/1000),mm=Math.floor(tot/60),ss=tot%60;
   if(!rec.lsets)rec.lsets={};
@@ -3594,7 +3595,7 @@ document.addEventListener("click",function(e){
   else if(act==="l-quit"){
     if(el.getAttribute("data-armed")!=="1"){el.setAttribute("data-armed","1");el.textContent="もう一度押すと、やめます";
       setTimeout(function(){el.removeAttribute("data-armed");el.textContent="やめる";},3500);}
-    else{el.removeAttribute("data-armed");el.textContent="やめる";renderTop();show("top");}
+    else{el.removeAttribute("data-armed");el.textContent="やめる";logL(false);renderTop();show("top");}
   }
 });
 document.addEventListener("keydown",function(e){
@@ -3722,6 +3723,7 @@ function hNext(){
   hRender();try{window.scrollTo(0,0);}catch(e){}
 }
 function hShowResult(){
+  logH(true);
   var n=HX.list.length,c=HX.ok,pct=Math.round(c/n*100);
   var tot=Math.round((Date.now()-HX.t0)/1000),mm=Math.floor(tot/60),ss=tot%60;
   if(!rec.hsets)rec.hsets={};
@@ -3758,7 +3760,7 @@ document.addEventListener("click",function(e){
   else if(act==="h-quit"){
     if(el.getAttribute("data-armed")!=="1"){el.setAttribute("data-armed","1");el.textContent="もう一度押すと、やめます";
       setTimeout(function(){el.removeAttribute("data-armed");el.textContent="やめる";},3500);}
-    else{el.removeAttribute("data-armed");el.textContent="やめる";renderTop();show("top");}
+    else{el.removeAttribute("data-armed");el.textContent="やめる";logH(false);renderTop();show("top");}
   }
 });
 document.addEventListener("keydown",function(e){
@@ -3998,7 +4000,7 @@ function sNext(ok){
   sStartQ();try{window.scrollTo(0,0);}catch(e){}
 }
 function sShowResult(){
-  sStop();
+  sStop();logSp(true);
   var n=SX.list.length,c=SX.ok,pct=Math.round(c/n*100);
   var tot=Math.round((Date.now()-SX.t0)/1000),mm=Math.floor(tot/60),ss=tot%60;
   $("rtitle").textContent="二次試験 意見を述べる問題の結果";
@@ -4042,7 +4044,7 @@ document.addEventListener("click",function(e){
   else if(act==="s-quit"){
     if(el.getAttribute("data-armed")!=="1"){el.setAttribute("data-armed","1");el.textContent="もう一度押すと、やめます";
       setTimeout(function(){el.removeAttribute("data-armed");el.textContent="やめる";},3500);}
-    else{el.removeAttribute("data-armed");el.textContent="やめる";sStop();stopSpeech();renderTop();show("top");}
+    else{el.removeAttribute("data-armed");el.textContent="やめる";sStop();stopSpeech();logSp(false);renderTop();show("top");}
   }
 });
 window.__spart={SQ:SQ,sEval:sEval};
@@ -4081,6 +4083,28 @@ function describeItem(id){
   }catch(e){}
   return {part:"",label:id,text:"",ans:""};
 }
+function newKey(){return Date.now().toString(36)+Math.random().toString(36).slice(2,8);}
+function stampOf(t){
+  var d=new Date(t);function z(n){return (n<10?"0":"")+n;}
+  return d.getFullYear()+"-"+z(d.getMonth()+1)+"-"+z(d.getDate())+" "+z(d.getHours())+":"+z(d.getMinutes());
+}
+function labOf(arr,v){for(var i=0;i<arr.length;i++){if(arr[i][0]===v)return arr[i][1];}return "";}
+/* 練習を1回終えたとき（またはとちゅうでやめたとき）に呼ぶ。1問も解いていなければ何もしない */
+function logSession(st,part,detail,n,c,ms,tn,done){
+  if(!st||st.logged||!n)return;
+  st.logged=true;
+  if(!REPORT_URL)return;
+  if(!rec.outbox)rec.outbox=[];
+  rec.outbox.push({type:"session",k:newKey(),start:stampOf(st.t0||Date.now()),end:nowStamp(),part:part,detail:detail,
+    n:n,c:c,avg:tn?Math.round(ms/tn/100)/10:"",done:!!done});
+  while(rec.outbox.length>OUTBOX_MAX)rec.outbox.shift();
+  save();flushOutbox();
+}
+function logS(done){logSession(S,"大問1 語彙・文法",S.setNo?"第"+S.setNo+"回（本番の順）":labOf(SCOPES,rec.cfg.scope)+"（ランダム）",done?S.list.length:S.i+(S.answered?1:0),S.ok,S.ms,S.tn,done);}
+function logD(done){logSession(D,"語彙ドリル",labOf(VFORMS,rec.cfg.vform)+"・"+labOf(VSCOPES,rec.cfg.vscope),done?D.list.length:D.i+(D.answered?1:0),D.ok,D.ms,D.tn,done);}
+function logL(done){logSession(LX,"大問2 長文","第"+LX.setNo+"回",LX.tn,LX.ok,LX.ms,LX.tn,done);}
+function logH(done){logSession(HX,"リスニング",HX.key?"第"+HX.list[0].set+"回（全部・番号順）":(rec.cfg.hset?"第"+rec.cfg.hset+"回":"ぜんぶの回")+"・"+labOf(HPARTS,rec.cfg.hpart),HX.tn,HX.ok,HX.ms,HX.tn,done);}
+function logSp(done){logSession(SX,"二次 意見を述べる",labOf(SMODE,rec.cfg.smode),SX.i,SX.ok,SX.ms,SX.tn,done);}
 /* まちがえたときに呼ぶ（record から） */
 function stockMiss(id,info){
   if(!rec.miss)rec.miss={};
@@ -4090,7 +4114,7 @@ function stockMiss(id,info){
   if(!REPORT_URL)return;
   var d=describeItem(id);
   if(!rec.outbox)rec.outbox=[];
-  rec.outbox.push({k:Date.now().toString(36)+Math.random().toString(36).slice(2,8),at:nowStamp(),id:id,part:d.part,label:d.label,text:d.text,mine:(info&&info.mine!=null)?String(info.mine):"",ans:d.ans});
+  rec.outbox.push({type:"miss",k:newKey(),at:nowStamp(),id:id,part:d.part,label:d.label,text:d.text,mine:(info&&info.mine!=null)?String(info.mine):"",ans:d.ans});
   while(rec.outbox.length>OUTBOX_MAX)rec.outbox.shift();
 }
 var flushing=false;
@@ -4134,12 +4158,12 @@ function renderReport(){
   var on=!!REPORT_URL;
   $("sendbox").hidden=!on;
   $("datanote").textContent=on
-    ?"まちがえた問題は、ニックネームといっしょに先生に送られます。それ以外の学習の記録は、この端末の中だけに保存されます。"
+    ?"練習した日時・解いた数・正解数と、まちがえた問題が、ニックネームといっしょに先生に送られます。"
     :"学習の記録は、この端末の中だけに保存され、ほかの人には見えません。";
   if(!on)return;
   var nk=$("nick");if(nk&&document.activeElement!==nk)nk.value=rec.nick||"";
   var left=(rec.outbox||[]).length,st=$("sendst");
-  if(!rec.nick)st.textContent="ニックネームを入れると、まちがえた問題が先生に送られるようになります。";
+  if(!rec.nick)st.textContent="ニックネームを入れると、学習の記録が先生に送られるようになります。";
   else if(left)st.textContent="まだ先生に送れていない記録が"+left+"件あります。"+(rec.sendErr?"（理由："+rec.sendErr+"）":"インターネットにつながると送ります。");
   else st.textContent="「"+rec.nick+"」として先生に送っています。";
   $("nickwarn").hidden=!!rec.nick;
@@ -4157,7 +4181,7 @@ document.addEventListener("click",function(e){
 window.addEventListener("online",flushOutbox);
 document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")flushOutbox();});
 window.__report={describeItem:describeItem,missList:missList,setURL:function(u){REPORT_URL=u;renderReport();},
-  t:{get rec(){return rec;},get S(){return S;},record:record,renderTop:renderTop,show:show,Q:Q,V:V,LP:LP,HQ:HQ,SQ:SQ,QID:QID}};
+  t:{get rec(){return rec;},get S(){return S;},get D(){return D;},get LX(){return LX;},get HX(){return HX;},get SX(){return SX;},record:record,renderTop:renderTop,show:show,Q:Q,V:V,LP:LP,HQ:HQ,SQ:SQ,QID:QID}};
 
 /* ===================================================================
    記録の引き継ぎ（バックアップ）と、埋めこみ表示の注意
