@@ -256,6 +256,30 @@ body.has-dock .wrap{padding-bottom:calc(104px + env(safe-area-inset-bottom,0px))
 .qs{font-size:calc(21px*var(--fs,1))}
 
 /* ===== 語彙ドリル ===== */
+.rmail{background:var(--paper);border:1px solid var(--rule);border-radius:4px;padding:8px 12px;margin:0 0 10px;font-size:calc(14px*var(--fs,1));line-height:1.5}
+.rmail p{margin:0}
+.lpara.rmp{margin:0 0 10px}
+.rqq{font-size:calc(17px*var(--fs,1));margin:4px 0 10px;line-height:1.5}
+.wrins{margin:4px 0 10px;font-size:14px;color:var(--muted);line-height:1.6}
+.wrbox{background:var(--card);border:1px solid var(--rule);border-radius:4px;padding:12px 14px;margin-bottom:10px}
+.wrlab{margin:4px 0 2px;font-weight:700;font-size:13px;letter-spacing:.06em}
+.wrtopic{font-size:calc(17px*var(--fs,1));font-style:italic;font-weight:600;line-height:1.5;margin:0 0 8px}
+.wrpts{margin:0;padding-left:1.2em;font-style:italic}
+.wrlab2{display:block;margin:14px 0 6px;font-weight:700}
+.wrta{display:block;width:100%;min-height:220px;font-size:calc(17px*var(--fs,1));line-height:1.6;padding:12px;border:1.5px solid var(--rule);border-radius:8px;background:var(--card);color:var(--ink);resize:vertical}
+.wrta[readonly]{background:var(--paper)}
+.wrcount{margin:6px 0 0;font-size:14px;color:var(--muted)}
+.wrcount.ok{color:var(--midori);font-weight:700}
+.wrcount.over{color:var(--shu);font-weight:700}
+.wrkeys{margin:6px 0 0;padding-left:1.4em;line-height:1.6}
+.wrcheck{list-style:none;margin:6px 0 0;padding:0}
+.mean .wrcheck li,.mean .wrkeys li,.wrkeys li{display:list-item;padding:4px 0;border-top:0}
+.wrcheck li{margin:6px 0}
+.wrcheck input{width:18px;height:18px;vertical-align:-3px;margin-right:6px}
+.wrmodel{line-height:1.6;margin:6px 0}
+.wrsent{margin:6px 0;font-size:14px;color:var(--muted)}
+.wrh{margin:18px 0 4px;font-size:16px}
+.wrtime{font-size:13px}
 .wnote{margin:6px 0 8px;color:var(--muted);font-size:13px}
 .vword{font-family:var(--serif);font-size:calc(36px*var(--fs,1));font-weight:600;text-align:center;margin:14px 0 6px;line-height:1.3;word-break:break-word}
 .vmean{font-size:calc(22px*var(--fs,1));text-align:center;margin:14px 0 4px;font-weight:700;line-height:1.5}
@@ -421,8 +445,14 @@ mark.clue{background:#FFF1B8;color:inherit;padding:0 .1em;border-radius:2px}
       <span class="tx"><b>大問2　長文の語句空所補充</b><span>文章の流れに合うつなぎの言葉や語句を選びます</span></span>
       <span class="tag">練習する</span>
     </button>
-    <div class="part off"><span class="tx"><b>長文の内容一致</b><span>本文の内容に合う答えを選びます</span></span><span class="tag">準備中</span></div>
-    <div class="part off"><span class="tx"><b>ライティング</b><span>英文を書く練習をします</span></span><span class="tag">準備中</span></div>
+    <button class="part on" data-act="r-setup">
+      <span class="tx"><b>大問3　長文の内容一致</b><span>Eメールと説明文を読んで、内容に合う答えを選びます</span></span>
+      <span class="tag">練習する</span>
+    </button>
+    <button class="part on" data-act="wr-setup">
+      <span class="tx"><b>大問4・5　ライティング（要約・意見）</b><span>英文を要約したり、意見と理由を書いたりします</span></span>
+      <span class="tag">練習する</span>
+    </button>
     <button class="part on" data-act="h-setup">
       <span class="tx"><b>リスニング（読んで解く）</b><span>対話や英文を読んで、言いかえと根拠を確かめます</span></span>
       <span class="tag">練習する</span>
@@ -452,7 +482,7 @@ mark.clue{background:#FFF1B8;color:inherit;padding:0 .1em;border-radius:2px}
   </details>
   <div class="bk sendbox" id="sendbox" hidden>
     <p class="sendh">先生への記録</p>
-    <p class="why">練習した日時・解いた数・正解数と、まちがえた問題を、ニックネームといっしょに先生に送ります。先生がわかるニックネームを入れてください。</p>
+    <p class="why">練習した日時・解いた数・正解数と、まちがえた問題、ライティングで書いた英文を、ニックネームといっしょに先生に送ります。先生がわかるニックネームを入れてください。</p>
     <div class="nickrow"><input id="nick" type="text" maxlength="20" autocomplete="off" placeholder="ニックネーム" aria-label="ニックネーム"><button type="button" class="btn ghost" data-act="nick-save">保存</button></div>
     <p class="cmsg" id="sendst" aria-live="polite"></p>
     <button type="button" class="linkbtn" data-act="send-now">今すぐ送り直す</button>
@@ -561,6 +591,46 @@ mark.clue{background:#FFF1B8;color:inherit;padding:0 .1em;border-radius:2px}
   <div class="lqwrap" id="lq"></div>
   <div class="fb" id="lfb" hidden aria-live="polite"></div>
 </section>
+
+<!-- 大問3：設定 -->
+<section id="rsetup" class="screen set" aria-label="大問3 長文の内容一致の設定">
+  <button class="back" data-act="go-top">トップにもどる</button>
+  <h2>大問3　長文の内容一致</h2>
+  <p class="sub">本番と同じく、A：Eメールと、B：説明文を読んで答えます。英文はすべて書き下ろしです。</p>
+  <div id="rsetup-body"></div>
+</section>
+
+<!-- 大問3：出題 -->
+<section id="rquiz" class="screen" aria-label="大問3 長文の内容一致の問題">
+  <div class="qhead">
+    <button class="quit" data-act="r-quit">やめる</button>
+    <span class="qno" id="rqno"></span>
+  </div>
+  <div class="pbar"><i id="rpbar"></i></div>
+  <div class="lpass" id="rpassage"></div>
+  <div class="lqwrap" id="rq"></div>
+  <div class="fb" id="rfb" hidden aria-live="polite"></div>
+</section>
+
+<!-- ライティング：設定 -->
+<section id="wrsetup" class="screen set" aria-label="ライティングの設定">
+  <button class="back" data-act="go-top">トップにもどる</button>
+  <h2>大問4・5　ライティング</h2>
+  <p class="sub">要約（大問4）と意見（大問5）を書く練習です。英文・TOPICはすべて書き下ろしです。</p>
+  <div id="wrsetup-body"></div>
+</section>
+
+<!-- ライティング：書く -->
+<section id="wrwrite" class="screen" aria-label="ライティング">
+  <div class="qhead">
+    <button class="quit" data-act="wr-quit">もどる</button>
+    <span class="qno" id="wrqno"></span>
+    <span class="qno wrtime" id="wrtime"></span>
+  </div>
+  <div id="wrbody"></div>
+  <div class="fb" id="wrfb" hidden aria-live="polite"></div>
+</section>
+
 
 <!-- リスニング：設定 -->
 <section id="hsetup" class="screen set" aria-label="リスニングの設定">
@@ -1195,6 +1265,91 @@ add(0,"w","副","I usually cook at home, but I ___ eat out with friends, maybe o
 add(0,"w","副","A: Why did you cancel the trip?\nB: My grandmother got sick ___, so I had to stay home.","unexpectedly",["deliberately","traditionally","approximately"],"A: どうして旅行をキャンセルしたの？\nB: 祖母が急に体調をくずして、家にいなきゃいけなくなったんだ。","unexpectedly は「思いがけず、急に」。");
 add(0,"w","副","He didn't break the window by accident. He did it ___ because he was angry.","deliberately",["unexpectedly","frequently","gradually"],"彼は偶然窓を割ったわけではない。怒っていたので、わざと割ったのだ。","deliberately は「わざと、故意に」。by accident と対比されている。");
 add(0,"w","副","The library is ___ closed for repairs. It will open again next Monday.","temporarily",["deliberately","necessarily","innocently"],"図書館は修理のため一時的に閉館している。来週の月曜日に再開する。","temporarily は「一時的に」。open again がヒント。");
+
+/* ---------- 第11回（2026年度第2回の出題傾向に合わせた書き下ろし：単語10・熟語7）---------- */
+add(11,"w","副","Ms. Lee always greets her customers ___. Her bright smile makes everyone in the shop feel happy.","cheerfully",["nervously","briefly","unfairly"],"リーさんはいつも明るくお客さんにあいさつする。彼女の明るい笑顔で、店にいるみんなが幸せな気持ちになる。","cheerfully は「明るく、元気よく」。後ろの bright smile（明るい笑顔）が言いかえのヒント。");
+add(11,"w","名","A: Did you enjoy studying in Canada?\nB: Yes. It was a great ___ to make friends from many countries. I'm glad I didn't miss the chance.","opportunity",["profit","sensation","harvest"],"A: カナダでの勉強は楽しかった？\nB: うん。いろいろな国の友だちを作るすばらしい機会だったよ。そのチャンスをのがさなくてよかった。","opportunity は「機会」。後ろの the chance が言いかえ。");
+add(11,"w","動","A: Is the train crowded in the morning?\nB: Yes, it ___ to be very full between 7:30 and 8:30, so I usually leave home early.","tends",["pretends","hesitates","refuses"],"A: 朝は電車がこんでる？\nB: うん、7時半から8時半のあいだはとてもこむことが多いから、ふだんは早めに家を出るんだ。","tend to ～ は「～しがちだ、～する傾向がある」。4つとも to ～ が続く動詞なので、意味で選ぶ。");
+add(11,"w","動","The spare key was ___ under a flowerpot by the door, so no one could find it easily.","concealed",["delivered","rewarded","postponed"],"予備のかぎはドアのそばの植木ばちの下にかくされていたので、だれもかんたんには見つけられなかった。","conceal は「かくす」。後ろの「だれもかんたんには見つけられなかった」がヒント。4つとも -ed の形なので、意味で選ぶ。");
+add(11,"w","名","Only a ___ of the students voted for the new school rule. Most of them wanted to keep the old one.","minority",["variety","shortage","priority"],"新しい校則に賛成したのは、生徒のうちの少数だけだった。ほとんどの生徒は、前の校則のままがいいと思っていた。","minority は「少数（派）」。後ろの Most of them（ほとんどは）と対になっている。反対の意味は majority（多数）。");
+add(11,"w","名","At the meeting, Ken made a ___ to start a recycling program at school. Everyone agreed that it was a good idea.","proposal",["narrative","reputation","symptom"],"会議で、ケンは学校でリサイクルの取り組みを始めようと提案した。みんな、よい考えだと賛成した。","make a proposal は「提案する」。後ろの a good idea がヒント。");
+add(11,"w","動","On windless days, the calm surface of the lake ___ the mountains like a mirror.","reflected",["squeezed","declared","borrowed"],"風のない日には、静かな湖面が鏡のように山々を映していた。","reflect は「（光・姿を）映す、反射する」。like a mirror（鏡のように）がヒント。");
+add(11,"w","形","At first, Emi was ___ about climate change. However, after she watched a documentary about it, she started to worry.","unconcerned",["anxious","furious","curious"],"最初、エミは気候変動に無関心だった。しかし、それについてのドキュメンタリーを見てから、心配するようになった。","unconcerned は「無関心な、気にかけない」。However のあとの「心配するようになった」と反対の内容が入る。anxious（心配して）を選ぶと、However の流れに合わない。");
+add(11,"w","名","The police finally caught the man who was guilty of the ___. He had killed a famous singer five years earlier.","murder",["fortune","rumor","pleasure"],"警察はついに殺人の犯人の男をつかまえた。男は5年前に有名な歌手を殺していた。","murder は「殺人」。後ろの had killed がヒント。");
+add(11,"w","動","At the aquarium, the children ___ at the huge whale in the tank. They could not take their eyes off it.","stared",["prayed","laughed","waved"],"水族館で、子どもたちは水そうの中の大きなクジラをじっと見つめた。目をはなすことができなかった。","stare at ～ は「～をじっと見つめる」。後ろの could not take their eyes off it（目をはなせなかった）が言いかえ。4つとも at と使える動詞なので、意味で選ぶ。");
+add(11,"i","動自","A: Our train doesn't leave for another hour.\nB: Then let's ___ at the bookstore near the station.","kill time",["break down","drop out","stand out"],"A: 電車が出るまで、まだ1時間あるね。\nB: じゃあ、駅の近くの本屋で時間をつぶそうよ。","kill time は「時間をつぶす」。");
+add(11,"i","動他","When you walk in the forest, you should ___ snakes. Some of them are dangerous.","watch out for",["look up to","make up for","run out of"],"森を歩くときは、ヘビに気をつけたほうがいい。危険なものもいるからだ。","watch out for ～ は「～に気をつける、注意する」。後ろの dangerous がヒント。");
+add(11,"i","副","There were a few small problems, but ___ the trip was a great success. Everyone had a good time.","on the whole",["in other words","by mistake","as a result"],"小さな問題はいくつかあったが、全体として旅行は大成功だった。みんな楽しく過ごした。","on the whole は「全体として、概して」。「小さな問題はあったが、全体としては」という流れ。");
+add(11,"i","動他","The station was very crowded, so Yuki had to ___ the people to reach the ticket gate.","make her way through",["lose her temper with","catch her breath after","take her time with"],"駅はとてもこんでいたので、ユキは改札にたどり着くために人ごみの中を進まなければならなかった。","make one's way through ～ は「～をかき分けて進む」。to reach the ticket gate（改札にたどり着くために）がヒント。");
+add(11,"i","接","A: How long have you lived in Osaka?\nB: I've lived here ___ I was born. I've never lived anywhere else.","ever since",["as though","in case","so that"],"A: 大阪にはどのくらい住んでいるの？\nB: 生まれてからずっとここに住んでいるよ。ほかの場所に住んだことはないんだ。","ever since ～ は「～して以来ずっと」。現在完了（have lived）といっしょに使うことが多い。");
+add(11,"i","動自","My little brother always ___ when he eats spaghetti. There is sauce all over the table afterward.","makes a mess",["takes a break","gets lost","keeps quiet"],"弟はスパゲッティを食べるといつも散らかす。食べたあとは、テーブルじゅうにソースが付いている。","make a mess は「散らかす、よごす」。後ろの「テーブルじゅうにソース」がヒント。");
+add(11,"i","動他","Playing video games late at night can ___ your sleep. Try to stop at least an hour before bed.","interfere with",["look after","depend on","consist of"],"夜おそくにテレビゲームをすると、睡眠のじゃまになることがある。寝る1時間前にはやめるようにしよう。","interfere with ～ は「～のじゃまをする、～をさまたげる」。");
+
+/* ========== 2026年度第2回の選択肢に出た語の追加問題（すべて書き下ろし）========== */
+add(0,"w","動","The juice shop ___ fresh oranges by hand, so the juice tastes great.","squeezes",["swallows","scratches","whispers"],"そのジュース屋さんは新鮮なオレンジを手でしぼるので、ジュースがとてもおいしい。","squeeze は「しぼる、ぎゅっとにぎる」。");
+add(0,"w","動","Many students ___ with math at first, but they get better with practice.","struggle",["recover","apologize","cooperate"],"多くの生徒は最初は数学に苦労するが、練習すればできるようになる。","struggle with ～ は「～に苦労する、～と格闘する」。but のあとの get better がヒント。");
+add(0,"w","名","The young singer's first concert caused a ___. People talked about it for weeks, and her songs became very popular.","sensation",["permission","tradition","definition"],"その若い歌手の最初のコンサートは大評判になった。何週間も話題になり、彼女の歌はとても人気になった。","sensation は「大評判、大さわぎ、感覚」。後ろの「何週間も話題になった」がヒント。");
+add(0,"w","名","The book is a ___ of a boy's journey across Africa. It tells his story from the day he left home.","narrative",["vehicle","mineral","phrase"],"その本は、アフリカを横断した少年の旅の物語だ。家を出た日からの彼の話が語られている。","narrative は「物語、話」。後ろの tells his story がヒント。");
+add(0,"w","形","The new library has ramps and wide doors, so it is easy for ___ people to use.","disabled",["generous","ancient","delicate"],"新しい図書館にはスロープと広いドアがあるので、障がいのある人も使いやすい。","disabled は「障がいのある」。スロープや広いドアがヒント。");
+add(0,"w","名","The divers found a box of ___ at the bottom of the sea. It was full of old gold coins.","treasure",["laughter","garbage","weather"],"ダイバーたちは海の底で宝物の箱を見つけた。古い金貨でいっぱいだった。","treasure は「宝物」。gold coins がヒント。");
+add(0,"w","名","A: Thank you for helping me move.\nB: It was my ___. I'm always happy to help a friend.","pleasure",["schedule","fortune","purpose"],"A: 引っこしを手伝ってくれてありがとう。\nB: どういたしまして（喜んでやったことだよ）。友だちを手伝うのはいつもうれしいんだ。","It was my pleasure. は「どういたしまして」。pleasure は「喜び、楽しみ」。");
+add(0,"w","副","Tom felt that the referee treated his team ___. The referee did not give them the same chances as the other team.","unfairly",["cheerfully","precisely","silently"],"トムは、審判が自分のチームを不公平にあつかったと感じた。審判は、相手チームと同じチャンスを与えなかったのだ。","unfairly は「不公平に」。後ろの did not give them the same chances がヒント。");
+add(0,"w","副","The hotel is ___ located next to the station, so guests can walk there in one minute.","conveniently",["fortunately","partly","barely"],"そのホテルは便利なことに駅のとなりにあるので、宿泊客は1分で歩いて行ける。","conveniently は「便利に、都合よく」。be conveniently located で「便利な場所にある」。");
+add(0,"i","動他","The little boy ___ his mother in the crowded shopping mall and started to cry.","lost sight of",["made fun of","took care of","got rid of"],"小さな男の子は、こんでいるショッピングモールで母親を見失って泣き出した。","lose sight of ～ は「～を見失う」。");
+add(0,"i","動他","Our class needs to ___ a name for our team before the sports festival. Does anyone have an idea?","come up with",["catch up with","put up with","keep up with"],"体育祭の前に、クラスのチームの名前を考え出さなければならない。だれかアイデアはある？","come up with ～ は「～を思いつく、考え出す」。Does anyone have an idea? がヒント。");
+add(0,"i","動他","Mr. Brown promised to raise our pay, but he ___ his word. We are still paid the same amount.","went back on",["looked up to","ran out of","made up for"],"ブラウンさんは給料を上げると約束したが、約束を破った。私たちの給料は今も同じ額だ。","go back on one's word は「約束を破る」。後ろの「今も同じ額だ」がヒント。");
+add(0,"i","動他","Many young players ___ the team captain. He is kind, hardworking, and always helps others.","look up to",["look down on","look forward to","look out for"],"多くの若い選手は、チームのキャプテンを尊敬している。彼はやさしく、努力家で、いつも人を助けるからだ。","look up to ～ は「～を尊敬する」。反対は look down on ～（～を見下す）。");
+add(0,"i","副","The road was covered with snow. ___, the school bus arrived an hour late.","For this reason",["In other words","On the other hand","For example"],"道は雪でおおわれていた。そのため、スクールバスは1時間おくれて着いた。","for this reason は「この理由で、そのため」。前の文が原因、後ろの文が結果。");
+add(0,"i","副","A: It might rain this afternoon.\nB: ___, let's have the barbecue inside instead.","In that case",["In other words","On the whole","For this reason"],"A: 午後は雨がふるかもしれないね。\nB: それなら、代わりに室内でバーベキューをしよう。","in that case は「その場合は、それなら」。相手の言ったことを受けて使う。");
+add(0,"i","副","Ken is a vegetarian. ___, he does not eat meat or fish.","In other words",["In that case","For example","As a result"],"ケンはベジタリアンだ。つまり、肉も魚も食べない。","in other words は「言いかえると、つまり」。前の文の内容を言いかえている。");
+add(0,"i","接","A: Is Jim OK? He's looking at us ___ he has seen a ghost.\nB: He probably just watched a scary movie.","as though",["ever since","so that","in case"],"A: ジムは大丈夫？まるでおばけでも見たみたいにこっちを見ているよ。\nB: きっとこわい映画を見たばかりなんだよ。","as though ～ は「まるで～かのように」。as if と同じ意味。");
+add(0,"i","前名","___ your help, I couldn't have finished the project on time. Thank you so much.","But for",["Instead of","In spite of","Because of"],"あなたの助けがなかったら、計画を時間どおりに終えられなかっただろう。本当にありがとう。","but for ～ は「～がなかったら」。without と同じ意味で、couldn't have finished と組み合わせて使う。");
+add(0,"i","動自","Nobody knew if the new restaurant would be successful, but the owner decided to ___ and open it anyway.","take a chance",["take a break","make a mess","keep quiet"],"新しいレストランが成功するかはだれにもわからなかったが、オーナーは思い切ってやってみることにして開店した。","take a chance は「（失敗を覚悟で）思い切ってやってみる」。");
+add(0,"i","動自","My uncle ___ by selling vegetables at the market. He has done this job for 30 years.","makes a living",["makes a mess","takes a chance","gets lost"],"おじは市場で野菜を売って生計を立てている。この仕事を30年続けている。","make a living は「生計を立てる」。");
+add(0,"i","動他","When the little girl dropped her ice cream, she ___ tears.","burst into",["ran into","turned into","broke into"],"小さな女の子はアイスクリームを落として、わっと泣き出した。","burst into tears は「わっと泣き出す」。");
+add(0,"i","動他","Young people ___ about 40 percent of the visitors to the museum.","account for",["depend on","consist of","look after"],"若い人が、その美術館の来館者のおよそ40パーセントを占めている。","account for ～ は「（割合を）占める、説明する」。");
+add(0,"i","動他","My sister will ___ university next spring and start working at a bank.","graduate from",["consist of","depend on","get rid of"],"姉は来年の春に大学を卒業して、銀行で働き始める。","graduate from ～ は「～を卒業する」。");
+
+/* ========== よくまちがえる語の練習問題（生徒の記録で、まちがいが多かった19語。各2問・書き下ろし）==========
+   1問は、生徒が実際によく選んでいた語を選択肢に入れて、意味のちがいを確かめる形にしている */
+add(0,"w","副","The player ___ dropped the ball to waste time. The referee saw it and gave him a yellow card.","deliberately",["accidentally","eventually","politely"],"その選手は時間かせぎのために、わざとボールを落とした。審判はそれを見て、彼にイエローカードを出した。","deliberately は「わざと、故意に」。反対は accidentally（うっかり、偶然に）。「時間かせぎのために」「イエローカード」がヒント。");
+add(0,"w","副","A: Did Tom forget to invite you to the party?\nB: No, he left me out ___. He's still angry with me.","deliberately",["unexpectedly","frequently","gradually"],"A: トムはパーティーにあなたを呼ぶのを忘れたの？\nB: ううん、わざと外したんだよ。まだぼくのことを怒っているんだ。","deliberately は「わざと」。忘れたのではなく、怒っているから外した、という流れ。");
+add(0,"w","名","Mr. Sato has no ___ of retiring. He says he will keep working as long as he is healthy.","intention",["obstacle","definition","tradition"],"佐藤さんには引退するつもりはない。健康なうちは働き続けると言っている。","have no intention of ～ing は「～するつもりはない」。後ろの「働き続ける」がヒント。");
+add(0,"w","名","Her ___ was to help, but her advice only made the problem worse.","intention",["proverb","shortage","rumor"],"彼女は助けるつもりだったが、そのアドバイスは問題を悪くしただけだった。","intention は「意図、つもり」。「助けるつもりだったが、結果は逆だった」という流れ。");
+add(0,"w","動","Old refrigerators ___ much more electricity than new ones, so replacing them can save money.","consume",["deliver","preserve","admire"],"古い冷蔵庫は新しいものよりずっと多くの電気を使うので、買いかえるとお金の節約になる。","consume は「（エネルギー・時間などを）消費する、使う」。save money がヒント。");
+add(0,"w","動","People in this country ___ about 50 kilograms of rice per person each year.","consume",["decorate","imitate","rescue"],"この国の人々は、1人あたり毎年およそ50キロの米を消費する。","consume は「消費する、食べる・飲む」。");
+add(0,"i","補他","The twins look ___ each other. Even their parents sometimes can't tell them apart.","identical to",["ashamed of","familiar with","responsible for"],"そのふたごはおたがいにそっくりだ。両親でさえ、ときどき見分けがつかない。","identical to ～ は「～とまったく同じ」。後ろの「両親でさえ見分けがつかない」がヒント。");
+add(0,"i","補他","A: Is this bag a fake?\nB: Yes. It looks ___ the real one, but the logo is a little different.","identical to",["anxious about","capable of","fond of"],"A: このバッグはにせものなの？\nB: うん。本物とまったく同じに見えるけど、ロゴが少しちがうんだ。","identical to ～ は「～とまったく同じ」。but のあとの「少しちがう」と対になっている。");
+add(0,"w","動","Playing the violin well ___ years of practice. You can't learn it in a few weeks.","requires",["predicts","overhears","excludes"],"バイオリンを上手にひくには、何年もの練習が必要だ。数週間では身につかない。","require は「必要とする」。後ろの「数週間では身につかない」がヒント。");
+add(0,"w","動","All visitors are ___ to show their passports at the entrance. Without one, you cannot go inside.","required",["predicted","delayed","overheard"],"来場者は全員、入り口でパスポートを見せなければならない。持っていなければ、中に入れない。","be required to ～ は「～することを求められる、～しなければならない」。");
+add(0,"w","動","Some animals can ___ to very cold weather by growing thick fur in winter.","adapt",["belong","object","resign"],"冬に厚い毛を生やすことで、とても寒い気候に適応できる動物もいる。","adapt to ～ は「～に適応する、慣れる」。by growing thick fur（厚い毛を生やすことで）がヒント。");
+add(0,"w","動","When Ken moved to a new school, it was hard for him to ___ to the new rules, but he soon got used to them.","adapt",["belong","refer","object"],"ケンが新しい学校に移ったとき、新しいきまりに慣れるのはたいへんだったが、すぐに慣れた。","adapt to ～ は「～に適応する、慣れる」。後ろの got used to（慣れた）が言いかえ。");
+add(0,"w","名","The police have a ___ that the fire was started on purpose. They are now looking for the person who did it.","suspicion",["pollution","tradition","reputation"],"警察は、火事がわざと起こされたのではないかと疑っている。今、それをした人物をさがしている。","suspicion は「疑い」。have a suspicion that ～ で「～ではないかと疑う」。");
+add(0,"w","名","Ms. Lee looked at the strange email with ___. She thought it might be a trick to steal her password.","suspicion",["efficiency","progress","delight"],"リーさんは、その変なメールを疑いの目で見た。パスワードをぬすむためのわなかもしれないと思ったのだ。","with suspicion は「疑って」。後ろの「わなかもしれないと思った」がヒント。");
+add(0,"w","名","The ___ of a new kind of dinosaur in Japan was big news around the world.","discovery",["intention","laughter","harvest"],"日本で新しい種類の恐竜が発見されたことは、世界中で大きなニュースになった。","discovery は「発見」。動詞 discover（発見する）の名詞形。");
+add(0,"w","名","Alexander Fleming made an important ___ in 1928. He found a medicine that could kill bacteria.","discovery",["muscle","rumor","complaint"],"アレクサンダー・フレミングは1928年に重要な発見をした。細菌を殺せる薬を見つけたのだ。","make a discovery は「発見をする」。後ろの He found（見つけた）が言いかえ。");
+add(0,"w","動","After the heavy rain, part of the old wall ___. Luckily, no one was walking nearby.","collapsed",["shrank","adapted","interacted"],"大雨のあと、古い壁の一部がくずれ落ちた。幸い、近くを歩いている人はいなかった。","collapse は「くずれる、倒れる」。shrink（縮む）とまちがえないように。");
+add(0,"w","動","The runner ___ just after crossing the finish line. He was taken to the hospital, but he was fine the next day.","collapsed",["interrupted","recovered","vanished"],"そのランナーはゴールした直後に倒れた。病院に運ばれたが、次の日には元気になった。","collapse は人について使うと「（急に）倒れる」。「病院に運ばれた」がヒント。");
+add(0,"w","形","The new students were ___ to make friends, so they joined many clubs in their first week.","eager",["awake","guilty","silent"],"新入生たちは友だちを作りたくてたまらなかったので、最初の週にたくさんの部活に入った。","be eager to ～ は「しきりに～したがっている」。後ろの「たくさんの部活に入った」がヒント。");
+add(0,"w","形","A: Is your dog happy to go for a walk?\nB: Yes, he's always ___ to go out. He waits by the door every morning.","eager",["ancient","nervous","generous"],"A: あなたの犬は散歩に行くのが好き？\nB: うん、いつも外に出たくてしかたないんだ。毎朝ドアのそばで待っているよ。","be eager to ～ は「しきりに～したがっている」。「毎朝ドアのそばで待っている」がヒント。");
+add(0,"w","形","Please accept my ___ thanks for all your help. I couldn't have done it without you.","sincere",["crucial","massive","nervous"],"いろいろと手伝ってくれて、心から感謝しています。あなたがいなければできませんでした。","sincere は「心からの、誠実な」。crucial は「きわめて重要な」で、気持ちを表す語ではない。");
+add(0,"w","形","Jack seemed ___ when he promised to change. He looked into my eyes and spoke from his heart.","sincere",["crucial","jealous","furious"],"ジャックは変わると約束したとき、誠実そうに見えた。私の目を見て、心から話していた。","sincere は「誠実な、本心からの」。spoke from his heart（心から話した）が言いかえ。");
+add(0,"w","動","The family had to ___ their house because of the flood. They stayed at a school for a week.","abandon",["tolerate","preserve","decorate"],"その家族は洪水のため、家を捨てて避難しなければならなかった。1週間、学校で過ごした。","abandon は「（その場を）捨てる、去る」。「1週間、学校で過ごした」がヒント。");
+add(0,"w","動","Don't ___ your dream just because it is difficult. Keep trying, and you will succeed.","abandon",["tolerate","polish","decorate"],"難しいからといって、夢をあきらめてはいけない。がんばり続ければ、成功するよ。","abandon は「（計画・夢を）あきらめる、捨てる」。Keep trying（がんばり続けて）と対になっている。");
+add(0,"w","動","The boy ___ eating the cookies, but there were crumbs all over his shirt.","denied",["admitted","proposed","enjoyed"],"男の子はクッキーを食べたことを否定したが、シャツじゅうにクッキーのくずが付いていた。","deny ～ing は「～したことを否定する」。反対は admit（認める）。but のあとの「くずが付いていた」がヒント。");
+add(0,"w","動","The company ___ the news report. It said that the report was not true.","denied",["admitted","praised","celebrated"],"その会社は報道を否定した。報道は事実ではないと言った。","deny は「否定する」。後ろの「事実ではないと言った」が言いかえ。");
+add(0,"w","動","After working at the bank for 30 years, Mr. Kato decided to ___ and open his own bakery.","resign",["graduate","compete","participate"],"銀行で30年働いたあと、加藤さんは退職して自分のパン屋を開くことにした。","resign は「（仕事を）辞める、辞職する」。");
+add(0,"w","動","The captain had to ___ from the team after he broke the rules. A new captain was chosen the next day.","resign",["graduate","suffer","compete"],"キャプテンはきまりを破ったため、チームの役職を辞めなければならなかった。次の日、新しいキャプテンが選ばれた。","resign from ～ は「～を辞める」。「新しいキャプテンが選ばれた」がヒント。");
+add(0,"w","動","This shop ___ that its vegetables are fresh. If you are not happy with them, you can get your money back.","guarantees",["skips","tolerates","imitates"],"この店は、野菜が新鮮であることを保証している。満足できなければ、返金してもらえる。","guarantee は「保証する」。後ろの「返金してもらえる」がヒント。");
+add(0,"w","動","Practicing hard does not ___ that you will win, but it gives you a better chance.","guarantee",["declare","tolerate","request"],"一生けんめい練習しても、勝てると保証されるわけではないが、勝つ可能性は高くなる。","guarantee は「保証する、確実にする」。");
+add(0,"w","名","Pandas were once close to ___, but their numbers are slowly increasing now.","extinction",["construction","nutrition","depression"],"パンダはかつて絶滅しかけていたが、今は数が少しずつふえている。","extinction は「絶滅」。but のあとの「数がふえている」と対になっている。");
+add(0,"w","名","Scientists believe that a huge asteroid caused the ___ of the dinosaurs about 66 million years ago.","extinction",["reputation","construction","invention"],"科学者たちは、約6,600万年前に巨大な小惑星が恐竜の絶滅を引き起こしたと考えている。","extinction は「絶滅」。");
+add(0,"i","補他","My grandfather is very ___ old movies. He watches one almost every night.","fond of",["capable of","short of","aware of"],"祖父は古い映画が大好きだ。ほとんど毎晩1本見ている。","be fond of ～ は「～が好きだ」。capable of は「～ができる」。");
+add(0,"i","補他","A: Do you like cats?\nB: Yes. I'm ___ all animals, but especially cats.","fond of",["responsible for","capable of","short of"],"A: ネコは好き？\nB: うん。動物はみんな好きだけど、とくにネコが好きなんだ。","be fond of ～ は「～が好きだ」。Do you like ～? への答えになっている。");
+add(0,"w","名","The hospital has a good ___. People come from other cities to see its doctors.","reputation",["nutrition","appetite","shortage"],"その病院は評判がよい。ほかの町からも、そこの医者にみてもらいに人が来る。","reputation は「評判」。後ろの「ほかの町からも人が来る」がヒント。");
+add(0,"w","名","Ken's ___ as a hard worker helped him get a new job quickly.","reputation",["facility","nutrition","obstacle"],"よく働く人だというケンの評判のおかげで、彼はすぐに新しい仕事につけた。","reputation as ～ は「～としての評判」。");
+add(0,"w","副","The concert hall can hold ___ 2,000 people.","approximately",["instantly","definitely","seriously"],"そのコンサートホールには、およそ2,000人が入れる。","approximately は「およそ、約」。数字の前でよく使う。");
+add(0,"w","副","A: How many students are there at your school?\nB: ___ 600. I don't know the exact number.","Approximately",["Instantly","Definitely","Eventually"],"A: あなたの学校には生徒が何人いるの？\nB: だいたい600人。正確な数はわからないんだ。","approximately は「およそ」。後ろの「正確な数はわからない」がヒント。");
 
 /* ===== 選択肢の意味（解答後に4つ並べて表示）=====
    "つづり（小文字）":["品詞","意味","原形（変化した形のときだけ）"] */
@@ -2024,6 +2179,146 @@ var G={
 "annoys":["動","いらいらさせる","annoy"],
 "arrests":["動","逮捕する","arrest"]
 };
+/* 2026年度第2回の傾向に合わせて追加した問題の、選択肢の意味 */
+(function(){var A={
+"cheerfully":["副","明るく、元気よく"],
+"unfairly":["副","不公平に"],
+"precisely":["副","正確に、まさに"],
+"conveniently":["副","便利に、都合よく"],
+"fortunately":["副","幸運にも"],
+"opportunity":["名","機会、チャンス"],
+"sensation":["名","大評判、大さわぎ、感覚"],
+"minority":["名","少数（派）"],
+"variety":["名","多様性、種類"],
+"proposal":["名","提案"],
+"narrative":["名","物語、話"],
+"murder":["名","殺人"],
+"fortune":["名","財産、運"],
+"pleasure":["名","喜び、楽しみ"],
+"treasure":["名","宝物"],
+"weather":["名","天気"],
+"purpose":["名","目的"],
+"definition":["名","定義"],
+"mineral":["名","鉱物、ミネラル"],
+"phrase":["名","語句、言い回し"],
+"tends":["動","～しがちだ（tend to ～）","tend"],
+"pretends":["動","～のふりをする","pretend"],
+"hesitates":["動","ためらう","hesitate"],
+"refuses":["動","断る、拒む","refuse"],
+"concealed":["動","かくす","conceal"],
+"rewarded":["動","ほうびを与える","reward"],
+"postponed":["動","延期する","postpone"],
+"reflected":["動","（姿を）映す、反射する、よく考える","reflect"],
+"squeezed":["動","しぼる、ぎゅっとにぎる","squeeze"],
+"squeezes":["動","しぼる、ぎゅっとにぎる","squeeze"],
+"borrowed":["動","借りる","borrow"],
+"stared":["動","じっと見つめる（stare at ～）","stare"],
+"prayed":["動","祈る","pray"],
+"laughed":["動","笑う","laugh"],
+"waved":["動","手をふる","wave"],
+"swallows":["動","飲みこむ","swallow"],
+"scratches":["動","ひっかく","scratch"],
+"whispers":["動","ささやく","whisper"],
+"cooperate":["動","協力する"],
+"unconcerned":["形","無関心な、気にかけない"],
+"furious":["形","激怒した"],
+"disabled":["形","障がいのある"],
+"kill time":["熟","時間をつぶす"],
+"watch out for":["熟","～に気をつける、注意する"],
+"look up to":["熟","～を尊敬する"],
+"looked up to":["熟","～を尊敬する","look up to"],
+"look down on":["熟","～を見下す"],
+"look out for":["熟","～に気をつける、～の面倒をみる"],
+"look after":["熟","～の世話をする"],
+"on the whole":["熟","全体として、概して"],
+"in other words":["熟","言いかえると、つまり"],
+"by mistake":["熟","まちがって"],
+"as a result":["熟","その結果"],
+"for this reason":["熟","この理由で、そのため"],
+"on the other hand":["熟","その一方で、他方では"],
+"for example":["熟","たとえば"],
+"in that case":["熟","その場合は、それなら"],
+"make her way through":["熟","～をかき分けて進む","make one's way through"],
+"lose her temper with":["熟","～に腹を立てる","lose one's temper with"],
+"catch her breath after":["熟","～のあとでひと息つく","catch one's breath after"],
+"take her time with":["熟","～をゆっくりやる","take one's time with"],
+"ever since":["熟","～して以来ずっと"],
+"as though":["熟","まるで～かのように"],
+"make a mess":["熟","散らかす、よごす"],
+"makes a mess":["熟","散らかす、よごす","make a mess"],
+"take a break":["熟","ひと休みする"],
+"takes a break":["熟","ひと休みする","take a break"],
+"get lost":["熟","道に迷う"],
+"gets lost":["熟","道に迷う","get lost"],
+"keep quiet":["熟","静かにしている"],
+"keeps quiet":["熟","静かにしている","keep quiet"],
+"take a chance":["熟","思い切ってやってみる"],
+"takes a chance":["熟","思い切ってやってみる","take a chance"],
+"make a living":["熟","生計を立てる"],
+"makes a living":["熟","生計を立てる","make a living"],
+"interfere with":["熟","～のじゃまをする、～をさまたげる"],
+"depend on":["熟","～にたよる、～しだいである"],
+"consist of":["熟","～から成り立つ"],
+"lost sight of":["熟","～を見失う","lose sight of"],
+"made fun of":["熟","～をからかう","make fun of"],
+"took care of":["熟","～の世話をする","take care of"],
+"get rid of":["熟","～を取りのぞく、処分する"],
+"got rid of":["熟","～を取りのぞく、処分する","get rid of"],
+"come up with":["熟","～を思いつく、考え出す"],
+"keep up with":["熟","～についていく"],
+"went back on":["熟","（約束を）破る（go back on one's word）","go back on"],
+"but for":["熟","～がなかったら"],
+"because of":["熟","～のために、～が原因で"],
+"burst into":["熟","急に～しだす（burst into tears＝わっと泣き出す）"],
+"ran into":["熟","～に偶然出会う、～にぶつかる","run into"],
+"turned into":["熟","～に変わる","turn into"],
+"broke into":["熟","～に押し入る","break into"],
+"account for":["熟","（割合を）占める、説明する"],
+"graduate from":["熟","～を卒業する"]
+};for(var k in A)if(!G[k])G[k]=A[k];})();
+/* 上の問題の選択肢の意味（G にないものだけ追加） */
+(function(){var A={
+"anxious about":["熟","～を心配して"],
+"excludes":["動","除外する","exclude"],
+"predicted":["動","予測する","predict"],
+"overheard":["動","（偶然）耳にする","overhear"],
+"refer":["動","参照する、言及する（refer to ～）"],
+"delight":["名","大喜び"],
+"complaint":["名","不満、苦情"],
+"recovered":["動","回復する","recover"],
+"guilty":["形","罪悪感のある、有罪の"],
+"silent":["形","静かな、だまっている"],
+"enjoyed":["動","楽しむ","enjoy"],
+"celebrated":["動","祝う","celebrate"],
+"praised":["動","ほめる","praise"],
+"guarantees":["動","保証する","guarantee"],
+"skips":["動","抜かす、とばす","skip"],
+"tolerates":["動","がまんする、大目に見る","tolerate"],
+"imitates":["動","まねる","imitate"],
+"request":["動","依頼する、求める"],
+"depression":["名","落ちこみ、不景気"],
+"invention":["名","発明"],
+"seriously":["副","真剣に、深刻に"],
+"suffer":["動","苦しむ（suffer from ～）"],
+"rescue":["動","救助する"],
+"rumor":["名","うわさ"],
+"tradition":["名","伝統"],
+"vanished":["動","消える","vanish"],
+"interrupted":["動","じゃまをする、中断する","interrupt"],
+"eventually":["副","結局、最終的に"],
+"accidentally":["副","うっかり、偶然に"],
+"politely":["副","ていねいに"],
+"definition":["名","定義"],
+"familiar with":["熟","～をよく知っている"],
+"aware of":["熟","～に気づいている"],
+"short of":["熟","～が不足して"],
+"capable of":["熟","～ができる"],
+"responsible for":["熟","～に責任がある"],
+"fond of":["熟","～が好きだ"],
+"identical to":["熟","～とまったく同じ"]
+};for(var k in A)if(!G[k])G[k]=A[k];})();
+
+
 
 /* 単語問題の正解の CEFR-J レベル（『CEFR-J Wordlist Version 1.6』東京外国語大学投野由紀夫研究室） */
 var LV={"govern|動": "B1", "postpone|動": "B2", "persuade|動": "B1", "donate|動": "B2", "occupation|名": "A2", "ingredient|名": "B1", "receipt|名": "A2", "decade|名": "B2", "fragile|形": "", "immediately|副": "B1", "expand|動": "B1", "estimate|動": "B1", "reject|動": "B1", "apologize|動": "A2", "mixture|名": "B2", "satellite|名": "B1", "souvenir|名": "B1", "refund|名": "B1", "enormous|形": "A2", "surprisingly|副": "B1", "qualify|動": "B1", "recommend|動": "B1", "declare|動": "B1", "replace|動": "A2", "judgment|名": "B1", "scholarship|名": "B1", "colleague|名": "B2", "vehicle|名": "B1", "consistent|形": "B2", "gradually|副": "A2", "grip|動": "B2", "attract|動": "B1", "examine|動": "B1", "ignore|動": "B1", "democracy|名": "B1", "harvest|名": "A2", "budget|名": "A2", "signature|名": "B1", "accurate|形": "B1", "frequently|副": "B1", "react|動": "B1", "consume|動": "B1", "compete|動": "B1", "obey|動": "B2", "cliff|名": "B1", "symptom|名": "B1", "shortage|名": "B1", "profit|名": "B2", "temporary|形": "B1", "eventually|副": "B1", "panic|動": "B2", "preserve|動": "B1", "reduce|動": "B1", "delay|動": "B1", "philosopher|名": "B1", "tradition|名": "A2", "ancestor|名": "A2", "emergency|名": "A2", "generous|形": "B1", "thankfully|副": "", "review|動": "B2", "appreciate|動": "A2", "recover|動": "B1", "deliver|動": "B1", "loyalty|名": "B1", "evidence|名": "A2", "permission|名": "A2", "opponent|名": "B2", "upper|形": "B1", "apparently|副": "A2", "tie|動": "B1", "translate|動": "B1", "observe|動": "B1", "rescue|動": "B1", "ignorance|名": "B2", "appetite|名": "B1", "destination|名": "B1", "agriculture|名": "B1", "anxious|形": "A2", "strictly|副": "B2", "overcome|動": "B1", "predict|動": "A2", "prohibit|動": "B2", "invest|動": "B1", "luggage|名": "B1", "fuel|名": "B1", "instruction|名": "B1", "discount|名": "B1", "rural|形": "B2", "roughly|副": "A2", "reveal|動": "A2", "admire|動": "A2", "accomplish|動": "B1", "assist|動": "B1", "injury|名": "B1", "architecture|名": "A2", "contract|名": "B2", "audience|名": "A2", "efficient|形": "B1", "regularly|副": "A2", "abandon|動": "B1", "accompany|動": "B1", "accuse|動": "B1", "adjust|動": "A2", "admit|動": "A2", "adopt|動": "B1", "annoy|動": "A2", "arrest|動": "B1", "attach|動": "B1", "attack|動": "A2", "attend|動": "B1", "avoid|動": "A2", "belong|動": "A2", "bury|動": "A2", "combine|動": "B1", "complain|動": "A2", "concentrate|動": "A2", "confuse|動": "A2", "consist|動": "A2", "decorate|動": "B2", "defeat|動": "B1", "deny|動": "B1", "describe|動": "A1", "deserve|動": "B1", "destroy|動": "A2", "divide|動": "A2", "earn|動": "A2", "exchange|動": "B1", "exist|動": "A2", "imitate|動": "B1", "include|動": "A2", "inspect|動": "B2", "insult|動": "B2", "invade|動": "A2", "object|動": "B2", "occupy|動": "B1", "offend|動": "B2", "overcharge|動": "", "overhear|動": "B2", "overtake|動": "B2", "permit|動": "B1", "polish|動": "", "pour|動": "A2", "pretend|動": "A2", "prevent|動": "A2", "produce|動": "A2", "promote|動": "B1", "pronounce|動": "A2", "protect|動": "B1", "provide|動": "A2", "publish|動": "A2", "raise|動": "A2", "refrain|動": "", "refuse|動": "B1", "remind|動": "A2", "remove|動": "B1", "require|動": "B1", "resign|動": "B2", "resist|動": "B1", "retire|動": "A2", "swallow|動": "A2", "tear|動": "B1", "terrify|動": "A2", "tolerate|動": "B2", "transport|動": "B2", "vanish|動": "B2", "waste|動": "B1", "ambition|名": "A2", "apology|名": "B1", "appointment|名": "A2", "assistant|名": "B1", "athlete|名": "A2", "attitude|名": "A2", "ceremony|名": "B1", "citizenship|名": "B1", "clerk|名": "A2", "climate|名": "B1", "clinic|名": "B1", "contact|名": "A2", "context|名": "A2", "decoration|名": "B2", "departure|名": "B1", "description|名": "A2", "disaster|名": "B1", "distance|名": "B1", "district|名": "B1", "donation|名": "B2", "election|名": "B1", "exhibition|名": "A2", "fame|名": "B2", "furniture|名": "A2", "garbage|名": "A1", "gravity|名": "", "harbor|名": "B1", "importance|名": "A2", "independence|名": "A2", "industry|名": "B1", "inquiry|名": "B1", "institution|名": "B2", "instrument|名": "A2", "insurance|名": "B1", "landlord|名": "B1", "literature|名": "B1", "membership|名": "B1", "passenger|名": "A2", "patient|名": "A2", "plumber|名": "B2", "pollution|名": "A1", "population|名": "A2", "portrait|名": "A2", "possession|名": "B1", "poverty|名": "B1", "pressure|名": "A2", "prison|名": "B1", "reward|名": "B1", "rumor|名": "A2", "scenery|名": "A2", "sculpture|名": "B1", "tragedy|名": "B1", "transformation|名": "B1", "translation|名": "B2", "transportation|名": "B1", "volunteer|名": "B2", "voyage|名": "B1", "ancient|形": "A2", "awake|形": "A1", "clumsy|形": "B2", "convenient|形": "A2", "curious|形": "B1", "delicate|形": "B1", "eager|形": "B1", "fluent|形": "B1", "fortunate|形": "B1", "frequent|形": "B1", "jealous|形": "B1", "nervous|形": "A2", "permanent|形": "B1", "punctual|形": "B2", "rapid|形": "B1", "rough|形": "B1", "royal|形": "A2", "stubborn|形": "B1", "barely|副": "B1", "briefly|副": "B1", "carelessly|副": "B1", "firmly|副": "B1", "gently|副": "B2", "highly|副": "B1", "nervously|副": "B2", "partly|副": "A2", "patiently|副": "B2", "previously|副": "B2", "rapidly|副": "B1", "rarely|副": "B1", "rudely|副": "B1", "secretly|副": "B1", "slightly|副": "B1", "unfortunately|副": "A2", "advertise|動": "B1", "afford|動": "B1", "analyze|動": "B1", "announce|動": "B1", "demonstrate|動": "B1", "depart|動": "B1", "determine|動": "B1", "emphasize|動": "B1", "escape|動": "B1", "forgive|動": "B1", "locate|動": "B1", "recognize|動": "B1", "rely|動": "B1", "seize|動": "B1", "spoil|動": "B1", "surround|動": "B1", "suffer|動": "B1", "decrease|動": "B1", "gain|動": "B1", "interact|動": "B1", "hire|動": "B1", "lift|動": "B1", "crash|動": "B1", "damage|動": "B1", "ban|動": "B2", "chop|動": "B2", "ease|動": "B2", "purchase|動": "B2", "separate|動": "B2", "skip|動": "B2", "spread|動": "B2", "store|動": "B2", "correct|動": "B2", "approach|動": "B2", "schedule|動": "B2", "adapt|動": "B1", "approve|動": "B1", "arrange|動": "B1", "assume|動": "B1", "cancel|動": "B1", "capture|動": "B1", "contribute|動": "B1", "convince|動": "B1", "defend|動": "B1", "distribute|動": "B1", "eliminate|動": "B1", "ensure|動": "B1", "expose|動": "B1", "extend|動": "B1", "generate|動": "B1", "hesitate|動": "B1", "install|動": "B1", "interrupt|動": "B1", "launch|動": "B1", "maintain|動": "B1", "measure|動": "B1", "melt|動": "B1", "modify|動": "B1", "negotiate|動": "B1", "obtain|動": "B1", "owe|動": "B1", "participate|動": "B1", "possess|動": "B1", "propose|動": "B1", "prove|動": "B1", "recall|動": "B1", "restore|動": "B1", "warn|動": "B1", "collapse|動": "B2", "detect|動": "B2", "encounter|動": "B2", "evaluate|動": "B2", "guarantee|動": "B2", "investigate|動": "B2", "manufacture|動": "B2", "overlook|動": "B2", "praise|動": "B2", "shrink|動": "B2", "struggle|動": "B2", "withdraw|動": "B2", "achievement|名": "B1", "atmosphere|名": "B1", "attraction|名": "B1", "burden|名": "B1", "career|名": "B1", "concept|名": "B1", "consumer|名": "B1", "decision|名": "B1", "device|名": "B1", "discovery|名": "B1", "distinction|名": "B1", "document|名": "B1", "duty|名": "B1", "economy|名": "B1", "efficiency|名": "B1", "emotion|名": "B1", "equipment|名": "B1", "experiment|名": "B1", "growth|名": "B1", "illness|名": "B1", "intention|名": "B1", "laughter|名": "B1", "motivation|名": "B1", "obstacle|名": "B1", "option|名": "B1", "participant|名": "B1", "pattern|名": "B1", "phenomenon|名": "B1", "policy|名": "B1", "politician|名": "B1", "potential|名": "B1", "progress|名": "B1", "proverb|名": "B1", "resource|名": "B1", "security|名": "B1", "spectator|名": "B1", "standard|名": "B1", "surgery|名": "B1", "suspicion|名": "B1", "trend|名": "B1", "vision|名": "B1", "referee|名": "B1", "researcher|名": "B1", "resort|名": "B1", "muscle|名": "B1", "location|名": "B1", "conference|名": "B2", "employee|名": "B2", "feedback|名": "B2", "flexibility|名": "B2", "harm|名": "B2", "inventor|名": "B2", "popularity|名": "B2", "recommendation|名": "B2", "replacement|名": "B2", "retirement|名": "B2", "trust|名": "B2", "theme|名": "B2", "anxiety|名": "B1", "approval|名": "B1", "assignment|名": "B1", "awareness|名": "B1", "benefit|名": "B1", "charity|名": "B1", "confidence|名": "B1", "conflict|名": "B1", "construction|名": "B1", "courage|名": "B1", "curiosity|名": "B1", "extinction|名": "B1", "facility|名": "B1", "habitat|名": "B1", "income|名": "B1", "reputation|名": "B1", "responsibility|名": "B1", "shelter|名": "B1", "tourism|名": "B1", "nutrition|名": "B1", "species|名": "B2", "priority|名": "B2", "available|形": "B1", "essential|形": "B1", "environmental|形": "B1", "inconvenient|形": "B1", "massive|形": "B1", "narrow|形": "B1", "ordinary|形": "B1", "practical|形": "B1", "reasonable|形": "B1", "superior|形": "B1", "unique|形": "B1", "various|形": "B1", "delighted|形": "B1", "thankful|形": "B1", "identical|形": "B2", "elegant|形": "B2", "ambitious|形": "B1", "reliable|形": "B1", "crucial|形": "B2", "sincere|形": "B2", "accidentally|副": "B1", "completely|副": "B1", "continuously|副": "B1", "increasingly|副": "B1", "naturally|副": "B1", "honestly|副": "B1", "absolutely|副": "B1", "particularly|副": "B1", "suddenly|副": "B1", "traditionally|副": "B1", "instantly|副": "B2", "necessarily|副": "B2", "originally|副": "B2", "innocently|副": "B2", "approximately|副": "B1", "definitely|副": "B1", "occasionally|副": "B1", "unexpectedly|副": "B1", "deliberately|副": "B2", "temporarily|副": "B2"};
@@ -2124,6 +2419,269 @@ var LP=[
    e:"空所の前までは「歩くとアイデアが増え、その効果はしばらく続く」というよい面です。空所のあとは「その効果は創造的な思考の場合だけだった」と、効果の限界を述べています。前と逆の内容をつなぐので However（しかし）が入ります。",
    m:{"However":"しかし","Therefore":"したがって","For example":"たとえば","In addition":"さらに"}}
  ]}
+];
+
+/* ---------- 第3回（2026年度第2回の傾向：どちらの長文も「内容・つなぎの言葉・内容」の順）---------- */
+LP.push(
+{id:"L3A",set:3,part:"A",title:"Libraries That Travel",
+ paras:[
+  "In many rural areas, the nearest library can be more than an hour away by car. For elderly people and children who cannot drive, this makes it difficult to borrow books. To solve this problem, some towns started using bookmobiles. These are large vans with shelves full of books. They visit villages on a regular schedule, so people can [18] without making a long trip.",
+  "Bookmobiles do more than lend books. Librarians on the vans often talk with visitors and recommend books that match their interests. For people who live alone, this short conversation can be one of the few chances to meet someone each week. [19], bookmobiles help to keep communities connected.",
+  "However, running a bookmobile is not cheap. The vans need fuel and repairs, and the drivers must be paid. Some city officials say that the money should be used to [20] instead, because most people can now read e-books. Others argue that many elderly people are not used to digital devices. For now, many towns plan to continue the service while looking for ways to reduce its costs."],
+ ja:[
+  "多くの農村部では、いちばん近い図書館まで車で1時間以上かかることがある。車を運転できないお年寄りや子どもにとって、これでは本を借りるのが難しい。この問題を解決するために、移動図書館を使い始めた町がある。これは、本がいっぱいの棚をのせた大きなバンだ。決まった予定で村々を回るので、人々は遠くまで出かけなくても、家の近くで本を借りたり返したりできる。",
+  "移動図書館は、本を貸すだけではない。バンに乗っている図書館員は、来た人とよく話をし、その人の興味に合う本をすすめる。一人暮らしの人にとって、この短い会話は、1週間のうちに人と会える数少ない機会の1つになることもある。このようにして、移動図書館は地域のつながりを保つのに役立っている。",
+  "しかし、移動図書館を運営するのは安くない。バンには燃料と修理が必要で、運転手にも給料をはらわなければならない。今はほとんどの人が電子書籍を読めるのだから、そのお金はオンラインでデジタルの本をもっと提供するために使うべきだ、と言う市の職員もいる。一方、多くのお年寄りはデジタル機器に慣れていないと主張する人もいる。今のところ、多くの町は費用を減らす方法を探しながら、このサービスを続けるつもりだ。"],
+ blanks:[
+  {no:18,kind:"cont",k:"borrow books close to home",d:["buy new books at low prices","learn how to drive a van","read books on the Internet"],
+   clue:"They visit villages on a regular schedule",
+   e:"直前に「決まった予定で村々を回る」とあり、空所のあとに「遠くまで出かけなくても」と続きます。図書館が近くまで来るので、家の近くで本を借りられる、という流れです。buy（買う）は図書館に合わず、Internet は移動図書館の話と関係ありません。",
+   m:{"borrow books close to home":"家の近くで本を借りる","buy new books at low prices":"新しい本を安い値段で買う","learn how to drive a van":"バンの運転のしかたを学ぶ","read books on the Internet":"インターネットで本を読む"}},
+  {no:19,kind:"conn",k:"In this way",d:["Even so","Instead","On the other hand"],
+   clue:"this short conversation can be one of the few chances to meet someone each week",
+   e:"空所の前は「図書館員が話をしたり本をすすめたりし、一人暮らしの人には人と会える貴重な機会になる」という具体的な内容です。後ろは「地域のつながりを保つのに役立っている」というまとめです。前の内容をまとめて結論につなぐので In this way（このようにして）が入ります。",
+   m:{"In this way":"このようにして","Even so":"それでも","Instead":"そのかわりに","On the other hand":"その一方で"}},
+  {no:20,kind:"cont",k:"offer more digital books online",d:["build larger vans for children","hire more drivers for the vans","print more paper books for schools"],
+   clue:"because most people can now read e-books",
+   e:"空所のあとに「今はほとんどの人が電子書籍を読めるのだから」と理由が続きます。移動図書館のかわりにお金を使う先なので、デジタルの本の提供が入ります。larger vans や more drivers は移動図書館をふやす話で、instead（そのかわりに）と合いません。",
+   m:{"offer more digital books online":"オンラインでデジタルの本をもっと提供する","build larger vans for children":"子ども用にもっと大きなバンを作る","hire more drivers for the vans":"バンの運転手をもっとやとう","print more paper books for schools":"学校のために紙の本をもっと印刷する"}}
+ ]},
+{id:"L3B",set:3,part:"B",title:"Why Leaves Change Color",
+ paras:[
+  "Every fall, the leaves of many trees turn red, orange, and yellow. Leaves look green in spring and summer because they contain a lot of chlorophyll, a chemical that helps plants make food from sunlight. As the days get shorter and colder, trees stop making chlorophyll. When the green color disappears, other colors that were [21] can finally be seen.",
+  "Yellow and orange colors are always in the leaves, but red is different. Red colors are newly produced in the fall, especially when days are sunny and nights are cool. [22], the brightest red leaves are often seen after a fall with many clear days and cold nights.",
+  "Scientists believe that the red color may protect leaves from too much sunlight while the tree [23]. Before leaves fall, trees take useful nutrients out of them and store them for the next spring. The red color acts like sunscreen and gives the tree more time to finish this work. Fall colors, therefore, are not only beautiful but also important for the trees' survival."],
+ ja:[
+  "毎年秋になると、多くの木の葉が赤やオレンジ、黄色に変わる。春と夏に葉が緑色に見えるのは、植物が日光から養分を作るのを助ける化学物質、クロロフィルを多くふくんでいるからだ。日が短く寒くなるにつれて、木はクロロフィルを作るのをやめる。緑色が消えると、ずっと葉の中にかくれていたほかの色が、ようやく見えるようになる。",
+  "黄色やオレンジ色はいつも葉の中にあるが、赤はちがう。赤い色は秋に新しく作られ、とくに昼が晴れて夜が涼しいときによく作られる。そのため、いちばんあざやかな赤い葉は、晴れた日と寒い夜の多い秋のあとによく見られる。",
+  "科学者たちは、木が葉から養分を回収するあいだ、赤い色が強すぎる日光から葉を守っているのかもしれないと考えている。葉が落ちる前に、木は葉から役に立つ養分を取り出し、次の春のためにたくわえる。赤い色は日焼け止めのような働きをして、木がこの作業を終えるための時間をかせぐ。だから、秋の色は美しいだけでなく、木が生きのびるためにも大切なのだ。"],
+ blanks:[
+  {no:21,kind:"cont",k:"hidden in the leaves all along",d:["added by insects in the late fall","made by the cold rain","painted by the strong wind"],
+   clue:"When the green color disappears",
+   e:"「緑色が消えると、ほかの色がようやく見える」という流れなので、ほかの色は緑にかくれて、もともと葉の中にあったことになります。次の段落の「黄色やオレンジ色はいつも葉の中にある」も手がかりです。",
+   m:{"hidden in the leaves all along":"ずっと葉の中にかくれていた","added by insects in the late fall":"晩秋に虫によって加えられた","made by the cold rain":"冷たい雨によって作られた","painted by the strong wind":"強い風によってぬられた"}},
+  {no:22,kind:"conn",k:"For this reason",d:["However","For example","On the other hand"],
+   clue:"Red colors are newly produced in the fall, especially when days are sunny and nights are cool.",
+   e:"空所の前は「赤は、昼が晴れて夜が涼しいときによく作られる」という理由です。後ろは「晴れた日と寒い夜の多い秋のあとに、あざやかな赤い葉が見られる」という結果です。理由と結果をつなぐので For this reason（そのため）が入ります。",
+   m:{"For this reason":"そのため","However":"しかし","For example":"たとえば","On the other hand":"その一方で"}},
+  {no:23,kind:"cont",k:"saves nutrients from its leaves",d:["grows new leaves quickly","drinks more water from the ground","produces more chlorophyll"],
+   clue:"trees take useful nutrients out of them and store them for the next spring",
+   e:"次の文に「葉が落ちる前に、木は葉から役に立つ養分を取り出し、次の春のためにたくわえる」とあり、さらに「この作業を終える時間をかせぐ」と続きます。produces more chlorophyll は、第1段落の「秋にはクロロフィルを作るのをやめる」と合いません。",
+   m:{"saves nutrients from its leaves":"葉から養分をたくわえる","grows new leaves quickly":"新しい葉をすばやく育てる","drinks more water from the ground":"地面から水をもっと吸い上げる","produces more chlorophyll":"クロロフィルをもっと作る"}}
+ ]}
+);
+
+/* ===== 大問3 長文の内容一致（すべて書き下ろし）=====
+   1回分＝A：Eメール（3問）＋B：説明文（5問）。mail はEメールのヘッダー。
+   clue：正解の根拠になる部分（本文の文字列そのまま） m：選択肢の和訳  qj：質問の和訳 */
+var RP=[
+{id:"R1A",set:1,part:"A",kind:"mail",
+ mail:{from:"Linda Carter <lcarter@greenbay-center.org>",to:"Kenta Mori <kmori@quickmail.com>",date:"June 3",subject:"Beach cleanup on Saturday"},
+ paras:[
+  "Dear Kenta,",
+  "Thank you for signing up for our beach cleanup event this Saturday. I'm writing because there has been a change to the plan. We were going to meet at the north parking lot, but that area will be closed for road repairs. Instead, we will meet in front of the Sunset Café, which is about five minutes away on foot. The starting time is still 9 a.m.",
+  "We will provide gloves, trash bags, and drinks for all volunteers. However, the weather report says it will be very sunny and hot, so please bring a hat and plenty of sunscreen. Last year, several volunteers got sunburned because they did not expect the sun to be so strong in the morning.",
+  "Finally, we are looking for a few people to help us sort the trash after the event. This will take about an hour, and those who help will receive free lunch tickets for the café. If you are interested, please reply to this email by Thursday so that we can order the right number of lunches.",
+  "Best regards,\nLinda Carter\nGreenbay Community Center"],
+ ja:[
+  "ケンタさん",
+  "今週土曜日の海岸清掃イベントにお申しこみいただき、ありがとうございます。予定に変更があったので、ご連絡します。北側の駐車場に集合する予定でしたが、その場所は道路工事のため閉鎖されます。かわりに、歩いて5分ほどのサンセット・カフェの前に集合します。開始時刻は午前9時のままです。",
+  "ボランティアの皆さんには、手ぶくろとごみぶくろ、飲み物を用意します。ただし、天気予報によると当日はとても晴れて暑くなるので、帽子と日焼け止めをたっぷり持ってきてください。昨年は、朝からこんなに日差しが強いと思わず、日焼けしてしまったボランティアが何人かいました。",
+  "最後に、イベントのあとでごみの分別を手伝ってくれる人を何人かさがしています。1時間ほどかかりますが、手伝ってくれた人にはカフェの無料ランチ券をお渡しします。興味があれば、ランチを正しい数だけ注文できるように、木曜日までにこのメールに返信してください。",
+  "よろしくお願いします。\nリンダ・カーター\nグリーンベイ・コミュニティセンター"],
+ qs:[
+  {no:24,q:"Why will the volunteers meet in front of the Sunset Café?",qj:"ボランティアはなぜサンセット・カフェの前に集合するのか。",
+   k:"The parking lot will be closed for road work.",d:["The café will give all volunteers free drinks.","The starting time of the event has been changed.","The north beach is too dirty to clean this year."],
+   clue:"that area will be closed for road repairs",
+   e:"第2段落に「北側の駐車場は道路工事のため閉鎖される。かわりにカフェの前に集合する」とあります。road repairs が road work に言いかえられています。開始時刻は「9時のまま」なので、2つ目の選択肢は本文と逆です。",
+   m:{"The parking lot will be closed for road work.":"駐車場が道路工事で閉鎖されるから。","The café will give all volunteers free drinks.":"カフェがボランティア全員に無料の飲み物をくれるから。","The starting time of the event has been changed.":"イベントの開始時刻が変わったから。","The north beach is too dirty to clean this year.":"今年は北側の海岸がよごれすぎていてそうじできないから。"}},
+  {no:25,q:"Linda asks Kenta to bring a hat because",qj:"リンダがケンタに帽子を持ってくるようたのんでいるのは、",
+   k:"it will likely be sunny and hot that day.",d:["the center does not have enough gloves for everyone.","volunteers will work at the beach until late afternoon.","a photo of all the volunteers will be taken."],
+   clue:"the weather report says it will be very sunny and hot",
+   e:"第3段落に「天気予報によると、とても晴れて暑くなるので、帽子と日焼け止めを持ってきて」とあります。手ぶくろはセンターが用意するので、1つ目の選択肢は合いません。",
+   m:{"it will likely be sunny and hot that day.":"当日はおそらく晴れて暑くなるから。","the center does not have enough gloves for everyone.":"センターには全員分の手ぶくろがないから。","volunteers will work at the beach until late afternoon.":"ボランティアは夕方近くまで海岸で作業するから。","a photo of all the volunteers will be taken.":"ボランティア全員の写真をとるから。"}},
+  {no:26,q:"What should Kenta do if he wants to help sort the trash?",qj:"ごみの分別を手伝いたい場合、ケンタは何をすべきか。",
+   k:"Reply to Linda's email by Thursday.",d:["Buy a lunch ticket at the café before Thursday.","Arrive at the beach an hour early.","Call the café to order his lunch."],
+   clue:"please reply to this email by Thursday",
+   e:"第4段落に「興味があれば、木曜日までにこのメールに返信して」とあります。ランチ券は手伝った人に無料で配られるので、買う必要はありません。本文に出てくる lunch や café だけで選ばないようにしましょう。",
+   m:{"Reply to Linda's email by Thursday.":"木曜日までにリンダのメールに返信する。","Buy a lunch ticket at the café before Thursday.":"木曜日までにカフェでランチ券を買う。","Arrive at the beach an hour early.":"1時間早く海岸に着く。","Call the café to order his lunch.":"カフェに電話してランチを注文する。"}}
+ ]},
+{id:"R1B",set:1,part:"B",kind:"text",title:"The Barcode",
+ paras:[
+  "Today, almost every product in a store has a barcode, a pattern of black and white lines. The idea began in the late 1940s. A store owner asked a university in Philadelphia for a way to record product information automatically at the checkout. A graduate student named Bernard Silver heard about this request and shared it with his friend Norman Joseph Woodland.",
+  "Woodland thought about the problem for months. One day, while sitting on a beach, he drew the dots and dashes of Morse code in the sand with his fingers. When he pulled his fingers toward himself, the dots and dashes became thin and thick lines. He realized that lines of different widths could carry information, just like Morse code. Woodland and Silver received a patent for their idea in 1952.",
+  "However, the idea was not put into practical use for more than twenty years. At that time, there was no cheap and reliable machine to read the lines. Things changed when lasers and small computers became available. In 1974, a pack of chewing gum became the first product to be scanned with a barcode at a supermarket in Ohio.",
+  "Barcodes brought big changes to stores. Cashiers no longer had to type the price of each item, so customers could check out faster and with fewer mistakes. Store owners could also see which products were selling well and order more before they ran out. Today, barcodes are used not only in stores but also in hospitals, airports, and delivery services."],
+ ja:[
+  "今日、店のほとんどすべての商品にはバーコードがついている。黒と白の線の模様だ。そのアイデアは1940年代の終わりに始まった。ある店主が、レジで商品の情報を自動で記録する方法はないかと、フィラデルフィアの大学にたずねた。バーナード・シルバーという大学院生がこの依頼のことを聞き、友人のノーマン・ジョセフ・ウッドランドに伝えた。",
+  "ウッドランドは何か月もこの問題を考えた。ある日、浜辺にすわっているとき、彼は指で砂にモールス信号の点と線をかいた。指を手前に引くと、点と線は細い線と太い線になった。彼は、太さのちがう線でも、モールス信号と同じように情報を伝えられると気づいた。ウッドランドとシルバーは、1952年にこのアイデアの特許を取った。",
+  "しかし、このアイデアが実際に使われるまでには20年以上かかった。当時は、線を読み取る安くて信頼できる機械がなかったのだ。レーザーと小型のコンピューターが使えるようになって、状況が変わった。1974年、オハイオ州のスーパーで、チューインガム1パックが、バーコードで読み取られた最初の商品になった。",
+  "バーコードは店に大きな変化をもたらした。レジ係は商品1つ1つの値段を打ちこむ必要がなくなり、客はより速く、まちがいも少なく会計できるようになった。店主も、どの商品がよく売れているかがわかり、売り切れる前に追加で注文できるようになった。今日、バーコードは店だけでなく、病院や空港、配送サービスでも使われている。"],
+ qs:[
+  {no:27,q:"Bernard Silver became interested in the problem because",qj:"バーナード・シルバーがこの問題に興味をもったのは、",
+   k:"he heard about a request from a store owner.",d:["his friend asked him to help with a school project.","he worked as a cashier at a supermarket.","a university asked students to design a new store."],
+   clue:"heard about this request",
+   e:"第1段落に「ある店主が商品の情報を自動で記録する方法を大学にたずね、シルバーがこの依頼のことを聞いた」とあります。友人に伝えたのはシルバーのほうなので、1つ目の選択肢は逆です。",
+   m:{"he heard about a request from a store owner.":"店主からの依頼のことを聞いたから。","his friend asked him to help with a school project.":"友人が学校の課題を手伝うようにたのんだから。","he worked as a cashier at a supermarket.":"スーパーでレジ係として働いていたから。","a university asked students to design a new store.":"大学が学生に新しい店を設計するようにたのんだから。"}},
+  {no:28,q:"How did Woodland get the idea for the barcode?",qj:"ウッドランドはどのようにしてバーコードのアイデアを得たか。",
+   k:"He drew Morse code in the sand.",d:["He watched cashiers type prices at a busy store.","He studied the lines of waves on a beach.","He read a book about lasers and computers."],
+   clue:"he drew the dots and dashes of Morse code in the sand with his fingers",
+   e:"第2段落に「指で砂にモールス信号をかき、指を引くと点と線が細い線と太い線になった」とあります。beach（浜辺）は本文に出てきますが、波の線を研究したわけではありません。",
+   m:{"He drew Morse code in the sand.":"砂にモールス信号をかいた。","He watched cashiers type prices at a busy store.":"こんでいる店でレジ係が値段を打ちこむのを見た。","He studied the lines of waves on a beach.":"浜辺の波の線を研究した。","He read a book about lasers and computers.":"レーザーとコンピューターについての本を読んだ。"}},
+  {no:29,q:"Why was the barcode not used for many years?",qj:"バーコードはなぜ長年使われなかったのか。",
+   k:"There was no cheap machine that could read the lines well.",d:["Store owners did not want to change their checkout systems.","The patent did not allow other companies to use the idea.","Customers thought that the lines on products looked strange."],
+   clue:"there was no cheap and reliable machine to read the lines",
+   e:"第3段落に「当時は、線を読み取る安くて信頼できる機械がなかった」とあります。reliable（信頼できる）が could read the lines well（線をうまく読み取れる）に言いかえられています。",
+   m:{"There was no cheap machine that could read the lines well.":"線をうまく読み取れる安い機械がなかったから。","Store owners did not want to change their checkout systems.":"店主がレジのしくみを変えたがらなかったから。","The patent did not allow other companies to use the idea.":"特許のせいでほかの会社がアイデアを使えなかったから。","Customers thought that the lines on products looked strange.":"客が商品の線を変だと思ったから。"}},
+  {no:30,q:"What happened in 1974?",qj:"1974年に何が起きたか。",
+   k:"A product was scanned with a barcode in a store for the first time.",d:["Woodland and Silver received a patent for the barcode.","A supermarket in Ohio started to sell a new kind of chewing gum.","Lasers and small computers were used in hospitals for the first time."],
+   clue:"In 1974, a pack of chewing gum became the first product to be scanned with a barcode",
+   e:"第3段落に「1974年、チューインガムがバーコードで読み取られた最初の商品になった」とあります。特許を取ったのは1952年です。年号の問題は、その年が出てくる文をさがして確かめましょう。",
+   m:{"A product was scanned with a barcode in a store for the first time.":"店で初めて商品がバーコードで読み取られた。","Woodland and Silver received a patent for the barcode.":"ウッドランドとシルバーがバーコードの特許を取った。","A supermarket in Ohio started to sell a new kind of chewing gum.":"オハイオ州のスーパーが新しい種類のチューインガムを売り始めた。","Lasers and small computers were used in hospitals for the first time.":"病院で初めてレーザーと小型コンピューターが使われた。"}},
+  {no:31,q:"Which of the following statements is true?",qj:"次のうち、本文の内容と合うものはどれか。",
+   k:"Barcodes help store owners know which products are popular.",d:["Barcodes made cashiers type more prices than before.","Woodland got the idea while he was working at a supermarket.","Barcodes are now used only in large supermarkets."],
+   clue:"Store owners could also see which products were selling well",
+   e:"第4段落に「店主はどの商品がよく売れているかがわかるようになった」とあります。selling well が popular に言いかえられています。レジ係は値段を打ちこむ必要がなくなったので、1つ目は逆です。バーコードは病院や空港でも使われているので、3つ目も誤りです。",
+   m:{"Barcodes help store owners know which products are popular.":"バーコードは、店主がどの商品が人気かを知るのに役立つ。","Barcodes made cashiers type more prices than before.":"バーコードのせいで、レジ係は以前より多くの値段を打ちこむようになった。","Woodland got the idea while he was working at a supermarket.":"ウッドランドはスーパーで働いているときにアイデアを得た。","Barcodes are now used only in large supermarkets.":"バーコードは今では大きなスーパーでだけ使われている。"}}
+ ]},
+{id:"R2A",set:2,part:"A",kind:"mail",
+ mail:{from:"Daniel Kim <dkim@riversidecycles.com>",to:"Yuki Tanaka <ytanaka@mailport.jp>",date:"April 18",subject:"Your bicycle reservation"},
+ paras:[
+  "Dear Ms. Tanaka,",
+  "Thank you for reserving an electric bicycle for this Sunday. Unfortunately, I have some bad news. Yesterday, a customer had a small accident with the bicycle you reserved, and its battery was damaged. We have ordered a new battery, but it will not arrive until next Wednesday.",
+  "We have two other options for you. First, you can use one of our regular bicycles instead. They do not have a motor, but they are lighter and easier to carry onto trains. If you choose this option, we will give you a 30 percent discount. Second, you can change your reservation to next weekend, when the electric bicycle will be ready again.",
+  "Our shop is very busy on weekends in spring, so please let us know which option you prefer by Friday evening. If we do not hear from you by then, we will cancel your reservation and return your deposit.",
+  "Sincerely,\nDaniel Kim\nRiverside Cycles"],
+ ja:[
+  "タナカ様",
+  "今週日曜日に電動自転車をご予約いただき、ありがとうございます。残念ながら、よくないお知らせがあります。昨日、ほかのお客様がご予約の自転車で小さな事故にあい、バッテリーがこわれてしまいました。新しいバッテリーを注文しましたが、来週の水曜日まで届きません。",
+  "ほかに2つの方法をご用意しています。1つ目は、かわりに当店のふつうの自転車をご利用いただくことです。モーターはついていませんが、軽くて電車に乗せやすいです。こちらをお選びいただいた場合は、30パーセント割引いたします。2つ目は、ご予約を来週末に変更することです。そのころには電動自転車がまた使えるようになります。",
+  "当店は春の週末はたいへんこみ合いますので、どちらがよいか金曜日の夕方までにお知らせください。それまでにご連絡がない場合は、ご予約を取り消し、予約金をお返しします。",
+  "よろしくお願いいたします。\nダニエル・キム\nリバーサイド・サイクルズ"],
+ qs:[
+  {no:24,q:"What problem does Daniel Kim write about?",qj:"ダニエル・キムはどんな問題について書いているか。",
+   k:"Ms. Tanaka's bicycle will not be ready on Sunday.",d:["Ms. Tanaka has not paid the deposit for her reservation yet.","The shop will be closed for repairs this weekend.","Another customer took the bicycle she wanted to use."],
+   clue:"its battery was damaged",
+   e:"第2段落に「予約の自転車のバッテリーがこわれ、新しいバッテリーは来週の水曜日まで届かない」とあります。つまり日曜日には使えません。ほかのお客様は事故にあっただけで、自転車を持っていったわけではありません。",
+   m:{"Ms. Tanaka's bicycle will not be ready on Sunday.":"タナカさんの自転車が日曜日に用意できない。","Ms. Tanaka has not paid the deposit for her reservation yet.":"タナカさんがまだ予約金をはらっていない。","The shop will be closed for repairs this weekend.":"店が修理のため今週末は休みになる。","Another customer took the bicycle she wanted to use.":"ほかの客が、彼女の使いたかった自転車を持っていった。"}},
+  {no:25,q:"If Ms. Tanaka chooses a regular bicycle, she will",qj:"タナカさんがふつうの自転車を選ぶと、",
+   k:"pay less than the usual price.",d:["need to buy a new battery.","have to come to the shop on Wednesday.","get a free train ticket."],
+   clue:"we will give you a 30 percent discount",
+   e:"第3段落に「こちらを選んだ場合は30パーセント割引する」とあります。discount（割引）が pay less than the usual price（ふだんより安くはらう）に言いかえられています。trains は「電車に乗せやすい」という話で、切符がもらえるわけではありません。",
+   m:{"pay less than the usual price.":"ふだんの値段より安くはらう。","need to buy a new battery.":"新しいバッテリーを買う必要がある。","have to come to the shop on Wednesday.":"水曜日に店に来なければならない。","get a free train ticket.":"無料の電車の切符をもらう。"}},
+  {no:26,q:"What will happen if Ms. Tanaka does not reply by Friday evening?",qj:"タナカさんが金曜日の夕方までに返事をしないと、どうなるか。",
+   k:"Her reservation will be canceled.",d:["She will get a regular bicycle.","Her reservation will move to next weekend.","She will have to pay an extra fee."],
+   clue:"we will cancel your reservation and return your deposit",
+   e:"第4段落に「それまでに連絡がない場合は、予約を取り消し、予約金を返す」とあります。2つの方法のどちらかに自動で決まるわけではありません。",
+   m:{"Her reservation will be canceled.":"予約が取り消される。","She will get a regular bicycle.":"ふつうの自転車になる。","Her reservation will move to next weekend.":"予約が来週末に移る。","She will have to pay an extra fee.":"追加の料金をはらわなければならない。"}}
+ ]},
+{id:"R2B",set:2,part:"B",kind:"text",title:"Sticky Notes",
+ paras:[
+  "Sticky notes are small pieces of paper that can be stuck on a page and removed easily. Their story began in 1968, when Spencer Silver, a scientist at the company 3M, was trying to make a very strong glue. Instead, he made a glue that was weak. It could stick things together, but they could be pulled apart without being damaged. Silver believed his glue could be useful, but for several years, nobody at the company found a good way to use it.",
+  "In 1974, another 3M worker, Art Fry, had a problem. He sang in a church choir, and the paper bookmarks that he put in his songbook kept falling out. Remembering Silver's glue, Fry put some on his bookmarks. They stayed in place and did not damage the pages when he removed them. Fry soon found that the notes were also useful for writing messages and sticking them on reports.",
+  "At first, however, the product did not sell well. When 3M tested it in a few cities in 1977, people did not understand what it was for. The company then decided to give away free samples in one city. Once people tried the notes, most of them wanted to buy more. In 1980, the product went on sale across the United States.",
+  "Today, sticky notes come in many colors and sizes, and they are sold all over the world. People use them in offices, schools, and homes to leave messages and organize ideas. Their story shows that a \"failed\" invention can become successful if someone finds the right way to use it."],
+ ja:[
+  "付せんは、ページにはりつけたり、かんたんにはがしたりできる小さな紙だ。その歴史は1968年に始まった。3M社の科学者スペンサー・シルバーが、とても強い接着剤を作ろうとしていたときのことだ。ところが、彼ができたのは弱い接着剤だった。物をくっつけることはできるが、こわさずに引きはがせてしまうのだ。シルバーはこの接着剤が役に立つと信じていたが、何年ものあいだ、社内でよい使い道を見つけた人はいなかった。",
+  "1974年、同じ3M社のアート・フライはこまっていた。彼は教会の聖歌隊で歌っていたが、歌の本にはさんだ紙のしおりがいつも落ちてしまうのだ。シルバーの接着剤を思い出したフライは、しおりにそれを付けてみた。しおりはその場にとどまり、はがしてもページをいためなかった。フライはまもなく、このメモがメッセージを書いて報告書にはるのにも便利だと気づいた。",
+  "しかし最初は、この商品はあまり売れなかった。1977年に3M社がいくつかの都市で試しに売ってみたとき、人々は何に使うものなのかわからなかった。そこで会社は、ある都市で無料の見本を配ることにした。一度使ってみると、ほとんどの人がもっと買いたがった。1980年、この商品はアメリカ全土で発売された。",
+  "今日、付せんにはいろいろな色や大きさがあり、世界中で売られている。人々は職場や学校、家庭で、メッセージを残したり考えを整理したりするのに使っている。付せんの歴史は、「失敗した」発明でも、だれかが正しい使い方を見つければ成功しうることを示している。"],
+ qs:[
+  {no:27,q:"What was Spencer Silver trying to do in 1968?",qj:"1968年、スペンサー・シルバーは何をしようとしていたか。",
+   k:"Make a glue that was very strong.",d:["Find a new use for paper bookmarks.","Make notes that could be removed easily.","Improve the songbooks used in churches."],
+   clue:"was trying to make a very strong glue",
+   e:"第1段落に「とても強い接着剤を作ろうとしていた」とあります。できたのは弱い接着剤でした。「かんたんにはがせるメモ」は結果としてできたもので、最初の目的ではありません。",
+   m:{"Make a glue that was very strong.":"とても強い接着剤を作る。","Find a new use for paper bookmarks.":"紙のしおりの新しい使い道を見つける。","Make notes that could be removed easily.":"かんたんにはがせるメモを作る。","Improve the songbooks used in churches.":"教会で使う歌の本を改良する。"}},
+  {no:28,q:"Art Fry used Silver's glue because",qj:"アート・フライがシルバーの接着剤を使ったのは、",
+   k:"his bookmarks often fell out of his songbook.",d:["his reports were too long for others to read.","he wanted to sell new bookmarks at his church.","Silver asked him to test it with the choir."],
+   clue:"the paper bookmarks that he put in his songbook kept falling out",
+   e:"第2段落に「歌の本にはさんだしおりがいつも落ちてしまう」とあり、それでシルバーの接着剤を思い出しました。kept falling out が often fell out に言いかえられています。",
+   m:{"his bookmarks often fell out of his songbook.":"しおりがよく歌の本から落ちたから。","his reports were too long for others to read.":"報告書が長すぎてほかの人が読めなかったから。","he wanted to sell new bookmarks at his church.":"教会で新しいしおりを売りたかったから。","Silver asked him to test it with the choir.":"シルバーが聖歌隊で試すようにたのんだから。"}},
+  {no:29,q:"When 3M first tested the product in 1977,",qj:"1977年に3M社が初めてこの商品を試しに売ったとき、",
+   k:"people were not sure how to use it.",d:["it sold out in only a few days.","the company gave free samples to everyone.","the notes damaged the pages of reports."],
+   clue:"people did not understand what it was for",
+   e:"第3段落に「人々は何に使うものなのかわからなかった」とあります。無料の見本を配ったのはそのあとで、しかも1つの都市だけです。",
+   m:{"people were not sure how to use it.":"人々はその使い方がよくわからなかった。","it sold out in only a few days.":"わずか数日で売り切れた。","the company gave free samples to everyone.":"会社が全員に無料の見本を配った。","the notes damaged the pages of reports.":"メモが報告書のページをいためた。"}},
+  {no:30,q:"What did 3M do to make the product popular?",qj:"この商品を人気にするために、3M社は何をしたか。",
+   k:"It let people in one city try the notes for free.",d:["It lowered the price of the notes by half for a month.","It made the notes in many different colors.","It asked churches to use them in songbooks."],
+   clue:"decided to give away free samples in one city",
+   e:"第3段落に「ある都市で無料の見本を配ることにした。一度使ってみると、ほとんどの人がもっと買いたがった」とあります。いろいろな色は「今日」の話なので、当時人気にした方法ではありません。",
+   m:{"It let people in one city try the notes for free.":"ある都市の人々に無料でメモを試してもらった。","It lowered the price of the notes by half for a month.":"1か月間、メモの値段を半分に下げた。","It made the notes in many different colors.":"メモをいろいろな色で作った。","It asked churches to use them in songbooks.":"教会に歌の本で使うようたのんだ。"}},
+  {no:31,q:"Which of the following statements is true?",qj:"次のうち、本文の内容と合うものはどれか。",
+   k:"Nobody used Silver's glue for several years at first.",d:["Fry invented a new kind of glue for his bookmarks.","Sticky notes were sold across the U.S. before 1977.","3M stopped selling sticky notes because they did not sell well."],
+   clue:"for several years, nobody at the company found a good way to use it",
+   e:"第1段落に「何年ものあいだ、社内でよい使い道を見つけた人はいなかった」とあります。接着剤を作ったのはシルバーで、フライはそれを使っただけです。全国で発売されたのは1980年です。",
+   m:{"Nobody used Silver's glue for several years at first.":"最初の数年間、シルバーの接着剤はだれにも使われなかった。","Fry invented a new kind of glue for his bookmarks.":"フライはしおりのために新しい接着剤を発明した。","Sticky notes were sold across the U.S. before 1977.":"付せんは1977年より前にアメリカ全土で売られていた。","3M stopped selling sticky notes because they did not sell well.":"売れなかったので、3M社は付せんの販売をやめた。"}}
+ ]}
+];
+
+/* ===== 大問4・5　ライティング（すべて書き下ろし）=====
+   type：sum＝要約（45〜55語）／op＝意見（80〜100語）
+   要約：paras＝本文、keys＝入れたい3つの内容　意見：topic、points、model（解答例） */
+var WT=[
+{id:"W-S1",type:"sum",title:"Robots in Restaurants",
+ paras:[
+  "Recently, more restaurants in Japan have started using robots to carry food to customers' tables. These robots move around the restaurant by themselves and avoid people and chairs. Many family restaurants now use them, especially at busy times such as lunch and dinner.",
+  "Why are restaurants using these robots? One reason is that it has become harder to find enough workers. Robots can carry heavy plates many times a day without getting tired. Also, staff members have more time to take orders and talk with customers, which can improve the service.",
+  "On the other hand, robots cause some problems. They are expensive to buy, so small restaurants cannot easily use them. In addition, some customers, especially elderly people, feel that the restaurant has become less friendly when food is brought by a machine instead of a person."],
+ keys:["何の話か：日本で、料理を運ぶロボットを使うレストランがふえている","利点：人手不足を補える。スタッフが接客に時間を使える","問題点：高価で小さな店は使いにくい。冷たく感じる客もいる"],
+ model:"More restaurants in Japan are using robots to bring food to tables. Because it is hard to find workers, robots help by carrying food without getting tired, and staff can spend more time serving customers. However, robots are costly for small restaurants, and some customers feel that restaurants become less friendly.",
+ modelJa:"日本では、料理をテーブルに運ぶのにロボットを使うレストランがふえている。働く人を見つけるのが難しいため、ロボットはつかれずに料理を運んで助けてくれ、スタッフは接客により多くの時間を使える。しかし、ロボットは小さなレストランには高価で、レストランが冷たく感じられるようになると思う客もいる。"},
+{id:"W-S2",type:"sum",title:"Shared Bicycles",
+ paras:[
+  "In many cities around the world, people can now rent bicycles from shared bicycle services. Users find a bicycle near them with a smartphone app, ride it to their destination, and leave it at a parking station there. They only pay for the time they use the bicycle.",
+  "Shared bicycles have several benefits. They are convenient for short trips, such as going from a train station to an office. Also, if more people ride bicycles instead of driving cars, there will be less traffic and less air pollution in the city.",
+  "However, there are also some problems. In some cities, users leave bicycles on sidewalks, which makes it difficult for people to walk. Moreover, the companies need to repair broken bicycles and move them to busy stations, and this costs a lot of money."],
+ keys:["何の話か：アプリで自転車を借り、使った時間だけはらうシェア自転車","利点：短い移動に便利。車がへり、渋滞や大気汚染がへる","問題点：歩道に放置される。修理や移動に費用がかかる"],
+ model:"Shared bicycle services let people rent bicycles with an app and pay only for the time they use them. They are useful for short trips and can reduce traffic and air pollution. However, some users leave bicycles on sidewalks, and repairing and moving the bicycles is expensive for the companies.",
+ modelJa:"シェア自転車のサービスでは、アプリで自転車を借り、使った時間の分だけはらえばよい。短い移動に便利で、渋滞や大気汚染をへらすこともできる。しかし、歩道に自転車を置いていく利用者もおり、自転車の修理や移動は会社にとって費用がかかる。"},
+{id:"W-S3",type:"sum",title:"A Four-Day Work Week",
+ paras:[
+  "Most companies ask their employees to work five days a week. However, some companies around the world have started to try a four-day work week. In this system, employees work only four days but receive the same pay as before.",
+  "Supporters say that this system has advantages. Employees can spend more time with their families or on their hobbies, so they feel less stressed. As a result, they often work more efficiently. Companies may also find it easier to hire new workers because the system attracts many job seekers.",
+  "Still, the system does not work for every company. For example, hospitals and stores need staff every day, so it is difficult for them to give everyone an extra day off. Some workers also say that they have to do too much work in four days and feel more tired."],
+ keys:["何の話か：同じ給料で週4日だけ働くしくみを試す会社がある","利点：ストレスがへって効率よく働ける。人をやといやすい","問題点：毎日人が必要な仕事には難しい。かえってつかれる人もいる"],
+ model:"Some companies are trying a four-day work week with the same pay as before. Workers can relax more, which helps them work efficiently, and companies can hire people more easily. However, the system is difficult for businesses that need staff every day, and some workers feel more tired.",
+ modelJa:"同じ給料のまま週4日勤務を試している会社がある。働く人はよりゆっくりでき、それが効率よく働くことにつながり、会社も人をやといやすくなる。しかし、このしくみは毎日人手が必要な仕事には難しく、かえってつかれを感じる人もいる。"},
+{id:"W-S4",type:"sum",title:"Tablets at School",
+ paras:[
+  "In Japan, many schools now give each student a tablet computer. Students use them in class to look up information, watch videos, and share their ideas with classmates. Some students also use them at home to do their homework.",
+  "Tablets can make learning more effective. Students can find a lot of information quickly and learn at their own speed. Teachers can also check each student's answers right away and give advice to those who need help.",
+  "However, some people worry about using tablets too much. Looking at screens for a long time may hurt students' eyes. In addition, some parents are concerned that students write by hand less often, so they may not remember how to write kanji correctly."],
+ keys:["何の話か：日本の多くの学校が、生徒1人に1台タブレットを配っている","利点：情報をすぐ調べ、自分のペースで学べる。先生がすぐ答えを確かめて助言できる","問題点：目に悪いかもしれない。手で書くことがへり、漢字を忘れるかもしれない"],
+ model:"Many Japanese schools give students tablets to use in class and at home. Tablets help students find information quickly and study at their own pace, and teachers can check answers and help students. However, looking at screens too much may hurt their eyes, and students may forget how to write kanji.",
+ modelJa:"日本の多くの学校では、授業や家庭で使うタブレットを生徒に配っている。タブレットのおかげで、生徒は情報をすばやく見つけて自分のペースで学ぶことができ、先生も答えを確かめて生徒を助けることができる。しかし、画面を見すぎると目をいためるかもしれず、生徒が漢字の書き方を忘れるかもしれない。"},
+
+{id:"W-O1",type:"op",title:"Buses without drivers",
+ topic:"Today, some towns are testing buses that drive without a driver. Do you think these buses will become common in Japan in the future?",
+ points:["Labor shortage","Technology","Safety"],
+ model:"I think buses without drivers will become common in Japan in the future. I have two reasons. First, there are not enough bus drivers, especially in rural areas. Self-driving buses can keep bus services running even when companies cannot find drivers. This is important for elderly people who cannot drive. Second, technology is improving quickly. Cameras and sensors are getting better every year, so these buses will become safer and cheaper to use. For these reasons, I believe that self-driving buses will become common in Japan.",
+ modelJa:"私は、運転手のいないバスが将来日本でふつうになると思う。理由は2つある。1つ目に、とくに地方ではバスの運転手が足りない。自動運転バスなら、会社が運転手を見つけられなくてもバスの運行を続けられる。これは、車を運転できないお年寄りにとって大切だ。2つ目に、技術は急速に進歩している。カメラやセンサーは毎年よくなっているので、こうしたバスはより安全で安く使えるようになるだろう。これらの理由から、自動運転バスは日本でふつうになると私は考える。"},
+{id:"W-O2",type:"op",title:"Smartphones at school",
+ topic:"Do you think high school students should be allowed to use smartphones at school?",
+ points:["Study","Concentration","Safety"],
+ model:"I do not think high school students should be allowed to use smartphones at school. I have two reasons. First, smartphones make it hard for students to concentrate. If students can use them freely, many of them will check social media or play games during class. Teachers would also have to spend time warning them. Second, smartphones can cause problems among students. For example, some students may take photos of others without permission and post them online. For these reasons, I believe smartphones should not be used at school.",
+ modelJa:"私は、高校生が学校でスマートフォンを使うのを認めるべきではないと思う。理由は2つある。1つ目に、スマートフォンがあると生徒は集中しにくくなる。自由に使えるなら、多くの生徒が授業中にSNSを見たりゲームをしたりするだろう。先生も注意するのに時間を取られてしまう。2つ目に、スマートフォンは生徒のあいだで問題を起こすことがある。たとえば、許可なくほかの人の写真をとってネットにのせる生徒がいるかもしれない。これらの理由から、学校でスマートフォンを使うべきではないと私は考える。"},
+{id:"W-O3",type:"op",title:"Working from home",
+ topic:"Do you think more companies should let their employees work from home?",
+ points:["Time","Cost","Communication"],
+ model:"I think more companies should let their employees work from home. I have two reasons. First, working from home saves time. Workers do not have to spend hours on crowded trains, so they can use that time to rest or to work. They can also take care of their children more easily. Second, companies can save money. If fewer people come to the office, companies can use smaller offices and pay less for electricity. For these reasons, I believe more companies should allow their workers to work from home.",
+ modelJa:"私は、もっと多くの会社が社員に在宅勤務を認めるべきだと思う。理由は2つある。1つ目に、在宅勤務は時間の節約になる。こんだ電車で何時間も過ごさなくてよいので、その時間を休んだり働いたりするのに使える。子どもの世話もしやすくなる。2つ目に、会社はお金を節約できる。オフィスに来る人がへれば、会社はより小さなオフィスを使い、電気代も少なくてすむ。これらの理由から、もっと多くの会社が在宅勤務を認めるべきだと私は考える。"},
+{id:"W-O4",type:"op",title:"Buying local products",
+ topic:"Do you think people should buy more food that is produced in their own area?",
+ points:["Environment","Price","Local economy"],
+ model:"I think people should buy more food that is produced in their own area. I have two reasons. First, it is good for the environment. Local food does not need to be carried a long way by trucks or planes, so less fuel is used. Second, it helps the local economy. When people buy food from local farmers, the money stays in the area, and farmers can continue their work. This also creates more jobs in the area. For these reasons, I believe people should choose more local food.",
+ modelJa:"私は、人々は自分の地域で作られた食べ物をもっと買うべきだと思う。理由は2つある。1つ目に、それは環境によい。地元の食べ物はトラックや飛行機で遠くまで運ぶ必要がないので、使う燃料が少なくてすむ。2つ目に、それは地域の経済を助ける。人々が地元の農家から食べ物を買えば、お金がその地域に残り、農家も仕事を続けられる。それは地域の仕事をふやすことにもなる。これらの理由から、人々はもっと地元の食べ物を選ぶべきだと私は考える。"},
+{id:"W-O5",type:"op",title:"Volunteer work for students",
+ topic:"Do you think high school students should be required to do volunteer work?",
+ points:["Experience","Time","Community"],
+ model:"I think high school students should be required to do volunteer work. I have two reasons. First, students can gain valuable experiences. By helping elderly people or cleaning parks, they can learn skills that they cannot learn in class, such as teamwork. Such experiences will also be useful when they look for jobs in the future. Second, volunteer work helps local communities. Many towns need help with events and other activities, and students can support them. For these reasons, I believe that volunteer work should be required for high school students.",
+ modelJa:"私は、高校生にボランティア活動を義務づけるべきだと思う。理由は2つある。1つ目に、生徒は貴重な経験ができる。お年寄りを手伝ったり公園をそうじしたりすることで、チームワークのような、授業では学べない力を身につけられる。そうした経験は、将来仕事をさがすときにも役立つだろう。2つ目に、ボランティア活動は地域の役に立つ。多くの町ではイベントなどの活動に手助けが必要で、生徒がそれを支えることができる。これらの理由から、高校生にボランティア活動を義務づけるべきだと私は考える。"},
+{id:"W-O6",type:"op",title:"Using less cash",
+ topic:"Do you think people will use cash less often in the future?",
+ points:["Convenience","Safety","Technology"],
+ model:"I think people will use cash less often in the future. I have two reasons. First, paying without cash is more convenient. People can pay quickly with their smartphones or cards, and they do not need to carry coins. This saves time at stores and stations. Second, it can be safer. If people lose their wallets, they may lose all the money inside, but cards and smartphones can be stopped and protected with passwords. For these reasons, I believe that cash will be used less often.",
+ modelJa:"私は、将来人々が現金を使う回数はへると思う。理由は2つある。1つ目に、現金を使わずにはらうほうが便利だ。スマートフォンやカードですばやくはらえ、小銭を持ち歩く必要もない。そのため、店や駅で時間の節約になる。2つ目に、そのほうが安全なこともある。財布をなくすと中のお金はすべてなくなるかもしれないが、カードやスマートフォンは止めることができ、パスワードで守られている。これらの理由から、現金が使われる回数はへると私は考える。"}
 ];
 
 /* ===== リスニング（すべて書き下ろし）=====
@@ -2570,7 +3128,7 @@ var SQ=[{"t": "環境", "p": "A", "en": "Do you think people should use fewer pl
 var KEY="eiken2-training-v1";
 var CAT={w:"単語",i:"熟語"};
 var POSL={"動":"動詞","名":"名詞","形":"形容詞","副":"副詞"};
-var NSET=10;
+var NSET=11;
 
 /* 問題ID（記録用）：区分＋通し番号。問題は末尾にだけ追加すること */
 (function(){var n={};Q.forEach(function(q){n[q.set]=(n[q.set]||0)+1;q.no=n[q.set];q.id="r"+(q.set<10?"0":"")+q.set+"-"+(q.no<10?"0":"")+q.no;});})();
@@ -2589,10 +3147,226 @@ var TYPEL={"動自":"熟語（目的語をとらない動詞句）","動他":"�
 var VEXCL={};("bucket button hobby habit tunnel pilot poem fog fur insect season minute century reason opinion friendship "+
   "borrow collect invite explain expect polite crowded carefully quietly loudly recently relax repeat reach compare paint "+
   "empty deeply freely nearly politely silently photographer bullet cabinet rhythm vitamin fold sort pray "+
-  "adventure advice contest invention recipe temperature promise graduate invent absent peaceful").split(" ").forEach(function(w){VEXCL[w]=1;});
+  "weather laugh wave adventure advice contest invention recipe temperature promise graduate invent absent peaceful").split(" ").forEach(function(w){VEXCL[w]=1;});
 ["at first","look forward to","a cup of"].forEach(function(w){VEXCL[w]=1;});
 var LID={};if(typeof LP!=="undefined")LP.forEach(function(p){p.blanks.forEach(function(b){LID[p.id+"-"+b.no]=1;});});
+
+/* ---------- 第3回（2026年度第2回の傾向に合わせて書き下ろし）----------
+   第1部：お店・電話・予約の変更・友人や同僚との相談など、身近な場面の対話
+   第2部：アナウンス4題（駅・動物園・電話の案内・遊園地）と、人物の話11題 */
+hq({set:3,part:1,no:1,L:[["M","Hi. I'd like to renew my library card. It expired last month."],["W","Sure. Do you have anything that shows your current address?"],["M","Here's my driver's license. Oh, and can I borrow these three DVDs today?"],["W","Yes. As soon as your card is renewed, you can take them home."]],
+ ja:["こんにちは。図書館カードを更新したいのですが。先月で期限が切れてしまって。","かしこまりました。今の住所がわかるものはお持ちですか。","運転免許証があります。あ、それから今日このDVDを3枚借りられますか。","はい。カードの更新がすんだら、すぐにお持ち帰りいただけます。"],
+ q:"What is one thing the man wants to do?",qja:"男性がしたいことの1つは何か。",
+ k:"Get his library card renewed.",d:["Change the address on his license.","Return some DVDs he borrowed.","Get a new driver's license today."],
+ m:{"Get his library card renewed.":"図書館カードを更新してもらう。","Change the address on his license.":"免許証の住所を変更する。","Return some DVDs he borrowed.":"借りたDVDを返す。","Get a new driver's license today.":"今日、新しい運転免許証をもらう。"},
+ clue:"I'd like to renew my library card.",para:["I'd like to renew my library card","Get his library card renewed"],
+ e:"最初の発言の I'd like to ～（～したい）が、男性の用件です。DVDは「借りたい」のであって、返すのではありません。driver's license は住所を確かめるために見せただけです。"});
+hq({set:3,part:1,no:2,L:[["W","Hi, Mike. It's Lucy. Are you coming to soccer practice this evening?"],["M","Hi, Lucy. Actually, I hurt my ankle yesterday, so I'm going to see a doctor instead."],["W","Oh, no! I hope it's not serious."],["M","Me too. I've already told the coach, so don't worry."]],
+ ja:["もしもし、マイク。ルーシーよ。今日の夕方のサッカーの練習には来る？","やあ、ルーシー。実は昨日足首をけがしちゃって、かわりに病院に行くんだ。","まあ！ひどくないといいけど。","ぼくもそう思う。コーチにはもう伝えてあるから、心配しないで。"],
+ q:"What do we learn about the boy?",qja:"男の子について何がわかるか。",
+ k:"He will miss practice today.",d:["He hurt his ankle at practice today.","He wants Lucy to talk to the coach.","He will call Lucy after he sees a doctor."],
+ m:{"He will miss practice today.":"今日の練習を休む。","He hurt his ankle at practice today.":"今日の練習中に足首をけがした。","He wants Lucy to talk to the coach.":"ルーシーにコーチと話してほしい。","He will call Lucy after he sees a doctor.":"医者にみてもらったあと、ルーシーに電話する。"},
+ clue:"I'm going to see a doctor instead",para:["I'm going to see a doctor instead","He will miss practice today"],
+ e:"instead（そのかわりに）は「練習に行くかわりに」という意味なので、今日は練習を休むことがわかります。けがをしたのは yesterday（昨日）です。コーチには自分で伝えてあります。"});
+hq({set:3,part:1,no:3,L:[["M","Thank you for calling the Seaside Hotel. How may I help you?"],["W","Hi. I have a reservation for two nights starting this Friday, but my business trip was moved to next week."],["M","I see. Would you like to cancel your reservation?"],["W","No. Could you move it to the same days next week instead?"]],
+ ja:["シーサイドホテルにお電話いただき、ありがとうございます。ご用件をうかがいます。","こんにちは。今週の金曜日から2泊の予約をしているのですが、出張が来週に変わってしまって。","かしこまりました。ご予約をキャンセルなさいますか。","いいえ。かわりに、来週の同じ曜日に移してもらえますか。"],
+ q:"What does the woman want to do?",qja:"女性は何をしたいのか。",
+ k:"Change the dates of her stay.",d:["Cancel her business trip.","Stay at the hotel for one more night.","Book a room for this Friday only."],
+ m:{"Change the dates of her stay.":"宿泊する日を変更する。","Cancel her business trip.":"出張を取りやめる。","Stay at the hotel for one more night.":"ホテルにもう1泊する。","Book a room for this Friday only.":"今週の金曜日だけ部屋を予約する。"},
+ clue:"Could you move it to the same days next week instead?",para:["move it to the same days next week","Change the dates of her stay"],
+ e:"ホテルの人に「キャンセルしますか」と聞かれて No と答え、来週に移してほしいとたのんでいます。cancel は本文に出てくる語ですが、女性の希望ではありません。"});
+hq({set:3,part:1,no:4,L:[["M","Excuse me. I live in the apartment below yours."],["W","Oh, hello. Is something wrong?"],["M","Well, your music has been really loud late at night. I have to get up at five for work."],["W","I'm so sorry. I didn't know you could hear it. I'll use headphones from now on."]],
+ ja:["すみません。おたくの下の部屋に住んでいる者です。","あら、こんにちは。何かありましたか。","実は、夜おそくに音楽の音がとても大きくて。仕事で5時に起きなければならないんです。","本当にごめんなさい。聞こえているとは知りませんでした。これからはヘッドホンを使います。"],
+ q:"Why is the man upset with the woman?",qja:"男性はなぜ女性に腹を立てているのか。",
+ k:"Her music is too loud at night.",d:["She parks in front of his apartment.","She woke him up at five this morning.","She never says hello when they meet."],
+ m:{"Her music is too loud at night.":"夜、彼女の音楽の音が大きすぎる。","She parks in front of his apartment.":"彼のアパートの前に車をとめる。","She woke him up at five this morning.":"今朝5時に彼を起こした。","She never says hello when they meet.":"会ってもあいさつをしない。"},
+ clue:"your music has been really loud late at night",para:["your music has been really loud late at night","Her music is too loud at night"],
+ e:"男性は「夜おそくに音楽の音が大きい」と苦情を言っています。five は「仕事のために5時に起きる」という話で、今朝5時に起こされたわけではありません。"});
+hq({set:3,part:1,no:5,L:[["W","Kevin, did you get tickets for the boat tour at the fireworks festival?"],["M","Not yet. The website says they're sold out, but there might be some left at the station."],["W","Really? I thought you could only buy them online."],["M","No. The station sells some on the day of the festival, but you have to get there early."]],
+ ja:["ケビン、花火大会のボートツアーのチケットは取れた？","まだなんだ。ウェブサイトでは売り切れになっているけど、駅にはまだ残っているかもしれない。","本当？ネットでしか買えないと思っていたわ。","ちがうよ。お祭りの当日に駅でも少し売るんだ。でも、早く行かないといけないけどね。"],
+ q:"What does the man say about the tickets?",qja:"男性はチケットについて何と言っているか。",
+ k:"The station may still have some.",d:["He bought them online last week.","They are cheaper on the website.","They cannot be bought on the day."],
+ m:{"The station may still have some.":"駅にはまだあるかもしれない。","He bought them online last week.":"先週ネットで買った。","They are cheaper on the website.":"ウェブサイトのほうが安い。","They cannot be bought on the day.":"当日は買えない。"},
+ clue:"there might be some left at the station",para:["there might be some left at the station","The station may still have some"],
+ e:"might（～かもしれない）が may に言いかえられています。男性はまだチケットを持っていないので、1つ目は誤りです。当日に駅で売るので、4つ目は本文と逆です。"});
+hq({set:3,part:1,no:6,L:[["M","Lisa, you're moving this weekend, right? Do you need any help?"],["W","Thanks, Greg. Could you lend me your car? I have a lot of boxes."],["M","Sorry, my car is too small for that. But I can help you pack on Friday night."],["W","That would be great. I'll rent a truck for the boxes, then."]],
+ ja:["リサ、今週末に引っこすんだよね？何か手伝おうか。","ありがとう、グレッグ。車を貸してもらえる？箱がたくさんあるの。","ごめん、ぼくの車はそれには小さすぎるんだ。でも、金曜日の夜なら荷造りを手伝えるよ。","それはすごく助かる。じゃあ、箱はトラックを借りて運ぶわ。"],
+ q:"How will the man help the woman?",qja:"男性はどのように女性を手伝うか。",
+ k:"By packing things with her.",d:["By lending her his car.","By renting a truck for her.","By carrying her boxes on the weekend."],
+ m:{"By packing things with her.":"いっしょに荷造りをすることで。","By lending her his car.":"車を貸すことで。","By renting a truck for her.":"彼女のためにトラックを借りることで。","By carrying her boxes on the weekend.":"週末に箱を運ぶことで。"},
+ clue:"I can help you pack on Friday night",para:["I can help you pack","By packing things with her"],
+ e:"車は小さすぎて貸せないかわりに、荷造りを手伝うと申し出ています。トラックを借りるのは女性のほうです。最初の頼みが断られ、別の手伝いに変わる流れに注意しましょう。"});
+hq({set:3,part:1,no:7,L:[["W","Excuse me. I'm looking for a cover for this tablet."],["M","I'm afraid we only have covers for smaller tablets right now. More will arrive next Monday."],["W","Oh. Could you call me when they come in?"],["M","Of course. Please write your phone number on this card."]],
+ ja:["すみません。このタブレットのカバーをさがしているのですが。","あいにく、今はもっと小さいタブレット用のカバーしかないんです。来週の月曜日にまた入荷します。","そうですか。入ったら電話してもらえますか。","もちろんです。このカードに電話番号を書いてください。"],
+ q:"What is the woman looking for?",qja:"女性は何をさがしているか。",
+ k:"A case for her tablet.",d:["A smaller tablet.","A new phone card.","A store that is open on Mondays."],
+ m:{"A case for her tablet.":"タブレットのケース。","A smaller tablet.":"もっと小さいタブレット。","A new phone card.":"新しいテレホンカード。","A store that is open on Mondays.":"月曜日に開いている店。"},
+ clue:"I'm looking for a cover for this tablet.",para:["a cover for this tablet","A case for her tablet"],
+ e:"最初の発言に答えがあります。cover が case に言いかえられています。smaller、Monday、card はどれも本文に出てくる語を使ったわなです。"});
+hq({set:3,part:1,no:8,L:[["M","Amy, did you hear that Ms. Clark is sick today?"],["W","Yes. The science test has been moved to next Thursday."],["M","Great. That gives me more time to study. I was worried about the questions on plants."],["W","Me too. Do you want to study together at the library tomorrow?"]],
+ ja:["エイミー、クラーク先生が今日病気で休みだって聞いた？","うん。理科のテストは来週の木曜日に変わったよ。","よかった。勉強する時間がふえる。植物の問題が心配だったんだ。","私も。明日、図書館でいっしょに勉強しない？"],
+ q:"What does Amy tell the boy?",qja:"エイミーは男の子に何を伝えているか。",
+ k:"The test will be held later.",d:["Ms. Clark will teach about plants.","She has finished studying for the test.","The library will be closed tomorrow."],
+ m:{"The test will be held later.":"テストはあとで行われる。","Ms. Clark will teach about plants.":"クラーク先生が植物について教える。","She has finished studying for the test.":"テスト勉強を終えた。","The library will be closed tomorrow.":"明日は図書館が休みだ。"},
+ clue:"The science test has been moved to next Thursday.",para:["has been moved to next Thursday","will be held later"],
+ e:"テストが来週の木曜日に「移された」ことを、「あとで行われる」と言いかえています。エイミーも植物の問題が心配なので、勉強はまだ終わっていません。"});
+hq({set:3,part:1,no:9,L:[["W","Hello, Green Garden Shop. This is Donna speaking."],["M","Hi. This is Paul Wilson. I ordered a lemon tree from your website, and it arrived this morning. But some of the branches are broken."],["W","I'm very sorry, Mr. Wilson. We'll send you a new one right away."],["M","Thank you. I'll be away this weekend, though, so please send it after Monday."]],
+ ja:["はい、グリーン・ガーデン・ショップのドナです。","もしもし、ポール・ウィルソンです。そちらのウェブサイトでレモンの木を注文して、今朝届いたんですが、枝が何本か折れていたんです。","たいへん申しわけございません、ウィルソン様。すぐに新しいものをお送りします。","ありがとう。ただ、今週末は出かけているので、月曜日以降に送ってください。"],
+ q:"What is one thing the man tells the woman?",qja:"男性が女性に伝えていることの1つは何か。",
+ k:"He will not be home this weekend.",d:["He wants to buy a different tree.","He broke some branches by mistake.","He would like to visit the shop on Monday."],
+ m:{"He will not be home this weekend.":"今週末は家にいない。","He wants to buy a different tree.":"別の木を買いたい。","He broke some branches by mistake.":"うっかり枝を折ってしまった。","He would like to visit the shop on Monday.":"月曜日に店に行きたい。"},
+ clue:"I'll be away this weekend",para:["I'll be away this weekend","He will not be home this weekend"],
+ e:"最後の発言の I'll be away（出かけている）が「家にいない」に言いかえられています。Monday は「月曜日以降に送って」という話で、店に行くわけではありません。"});
+hq({set:3,part:1,no:10,L:[["M","Is that a new bike, Jenny? What happened to your old one?"],["W","It was stolen from in front of the supermarket last week. I forgot to lock it."],["M","That's terrible. Did you tell the police?"],["W","Yes, but they haven't found it yet. So I bought this one, and I'll always lock it from now on."]],
+ ja:["それは新しい自転車、ジェニー？前のはどうしたの？","先週、スーパーの前でぬすまれちゃったの。かぎをかけ忘れて。","それはひどいね。警察には言った？","うん、でもまだ見つかっていないの。だからこれを買ったのよ。これからはいつもかぎをかけるわ。"],
+ q:"Why did the woman buy a new bike?",qja:"女性はなぜ新しい自転車を買ったのか。",
+ k:"Someone took her old one.",d:["Her old one was too small.","The police asked her to.","The supermarket had a big sale."],
+ m:{"Someone took her old one.":"前の自転車をだれかに持っていかれた。","Her old one was too small.":"前の自転車が小さすぎた。","The police asked her to.":"警察にそうするように言われた。","The supermarket had a big sale.":"スーパーで大安売りがあった。"},
+ clue:"It was stolen",para:["It was stolen","Someone took her old one"],
+ e:"was stolen（ぬすまれた）が Someone took（だれかが持っていった）に言いかえられています。受け身の文を、能動の文で言いかえるのはよくあるパターンです。"});
+hq({set:3,part:1,no:11,L:[["W","Here's your camera, Ken. Thanks for lending it to me."],["M","You're welcome. Hey, wait. There's a scratch on the lens."],["W","Oh no, I'm so sorry. I'll pay to get it repaired."],["M","That would be helpful. I need it for my brother's wedding next month."]],
+ ja:["カメラを返すね、ケン。貸してくれてありがとう。","どういたしまして。あ、待って。レンズに傷があるよ。","うそ、本当にごめんなさい。修理代は私がはらうわ。","そうしてもらえると助かるよ。来月の兄の結婚式で使うんだ。"],
+ q:"What does the boy want the girl to do?",qja:"男の子は女の子に何をしてほしいのか。",
+ k:"Pay to have the camera fixed.",d:["Take photos at his brother's wedding.","Buy him a new camera today.","Lend him her camera next month."],
+ m:{"Pay to have the camera fixed.":"お金をはらってカメラを直してもらう。","Take photos at his brother's wedding.":"兄の結婚式で写真をとる。","Buy him a new camera today.":"今日新しいカメラを買ってあげる。","Lend him her camera next month.":"来月、自分のカメラを貸す。"},
+ clue:"That would be helpful.",para:["I'll pay to get it repaired. ― That would be helpful.","Pay to have the camera fixed"],
+ e:"女の子の「修理代をはらう」という申し出に、男の子が That would be helpful.（そうしてもらえると助かる）と答えています。相手の申し出を受け入れる表現をおさえましょう。"});
+hq({set:3,part:1,no:12,L:[["W","What are you doing with all those clothes, Sam?"],["M","I'm going to throw them away. They're too small for me now."],["W","Wait. Why don't you give them to your cousin? He's a few years younger than you."],["M","Good idea. I'll ask Aunt Mary if he wants them."]],
+ ja:["サム、その服を全部どうするの？","捨てようと思って。もう小さくて着られないんだ。","待って。いとこにあげたらどう？あなたより何歳か年下でしょう。","いい考えだね。メアリーおばさんに、ほしいか聞いてみるよ。"],
+ q:"What does the woman suggest the boy do?",qja:"女性は男の子に何をするようすすめているか。",
+ k:"Give his clothes to a relative.",d:["Buy some bigger clothes.","Sell his old clothes online.","Ask his aunt for new clothes."],
+ m:{"Give his clothes to a relative.":"服を親せきにあげる。","Buy some bigger clothes.":"もっと大きな服を買う。","Sell his old clothes online.":"古い服をネットで売る。","Ask his aunt for new clothes.":"おばに新しい服をたのむ。"},
+ clue:"Why don't you give them to your cousin?",para:["give them to your cousin","Give his clothes to a relative"],
+ e:"Why don't you ～?（～したらどう？）は提案の表現です。cousin（いとこ）が relative（親せき）に言いかえられています。aunt はほしいかどうかを聞く相手です。"});
+hq({set:3,part:1,no:13,L:[["W","Do you understand the English songs you listen to, Kenji?"],["M","I understand some of the words, but the singers usually sing too fast for me to catch everything."],["W","Reading the lyrics while you listen might help."],["M","That's a good idea. Listening to songs is fun, so I want to keep doing it."]],
+ ja:["ケンジ、聞いている英語の歌はわかるの？","単語はいくつかわかるけど、たいてい歌手が速く歌うから、全部は聞き取れないんだ。","聞きながら歌詞を読むといいかもしれないわよ。","それはいい考えだね。歌を聞くのは楽しいから、続けたいんだ。"],
+ q:"What is one thing the boy says about English songs?",qja:"男の子が英語の歌について言っていることの1つは何か。",
+ k:"They are hard to understand completely.",d:["He only listens to slow songs.","He reads the lyrics every day.","He does not enjoy them very much."],
+ m:{"They are hard to understand completely.":"完全に理解するのは難しい。","He only listens to slow songs.":"ゆっくりした歌しか聞かない。","He reads the lyrics every day.":"毎日歌詞を読んでいる。","He does not enjoy them very much.":"あまり楽しんでいない。"},
+ clue:"the singers usually sing too fast for me to catch everything",para:["too fast for me to catch everything","hard to understand completely"],
+ e:"too ～ for me to …（速すぎて全部は聞き取れない）が「完全に理解するのは難しい」に言いかえられています。歌詞を読むのは女性の提案で、まだしていません。最後に fun と言っているので、4つ目は逆です。"});
+hq({set:3,part:1,no:14,L:[["W","Excuse me. I'm looking for some flowers for my mother. She's in the hospital."],["M","These roses are very popular. They smell wonderful."],["W","Hmm. The hospital told me that flowers with a strong smell aren't allowed. Do you have anything else?"],["M","Of course. How about these sunflowers? They have almost no smell."]],
+ ja:["すみません。母に花をさがしているんです。入院しているんですが。","このバラはとても人気がありますよ。すばらしい香りです。","うーん。病院から、香りの強い花はだめだと言われているんです。ほかに何かありますか。","もちろんです。このヒマワリはどうですか。ほとんど香りがありません。"],
+ q:"What is one thing the woman says?",qja:"女性が言っていることの1つは何か。",
+ k:"Some flowers are not allowed at the hospital.",d:["Her mother loves the smell of roses.","She wants to grow sunflowers.","The hospital sells flowers in its shop."],
+ m:{"Some flowers are not allowed at the hospital.":"病院では許されていない花がある。","Her mother loves the smell of roses.":"母親はバラの香りが大好きだ。","She wants to grow sunflowers.":"ヒマワリを育てたい。","The hospital sells flowers in its shop.":"病院の売店で花を売っている。"},
+ clue:"flowers with a strong smell aren't allowed",para:["flowers with a strong smell aren't allowed","Some flowers are not allowed"],
+ e:"病院の決まりを伝えている発言が正解の根拠です。roses と sunflowers をすすめたのは店員で、女性の発言ではありません。"});
+hq({set:3,part:1,no:15,L:[["M","Welcome to Bella's Kitchen. Do you have a reservation?"],["W","Yes, it's under Green. A table for four at seven."],["M","Let me see... yes, here it is. Today's special is grilled fish, and all desserts are half price after eight."],["W","Great. Could we have a table by the window, please?"]],
+ ja:["ベラズ・キッチンへようこそ。ご予約はございますか。","はい、グリーンの名前で。7時に4人です。","確認いたします…はい、ございます。本日のおすすめは焼き魚で、8時以降はデザートがすべて半額です。","いいですね。窓ぎわの席にしてもらえますか。"],
+ q:"What does the woman ask the man for?",qja:"女性は男性に何をたのんでいるか。",
+ k:"A seat near the window.",d:["A dessert at half price.","A table for seven people.","Today's special dish."],
+ m:{"A seat near the window.":"窓の近くの席。","A dessert at half price.":"半額のデザート。","A table for seven people.":"7人用のテーブル。","Today's special dish.":"本日のおすすめ料理。"},
+ clue:"Could we have a table by the window, please?",para:["a table by the window","A seat near the window"],
+ e:"最後の Could we have ～?（～をいただけますか）が、女性のたのみごとです。seven は時刻で、人数は4人です。店員の説明に出てくる数字や料理にまどわされないようにしましょう。"});
+
+hq({set:3,part:2,no:16,L:[["M","Attention, passengers. Because of heavy snow, the 3:15 express train to Northfield has been canceled. Passengers going to Northfield should take the local train from Platform 4, which will leave at 3:30. If you have an express ticket, you can get a refund at the ticket office. We are sorry for the trouble."]],
+ ja:["乗客の皆様にお知らせします。大雪のため、3時15分発ノースフィールド行きの急行列車は運休となりました。ノースフィールドへお越しの方は、4番線から3時30分に発車する普通列車をご利用ください。急行券をお持ちの方は、切符売り場で払いもどしを受けられます。ご迷惑をおかけして申しわけございません。"],
+ q:"What is one thing the announcement says?",qja:"アナウンスが伝えていることの1つは何か。",
+ k:"An express train will not run.",d:["The local train leaves from Platform 3.","Tickets can be bought on the train.","The snow will stop by 3:30."],
+ m:{"An express train will not run.":"急行列車が運行しない。","The local train leaves from Platform 3.":"普通列車は3番線から出る。","Tickets can be bought on the train.":"切符は列車の中で買える。","The snow will stop by 3:30.":"雪は3時30分までにやむ。"},
+ clue:"the 3:15 express train to Northfield has been canceled",para:["has been canceled","will not run"],
+ e:"has been canceled（運休になった）が will not run（運行しない）に言いかえられています。番線は Platform 4、3:30 は普通列車の発車時刻です。数字の聞き分けに注意しましょう。"});
+hq({set:3,part:2,no:17,L:[["W","Welcome to Riverside Zoo. Our penguin feeding show starts at 1 p.m. in the Ocean Area. If you would like to feed the penguins yourself, please buy a fish cup at the gift shop before the show. Only 30 cups are sold each day, so please come early."]],
+ ja:["リバーサイド動物園へようこそ。ペンギンのえさやりショーは、午後1時からオーシャンエリアで始まります。ご自分でペンギンにえさをあげたい方は、ショーの前にギフトショップで魚のカップをお買い求めください。カップは1日30個だけの販売ですので、お早めにどうぞ。"],
+ q:"How can visitors feed the penguins?",qja:"来園者はどのようにしてペンギンにえさをあげられるか。",
+ k:"By getting a fish cup at the gift shop.",d:["By arriving at the Ocean Area at noon.","By asking a staff member at the entrance.","By joining a special tour after the show."],
+ m:{"By getting a fish cup at the gift shop.":"ギフトショップで魚のカップを手に入れることで。","By arriving at the Ocean Area at noon.":"正午にオーシャンエリアに着くことで。","By asking a staff member at the entrance.":"入り口で係員にたのむことで。","By joining a special tour after the show.":"ショーのあとの特別ツアーに参加することで。"},
+ clue:"please buy a fish cup at the gift shop before the show",para:["buy a fish cup at the gift shop","getting a fish cup at the gift shop"],
+ e:"If you would like to ～（～したい方は）のあとに、方法が説明されています。アナウンスでは、条件（If ～）のあとの指示をよく聞きましょう。"});
+hq({set:3,part:2,no:18,L:[["W","Kate ordered a birthday cake for her son from a bakery. When she went to pick it up, she was surprised because the name on the cake was wrong. It said \"Happy Birthday, Tim\" instead of \"Happy Birthday, Tom.\" The baker said sorry and quickly fixed it. Kate's son loved the cake, and the family laughed about the mistake."]],
+ ja:["ケイトはパン屋で息子の誕生日ケーキを注文した。受け取りに行くと、ケーキの名前がまちがっていたのでおどろいた。「トム、お誕生日おめでとう」ではなく「ティム、お誕生日おめでとう」と書いてあったのだ。パン屋の人はあやまって、すぐに直してくれた。息子はケーキを気に入り、家族はそのまちがいを笑い話にした。"],
+ q:"Why was Kate surprised?",qja:"ケイトはなぜおどろいたのか。",
+ k:"Her son's name was spelled wrong.",d:["The bakery had forgotten her order.","Her son did not like the cake.","The baker gave her a free cake."],
+ m:{"Her son's name was spelled wrong.":"息子の名前のつづりがまちがっていた。","The bakery had forgotten her order.":"パン屋が注文を忘れていた。","Her son did not like the cake.":"息子がケーキを気に入らなかった。","The baker gave her a free cake.":"パン屋が無料でケーキをくれた。"},
+ clue:"the name on the cake was wrong",para:["the name on the cake was wrong","Her son's name was spelled wrong"],
+ e:"because のあとに理由があります。Tom が Tim になっていたので、つづりのまちがいです。息子は cake を loved（とても気に入った）ので、2つ目は逆です。"});
+hq({set:3,part:2,no:19,L:[["W","Thank you for calling Sunny Dental Clinic. Our clinic is closed today because it is a national holiday. If you would like to make an appointment, please call again tomorrow after 9 a.m., or use the form on our website. If you have a serious problem with your teeth, please call our emergency number."]],
+ ja:["サニー歯科医院にお電話いただき、ありがとうございます。本日は祝日のため休診です。予約をご希望の方は、明日の午前9時以降にもう一度お電話いただくか、ホームページのフォームをご利用ください。歯にひどい問題がある方は、救急用の番号にお電話ください。"],
+ q:"What is one thing people can do to make an appointment?",qja:"予約をするためにできることの1つは何か。",
+ k:"Fill out a form online.",d:["Leave a message after the beep.","Visit the clinic later today.","Call the emergency number."],
+ m:{"Fill out a form online.":"オンラインでフォームに記入する。","Leave a message after the beep.":"発信音のあとに伝言を残す。","Visit the clinic later today.":"今日あとで医院に行く。","Call the emergency number.":"救急用の番号に電話する。"},
+ clue:"use the form on our website",para:["use the form on our website","Fill out a form online"],
+ e:"予約の方法は「明日9時以降に電話する」か「ホームページのフォームを使う」の2つです。救急用の番号は、歯にひどい問題がある人向けです。"});
+hq({set:3,part:2,no:20,L:[["W","Lucy and her classmates wanted to raise money for a local animal shelter. Last weekend, they held a car wash in the school parking lot. Many people came, and they raised over 500 dollars. They gave all the money to the shelter. Now, they are planning to visit the shelter to help take care of the dogs."]],
+ ja:["ルーシーとクラスメートは、地元の動物保護施設のためにお金を集めたいと思っていた。先週末、彼らは学校の駐車場で洗車をした。多くの人が来て、500ドル以上が集まった。彼らはそのお金をすべて施設に寄付した。今は、犬の世話を手伝うために施設をたずねる計画を立てている。"],
+ q:"What did Lucy and her classmates do last weekend?",qja:"ルーシーとクラスメートは先週末に何をしたか。",
+ k:"They washed cars to raise money.",d:["They took care of dogs at a shelter.","They bought a new car for the school.","They visited a local animal hospital."],
+ m:{"They washed cars to raise money.":"お金を集めるために車を洗った。","They took care of dogs at a shelter.":"保護施設で犬の世話をした。","They bought a new car for the school.":"学校のために新しい車を買った。","They visited a local animal hospital.":"地元の動物病院をたずねた。"},
+ clue:"they held a car wash",para:["held a car wash","washed cars"],
+ e:"Last weekend のあとが答えです。犬の世話は「これから」の計画なので、時間の流れに注意しましょう。"});
+hq({set:3,part:2,no:21,L:[["M","Ken loves taking photos, and he was happy because one of his pictures was chosen for a city photo contest. The picture showed the sunset over the river near his house. His photo will be shown at city hall next month. Ken's grandparents are planning to go and see it."]],
+ ja:["ケンは写真をとるのが大好きで、写真の1枚が市の写真コンテストに選ばれたので喜んでいた。その写真には、家の近くの川にしずむ夕日が写っていた。写真は来月、市役所にかざられる。ケンの祖父母は見に行くつもりだ。"],
+ q:"Why was Ken happy?",qja:"ケンはなぜ喜んでいたのか。",
+ k:"His photo was chosen for a contest.",d:["He won a new camera in a contest.","He took a trip to a famous river.","His grandparents gave him a gift."],
+ m:{"His photo was chosen for a contest.":"写真がコンテストに選ばれた。","He won a new camera in a contest.":"コンテストで新しいカメラをもらった。","He took a trip to a famous river.":"有名な川へ旅行した。","His grandparents gave him a gift.":"祖父母がプレゼントをくれた。"},
+ clue:"one of his pictures was chosen for a city photo contest",para:["one of his pictures was chosen","His photo was chosen"],
+ e:"he was happy because ～ の because のあとに理由があります。第2部では、最初の1〜2文に答えがあることが多いです。"});
+hq({set:3,part:2,no:22,L:[["M","Thank you for visiting Star Land. Please note that the Sky Wheel will close at 6 p.m. today for safety checks. Fireworks will start at 8 p.m. above the lake. The best place to watch them is the bridge in the center of the park. Please be careful, as it may be crowded."]],
+ ja:["スターランドにお越しいただき、ありがとうございます。本日、スカイホイールは安全点検のため午後6時で終了いたします。花火は午後8時から湖の上で始まります。いちばんよく見える場所は、園の中央にある橋です。混雑が予想されますので、お気をつけください。"],
+ q:"Where is the best place to watch the fireworks?",qja:"花火を見るのにいちばんよい場所はどこか。",
+ k:"On the bridge in the park.",d:["Near the Sky Wheel.","At the entrance of the park.","On a boat on the lake."],
+ m:{"On the bridge in the park.":"園内の橋の上。","Near the Sky Wheel.":"スカイホイールの近く。","At the entrance of the park.":"園の入り口。","On a boat on the lake.":"湖の上のボート。"},
+ clue:"The best place to watch them is the bridge in the center of the park.",para:["the bridge in the center of the park","On the bridge in the park"],
+ e:"質問の the best place がそのまま本文に出てきます。lake は花火が上がる場所で、見る場所ではありません。"});
+hq({set:3,part:2,no:23,L:[["M","Mark and his family often argued about who should wash the dishes. Last month, they decided to make a schedule. Each person washes the dishes on two days a week, and on Sundays, they eat out. At first, Mark's sister forgot her days, so they put the schedule on the refrigerator. Now, everyone follows it without any problems."]],
+ ja:["マークの家族は、だれが皿を洗うかでよく言い合いになっていた。先月、家族は当番表を作ることにした。1人が週に2日皿を洗い、日曜日は外食する。最初はマークの妹が自分の日を忘れたので、当番表を冷蔵庫にはった。今では、みんな問題なく当番表を守っている。"],
+ q:"How did Mark's family solve their problem?",qja:"マークの家族はどのように問題を解決したか。",
+ k:"They made a plan for who washes the dishes.",d:["They bought a new dishwasher.","They began eating out at restaurants every day.","They asked Mark to wash all the dishes."],
+ m:{"They made a plan for who washes the dishes.":"だれが皿を洗うかの計画を立てた。","They bought a new dishwasher.":"新しい食器洗い機を買った。","They began eating out at restaurants every day.":"毎日レストランで外食するようになった。","They asked Mark to wash all the dishes.":"マークに皿を全部洗うようにたのんだ。"},
+ clue:"they decided to make a schedule",para:["make a schedule","made a plan for who washes the dishes"],
+ e:"schedule（当番表）が plan に言いかえられています。外食するのは日曜日だけなので、every day は誤りです。"});
+hq({set:3,part:2,no:24,L:[["W","Ellen usually rides her bicycle to work. Yesterday morning, she found that one of her tires was flat. She did not have time to fix it, so she decided to take the bus. However, the bus was very crowded, and she had to wait for the next one. As a result, she arrived at work 20 minutes late."]],
+ ja:["エレンはふだん自転車で通勤している。昨日の朝、タイヤが1本パンクしているのに気づいた。直す時間がなかったので、バスに乗ることにした。しかし、バスはとてもこんでいて、次のバスを待たなければならなかった。その結果、職場に20分おくれて着いた。"],
+ q:"Why was Ellen late for work yesterday?",qja:"エレンはなぜ昨日、仕事におくれたのか。",
+ k:"She could not get on the first bus.",d:["She stopped to fix her bicycle.","She got lost on the way to work.","Her bus was in an accident."],
+ m:{"She could not get on the first bus.":"最初のバスに乗れなかった。","She stopped to fix her bicycle.":"自転車を直すために止まった。","She got lost on the way to work.":"通勤のとちゅうで道に迷った。","Her bus was in an accident.":"乗ったバスが事故にあった。"},
+ clue:"she had to wait for the next one",para:["the bus was very crowded, and she had to wait for the next one","She could not get on the first bus"],
+ e:"As a result（その結果）の前の文が、おくれた直接の理由です。自転車は「直す時間がなかった」ので、直していません。"});
+hq({set:3,part:2,no:25,L:[["M","Jason wanted to learn the guitar. At first, he planned to learn by watching videos online because they are free. However, he found it difficult to know if he was playing correctly. In the end, he joined a class at a music school near his house. It costs some money, but his teacher checks his playing every week."]],
+ ja:["ジェイソンはギターを習いたいと思っていた。最初は、無料なのでネットの動画を見て学ぶつもりだった。しかし、自分が正しくひけているかどうかがわかりにくいと気づいた。結局、家の近くの音楽教室のクラスに入った。お金はかかるが、先生が毎週ひき方を確かめてくれる。"],
+ q:"Why did Jason join a guitar class?",qja:"ジェイソンはなぜギターのクラスに入ったのか。",
+ k:"He wanted someone to check his playing.",d:["The online videos were too expensive.","His friend was teaching the class.","He wanted to play in a band."],
+ m:{"He wanted someone to check his playing.":"だれかにひき方を確かめてほしかった。","The online videos were too expensive.":"ネットの動画が高すぎた。","His friend was teaching the class.":"友だちがクラスで教えていた。","He wanted to play in a band.":"バンドで演奏したかった。"},
+ clue:"he found it difficult to know if he was playing correctly",para:["difficult to know if he was playing correctly","wanted someone to check his playing"],
+ e:"However のあとに、考えが変わった理由があります。動画は free（無料）なので、2つ目は逆です。At first → However → In the end の流れをおさえましょう。"});
+hq({set:3,part:2,no:26,L:[["W","Nancy shares a room with her younger sister, Ann. Ann likes to listen to music while she does her homework. Nancy gets annoyed because Ann often plays music loudly when Nancy is trying to study. Their father bought Ann a pair of headphones. Now, both sisters can study the way they like."]],
+ ja:["ナンシーは妹のアンと同じ部屋を使っている。アンは宿題をしながら音楽を聞くのが好きだ。ナンシーが勉強しようとしているときに、アンがよく大きな音で音楽をかけるので、ナンシーはいらいらしている。父親がアンにヘッドホンを買ってあげた。今では、2人とも好きなやり方で勉強できる。"],
+ q:"Why does Nancy get annoyed?",qja:"ナンシーはなぜいらいらするのか。",
+ k:"Her sister plays loud music.",d:["Her sister uses her headphones.","Her sister does not do her homework.","Her father makes her share a room."],
+ m:{"Her sister plays loud music.":"妹が大きな音で音楽をかける。","Her sister uses her headphones.":"妹が自分のヘッドホンを使う。","Her sister does not do her homework.":"妹が宿題をしない。","Her father makes her share a room.":"父親に部屋を共有させられている。"},
+ clue:"Ann often plays music loudly when Nancy is trying to study",para:["plays music loudly","plays loud music"],
+ e:"gets annoyed because ～ の because のあとが理由です。ヘッドホンは問題を解決するために父親が買ったもので、理由ではありません。"});
+hq({set:3,part:2,no:27,L:[["M","Ryan's laptop became very slow last month. He thought about buying a new one, but his friend told him to delete the files he did not need. Ryan followed the advice, and his computer became much faster. He saved a lot of money, and now he cleans up his files every month."]],
+ ja:["先月、ライアンのノートパソコンがとてもおそくなった。新しいものを買おうかと考えたが、友だちが、いらないファイルを消すように言った。ライアンがそのアドバイスにしたがうと、パソコンはずっと速くなった。お金をたくさん節約でき、今では毎月ファイルを整理している。"],
+ q:"Why did Ryan delete files on his computer?",qja:"ライアンはなぜパソコンのファイルを消したのか。",
+ k:"His friend gave him some advice.",d:["He wanted to buy a new laptop.","His laptop had a virus.","He needed space for new games."],
+ m:{"His friend gave him some advice.":"友だちがアドバイスをくれた。","He wanted to buy a new laptop.":"新しいノートパソコンを買いたかった。","His laptop had a virus.":"パソコンがウイルスに感染していた。","He needed space for new games.":"新しいゲームのための空きが必要だった。"},
+ clue:"his friend told him to delete the files he did not need",para:["his friend told him to delete the files","His friend gave him some advice"],
+ e:"〈人〉told him to ～（～するように言った）が advice（アドバイス）に言いかえられています。新しいパソコンは「買おうと考えた」だけで、結局買っていません。"});
+hq({set:3,part:2,no:28,L:[["W","Mei is preparing for a piano contest. She has to play a difficult piece without looking at the music. Her teacher suggested that she record herself playing and listen to it every night. By doing this, Mei can find her mistakes easily. She feels more confident now."]],
+ ja:["メイはピアノのコンテストに向けて準備をしている。むずかしい曲を楽ふを見ずにひかなければならない。先生は、自分の演奏を録音して毎晩聞くようにすすめた。こうすることで、メイは自分のまちがいをかんたんに見つけられる。今では前より自信がついている。"],
+ q:"How is Mei preparing for the contest?",qja:"メイはどのようにコンテストの準備をしているか。",
+ k:"By listening to recordings of herself.",d:["By watching other pianists online.","By taking lessons every night.","By playing the piece in front of her family."],
+ m:{"By listening to recordings of herself.":"自分の演奏の録音を聞くことで。","By watching other pianists online.":"ネットでほかのピアニストを見ることで。","By taking lessons every night.":"毎晩レッスンを受けることで。","By playing the piece in front of her family.":"家族の前でその曲をひくことで。"},
+ clue:"record herself playing and listen to it every night",para:["record herself playing and listen to it","listening to recordings of herself"],
+ e:"先生の suggested（すすめた）の内容と、By doing this（こうすることで）が手がかりです。every night は「録音を聞く」ことで、レッスンではありません。"});
+hq({set:3,part:2,no:29,L:[["M","Kevin loves fishing, but he lives in a big city far from the sea. During the week, he is busy with his job at a bank. However, once a month, he drives to a lake with his father early on Saturday morning. They fish until noon and cook what they catch for lunch. Kevin looks forward to these trips."]],
+ ja:["ケビンはつりが大好きだが、海から遠い大都市に住んでいる。平日は銀行の仕事でいそがしい。しかし月に1回、土曜日の朝早くに父親と車で湖へ行く。2人は正午までつりをして、つった魚を昼ごはんに料理する。ケビンはこの旅を楽しみにしている。"],
+ q:"What does Kevin do once a month?",qja:"ケビンは月に1回、何をするか。",
+ k:"He goes fishing with his father.",d:["He visits his father at the bank.","He drives to the sea by himself.","He cooks dinner for his family."],
+ m:{"He goes fishing with his father.":"父親とつりに行く。","He visits his father at the bank.":"銀行にいる父親をたずねる。","He drives to the sea by himself.":"1人で車で海へ行く。","He cooks dinner for his family.":"家族のために夕食を作る。"},
+ clue:"once a month, he drives to a lake with his father",para:["drives to a lake with his father ... fish until noon","goes fishing with his father"],
+ e:"once a month のあとが答えです。行き先は sea（海）ではなく lake（湖）で、父親といっしょです。料理するのは lunch（昼ごはん）です。"});
+hq({set:3,part:2,no:30,L:[["W","Olivia enjoys cooking, especially dishes from other countries. She wants to cook Thai food for her friends, so she has decided to join a cooking class at a local community center. The class meets on Saturday afternoons. She is excited to learn from a chef who lived in Thailand for many years."]],
+ ja:["オリビアは料理、とくに外国の料理を作るのが好きだ。友だちにタイ料理を作ってあげたいので、地元の公民館の料理教室に入ることにした。教室は土曜日の午後にある。タイに長年住んでいたシェフから学べるのを楽しみにしている。"],
+ q:"What does Olivia want to do?",qja:"オリビアは何をしたいのか。",
+ k:"Cook Thai food for her friends.",d:["Open a restaurant in Thailand.","Teach a cooking class on Saturdays.","Travel abroad with a famous chef."],
+ m:{"Cook Thai food for her friends.":"友だちにタイ料理を作る。","Open a restaurant in Thailand.":"タイでレストランを開く。","Teach a cooking class on Saturdays.":"土曜日に料理教室で教える。","Travel abroad with a famous chef.":"有名なシェフと外国を旅する。"},
+ clue:"She wants to cook Thai food for her friends",para:["She wants to cook Thai food for her friends","Cook Thai food for her friends"],
+ e:"質問の want to がそのまま本文に出てきます。料理教室には「習いに」行くので、教えるのではありません。Thailand に住んでいたのはシェフです。"});
 var HID={};if(typeof HQ!=="undefined")HQ.forEach(function(q){HID["H"+q.set+"-"+q.part+"-"+(q.no<10?"0":"")+q.no]=1;});
+var RID={};if(typeof RP!=="undefined")RP.forEach(function(p){p.qs.forEach(function(q){RID[p.id+"-"+q.no]=1;});});
 var SID={};if(typeof SQ!=="undefined")SQ.forEach(function(q,i){SID["S-"+(i<9?"0":"")+(i+1)]=1;});
 var V=[],VID={};
 (function(){
@@ -2638,7 +3412,7 @@ try{localStorage.setItem(KEY+"-t","1");localStorage.removeItem(KEY+"-t");}catch(
 
 function fresh(){
   return {streak:0,best:0,last:"",nick:"",miss:{},outbox:[],wq:{date:"",hist:{}},days:{},weak:{},seen:{},tq:{date:"",ok:{},ng:{}},
-          sets:{},lsets:{},hsets:{},cfg:{sn:5,spat:"both",stime:30,smode:"flash",sq:"en",sa:"both",slv:4,srate:0.9,hset:1,hpart:"both",hpre:"on",hn:5,horder:"shuffle",lset:1,mode:"rand",set:1,scope:"mix",n:20,time:0,voice:"auto",ja:"after",mean:"always",size:"std",vform:"mix",vscope:"all",vn:20,vtime:0}};
+          sets:{},lsets:{},hsets:{},rsets:{},wr:{},cfg:{rset:1,rpart:"both",wtype:"sum",sn:5,spat:"both",stime:30,smode:"flash",sq:"en",sa:"both",slv:4,srate:0.9,hset:1,hpart:"both",hpre:"on",hn:5,horder:"shuffle",lset:1,mode:"rand",set:1,scope:"mix",n:20,time:0,voice:"auto",ja:"after",mean:"always",size:"std",vform:"mix",vscope:"all",vn:20,vtime:0}};
 }
 function load(){
   var r=fresh();
@@ -2650,7 +3424,7 @@ function load(){
         if(typeof o.streak==="number")r.streak=o.streak;
         if(typeof o.best==="number")r.best=o.best;
         if(typeof o.last==="string")r.last=o.last;
-        ["days","weak","seen","sets","lsets","hsets","miss","wq"].forEach(function(k){if(o[k]&&typeof o[k]==="object")r[k]=o[k];});
+        ["days","weak","seen","sets","lsets","hsets","rsets","wr","miss","wq"].forEach(function(k){if(o[k]&&typeof o[k]==="object")r[k]=o[k];});
         if(Object.prototype.toString.call(o.outbox)==="[object Array]")r.outbox=o.outbox;
         if(typeof o.nick==="string")r.nick=o.nick;
         if(o.tq&&typeof o.tq==="object"&&o.tq.ok&&o.tq.ng)r.tq=o.tq;
@@ -2663,8 +3437,8 @@ function load(){
   }catch(e){}
   if(r.best<r.streak)r.best=r.streak;
   /* 問題の入れかえで使われなくなった番号の記録を整理する */
-  ["weak","seen"].forEach(function(k){for(var id in r[k]){if(!QID[id]&&!VID[id]&&!LID[id]&&!HID[id]&&!SID[id])delete r[k][id];}});
-  ["ok","ng"].forEach(function(k){for(var id in r.tq[k]){if(!QID[id]&&!VID[id]&&!LID[id]&&!HID[id]&&!SID[id])delete r.tq[k][id];}});
+  ["weak","seen"].forEach(function(k){for(var id in r[k]){if(!QID[id]&&!VID[id]&&!LID[id]&&!HID[id]&&!SID[id]&&!RID[id])delete r[k][id];}});
+  ["ok","ng"].forEach(function(k){for(var id in r.tq[k]){if(!QID[id]&&!VID[id]&&!LID[id]&&!HID[id]&&!SID[id]&&!RID[id])delete r.tq[k][id];}});
   if(["mix","w","i","extra","basic","weak"].indexOf(r.cfg.scope)<0)r.cfg.scope="mix";
   if(r.cfg.set<1||r.cfg.set>NSET)r.cfg.set=1;
   return r;
@@ -2764,7 +3538,9 @@ function speak(text,hooks){
   }catch(e){}
 }
 function rerenderSetup(){
-  if($("ssetup").classList.contains("on"))sSetupRender();
+  if($("rsetup").classList.contains("on"))rSetupRender();
+  else if($("wrsetup").classList.contains("on"))wrSetupRender();
+  else if($("ssetup").classList.contains("on"))sSetupRender();
   else if($("hsetup").classList.contains("on"))hSetupRender();
   else if($("lsetup").classList.contains("on"))lSetupRender();
   else if($("vsetup").classList.contains("on"))vRenderSetup();
@@ -2794,7 +3570,8 @@ function dock(html){
 }
 function show(id){
   stopSpeech();
-  ["top","setup","quiz","result","list","vsetup","vquiz","wquiz","lsetup","lquiz","hsetup","hquiz","ssetup","squiz"].forEach(function(k){$(k).classList.toggle("on",k===id);});
+  ["top","setup","quiz","result","list","vsetup","vquiz","wquiz","lsetup","lquiz","rsetup","rquiz","wrsetup","wrwrite","hsetup","hquiz","ssetup","squiz"].forEach(function(k){$(k).classList.toggle("on",k===id);});
+  if(id!=="wrwrite"&&typeof wrLeave==="function"&&WRX&&WRX.t)wrLeave();
   dock(null);
   try{window.scrollTo(0,0);}catch(e){}
 }
@@ -3138,6 +3915,7 @@ document.addEventListener("click",function(e){
   else if(act==="csv"){doCSV();}
   else if(act==="seg"){
     var g=el.getAttribute("data-g"),i=parseInt(el.getAttribute("data-i"),10);
+    if(g==="rset"||g==="rpart"||g==="wtype"){rec.cfg[g]=(g==="rset"?RSETS[i]:(g==="rpart"?RPARTS[i][0]:WRTYPES[i][0]));save();rerenderSetup();return;}
     var map={mode:MODES,set:null,scope:SCOPES,n:NS,time:TS,ja:JS_,mean:MS,voice:VS,size:ZS,vform:VFORMS,vscope:VSCOPES,vn:VNS,vtime:VTS,hn:(typeof HN!=="undefined"?HN:null),horder:(typeof HORD!=="undefined"?HORD:null),sn:(typeof SN!=="undefined"?SN:null),spat:(typeof SPAT!=="undefined"?SPAT:null),stime:(typeof STIME!=="undefined"?STIME:null),smode:(typeof SMODE!=="undefined"?SMODE:null),sq:(typeof SQL!=="undefined"?SQL:null),sa:(typeof SAL!=="undefined"?SAL:null),slv:(typeof SLV!=="undefined"?SLV:null),srate:(typeof SRATE!=="undefined"?SRATE:null)};
     rec.cfg[g]=(g==="set")?i+1:(g==="lset"?LSETS[i]:(g==="hset"?HSETOPT[i]:(g==="hpart"?HPARTS[i][0]:(g==="hpre"?HPRE[i][0]:map[g][i][0]))));save();
     if(g==="size")applySize();
@@ -4092,6 +4870,10 @@ function describeItem(id){
     }
     if(HID[id]){var h=null;HQ.forEach(function(x){if(x.id===id)h=x;});
       if(h)return {part:"リスニング",label:"第"+h.set+"回 第"+h.part+"部 No."+h.no,text:h.q,ans:h.k};}
+    if(RID[id]){var rm=/^(.+)-(\d+)$/.exec(id),rp=null,rq=null;
+      RP.forEach(function(x){if(x.id===rm[1])rp=x;});
+      if(rp)rp.qs.forEach(function(x){if(String(x.no)===rm[2])rq=x;});
+      if(rp&&rq)return {part:"大問3 内容一致",label:"第"+rp.set+"回 "+(rp.kind==="mail"?"A Eメール":"B "+rp.title)+" ("+rq.no+")",text:rq.q,ans:rq.k};}
     if(SID[id]){var s=null;SQ.forEach(function(x){if(x.id===id)s=x;});
       if(s)return {part:"二次 意見を述べる",label:s.t,text:s.en,ans:"（解答例で確認）"};}
   }catch(e){}
@@ -4174,7 +4956,7 @@ function renderReport(){
   var on=!!REPORT_URL;
   $("sendbox").hidden=!on;
   $("datanote").textContent=on
-    ?"練習した日時・解いた数・正解数と、まちがえた問題が、ニックネームといっしょに先生に送られます。"
+    ?"練習した日時・解いた数・正解数と、まちがえた問題、ライティングで書いた英文が、ニックネームといっしょに先生に送られます。"
     :"学習の記録は、この端末の中だけに保存され、ほかの人には見えません。";
   if(!on)return;
   var nk=$("nick");if(nk&&document.activeElement!==nk)nk.value=rec.nick||"";
@@ -4269,7 +5051,7 @@ document.addEventListener("click",function(e){
     readCode(code).then(function(o){
       var r=fresh();
       ["streak","best","last"].forEach(function(k){if(typeof o[k]===typeof r[k])r[k]=o[k];});
-      ["days","weak","seen","sets","lsets","hsets","tq","miss","wq"].forEach(function(k){if(o[k]&&typeof o[k]==="object")r[k]=o[k];});
+      ["days","weak","seen","sets","lsets","hsets","rsets","wr","tq","miss","wq"].forEach(function(k){if(o[k]&&typeof o[k]==="object")r[k]=o[k];});
       if(Object.prototype.toString.call(o.outbox)==="[object Array]")r.outbox=o.outbox;
       r.nick=(typeof o.nick==="string"&&o.nick)?o.nick:(rec.nick||"");
       if(o.cfg&&typeof o.cfg==="object"){for(var k in r.cfg){if(typeof o.cfg[k]===typeof r.cfg[k])r.cfg[k]=o.cfg[k];}}
@@ -4455,6 +5237,305 @@ var renderTop0=renderTop;
 renderTop=function(){renderTop0();dailyMaybe();};
 document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")dailyMaybe();});
 window.__daily={pick:dailyPick,start:dailyStart,done:dailyDone,cur:function(){return W?{ok:W.ch.indexOf(W.list[W.i].o),answered:W.answered}:null;}};
+
+/* ===================================================================
+   大問3　長文の内容一致（1回分＝A：Eメール3問＋B：説明文5問）
+   =================================================================== */
+var RSETS=[];RP.forEach(function(p){if(RSETS.indexOf(p.set)<0)RSETS.push(p.set);});
+var RPARTS=[["both","AとBを通して（8問）"],["A","Aだけ（Eメール・3問）"],["B","Bだけ（説明文・5問）"]];
+var RX={list:[],pi:0,qi:0,ok:0,total:0,wrong:[],answered:false,ch:[],qStart:0,ms:0,tn:0,t0:0,setNo:0,done:{}};
+function rQid(p,q){return p.id+"-"+q.no;}
+function rParaHTML(p,pi){
+  var html=esc(p.paras[pi]).replace(/\n/g,"<br>");
+  p.qs.forEach(function(q){
+    if(!RX.done[rQid(p,q)])return;
+    var c=esc(q.clue);
+    if(html.indexOf(c)>=0)html=html.replace(c,'<mark class="clue">'+c+'</mark>');
+  });
+  return html;
+}
+function rRenderPassage(){
+  var p=RX.list[RX.pi],finished=p.qs.every(function(q){return RX.done[rQid(p,q)];});
+  var h="";
+  if(p.kind==="mail"){
+    h+='<div class="rmail en"><p><b>From:</b> '+esc(p.mail.from)+'</p><p><b>To:</b> '+esc(p.mail.to)+'</p><p><b>Date:</b> '+esc(p.mail.date)+'</p><p><b>Subject:</b> '+esc(p.mail.subject)+'</p></div>';
+  }else{
+    h+='<p class="ltitle en">'+esc(p.title)+'</p>';
+  }
+  p.paras.forEach(function(_,i){
+    h+='<p class="lpara en'+(p.kind==="mail"?" rmp":"")+'">'+rParaHTML(p,i)+'</p>';
+  });
+  if(finished){
+    h+='<details class="lja"><summary>全文の和訳を見る</summary>'+p.ja.map(function(t){return '<p>'+esc(t).replace(/\n/g,"<br>")+'</p>';}).join("")+'</details>';
+  }
+  $("rpassage").innerHTML=h;
+}
+function rSetupRender(){
+  var items=RSETS.map(function(n){var sc=rec.rsets&&rec.rsets[n];return [n,"第"+n+"回"+(sc?"（"+sc.c+"/"+sc.n+"）":"")];});
+  if(RSETS.indexOf(rec.cfg.rset)<0)rec.cfg.rset=RSETS[0];
+  if(!rec.cfg.rpart)rec.cfg.rpart="both";
+  var n=rList().reduce(function(a,p){return a+p.qs.length;},0);
+  $("rsetup-body").innerHTML=
+    grp("どの回を解くか","1回分は、A：Eメール（3問）とB：説明文（5問）です。かっこの中は前回の点数です。",seg("rset",items,rec.cfg.rset))+
+    grp("解く範囲","本番と同じく通して解くか、AかBだけを解くかを選びます。",seg("rpart",RPARTS,rec.cfg.rpart))+
+    '<p class="why" style="margin-top:14px">質問の順番は、本文の流れの順番です。先に質問を読んでから本文をさがすと、速く解けます。解答すると、根拠になる部分に色が付きます。</p>'+
+    grp("文字の大きさ","本文・選択肢・解説がまとめて大きくなります。",seg("size",ZS,rec.cfg.size));
+  dock('<button type="button" class="btn" data-act="r-start">始める（'+n+'問）</button>');
+}
+function rList(){
+  return RP.filter(function(p){return p.set===rec.cfg.rset&&(rec.cfg.rpart==="both"||p.part===rec.cfg.rpart);})
+           .sort(function(a,b){return a.part<b.part?-1:1;});
+}
+function rBegin(){
+  var list=rList(),total=0;list.forEach(function(p){total+=p.qs.length;});
+  RX={list:list,pi:0,qi:0,ok:0,total:total,wrong:[],answered:false,ch:[],qStart:0,ms:0,tn:0,t0:Date.now(),setNo:rec.cfg.rset,done:{},logged:false};
+  show("rquiz");
+  rRenderQ();
+}
+function rRenderQ(){
+  var p=RX.list[RX.pi],q=p.qs[RX.qi];
+  RX.answered=false;
+  var idx=0;for(var i=0;i<RX.pi;i++)idx+=RX.list[i].qs.length;idx+=RX.qi+1;
+  $("rqno").textContent=(p.kind==="mail"?"A　Eメール":"B　説明文")+"　"+idx+" / "+RX.total;
+  $("rpbar").style.width=((idx-1)/RX.total*100)+"%";
+  rRenderPassage();
+  RX.ch=shuffle([q.k].concat(q.d));
+  $("rq").innerHTML='<p class="lqhead"><span class="lbn">( '+q.no+' )</span>'+esc(q.qj)+'</p>'+
+    '<p class="rqq en">'+esc(q.q)+'</p>'+
+    '<div class="choices">'+RX.ch.map(function(c,i){
+      return '<button type="button" class="chb" data-act="r-pick" data-i="'+i+'"><span class="cn">'+(i+1)+'</span><span class="ct">'+esc(c)+'</span></button>';
+    }).join("")+'</div>';
+  $("rfb").hidden=true;$("rfb").innerHTML="";
+  dock('<button type="button" class="btn ghost" data-act="r-toq">質問と選択肢へ</button>');
+  RX.qStart=Date.now();
+}
+function rPick(i){
+  if(RX.answered)return;
+  RX.answered=true;
+  var p=RX.list[RX.pi],q=p.qs[RX.qi],chosen=RX.ch[i],ok=(chosen===q.k);
+  var ms=Math.min(Date.now()-RX.qStart,600000);RX.ms+=ms;RX.tn++;
+  var btns=$("rq").querySelectorAll(".chb");
+  for(var n=0;n<btns.length;n++){
+    btns[n].classList.add("locked");
+    if(RX.ch[n]===q.k)btns[n].classList.add("ok");else if(n===i)btns[n].classList.add("ng");else btns[n].classList.add("dim");
+  }
+  if(ok)RX.ok++;else RX.wrong.push({p:p,q:q});
+  record(ok,rQid(p,q),ms,{mine:chosen});
+  RX.done[rQid(p,q)]=true;
+  rRenderPassage();
+  var mark=ok?'<svg class="mark" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="17"/></svg>'
+             :'<svg class="mark" viewBox="0 0 48 48" aria-hidden="true"><path d="M12 12 L36 36"/><path d="M36 12 L12 36"/></svg>';
+  var h='<div class="fb-head">'+mark+'<p class="fb-title '+(ok?"good":"bad")+'">'+(ok?"正解です":"ざんねん")+'</p></div>'+
+    '<p class="fb-ja">正解：<span class="en">'+esc(q.k)+'</span><br>（'+esc(q.m[q.k]||"")+'）</p>'+
+    '<p class="fb-ex">'+esc(q.e)+'</p>'+
+    '<p class="lcue">本文の<mark class="clue">色の付いた部分</mark>が、根拠になる部分です。</p>'+
+    '<div class="mean"><h4>4つの選択肢の意味</h4><p class="lg">○＝正解　×＝あなたが選んだ答え</p><ul>'+
+    RX.ch.map(function(c,n){
+      var isK=(c===q.k),isX=(n===i&&!isK);
+      return '<li class="'+(isK?"is-k":"")+'"><span class="sy '+(isK?"o":(isX?"x":""))+'">'+(isK?"○":(isX?"×":""))+'</span><span><span class="w">'+esc(c)+'</span><span class="m">'+esc(q.m[c]||"")+'</span></span><span></span></li>';
+    }).join("")+'</ul></div>';
+  $("rfb").innerHTML=h;$("rfb").hidden=false;
+  var lastQ=(RX.qi+1>=p.qs.length),lastP=(RX.pi+1>=RX.list.length);
+  dock('<button type="button" class="btn" data-act="r-next">'+(lastQ?(lastP?"結果を見る":"Bの説明文へ"):"次の問題へ")+'</button>');
+  try{var mk=document.querySelector("#rpassage mark.clue:last-of-type");$("rfb").scrollIntoView({block:"nearest",behavior:"smooth"});}catch(e){}
+}
+function rNext(){
+  if(!RX.answered)return;
+  var p=RX.list[RX.pi];
+  if(RX.qi+1<p.qs.length){RX.qi++;}
+  else if(RX.pi+1<RX.list.length){RX.pi++;RX.qi=0;try{window.scrollTo(0,0);}catch(e){}}
+  else{rShowResult();return;}
+  rRenderQ();
+  if(RX.qi>0){try{$("rq").scrollIntoView({block:"start",behavior:"smooth"});}catch(e){}}
+}
+function rShowResult(){
+  logR(true);
+  var n=RX.total,c=RX.ok,pct=Math.round(c/n*100);
+  var tot=Math.round((Date.now()-RX.t0)/1000),mm=Math.floor(tot/60),ss=tot%60;
+  if(rec.cfg.rpart==="both"){if(!rec.rsets)rec.rsets={};rec.rsets[RX.setNo]={c:c,n:n,d:dkey(new Date())};}
+  save();
+  $("rtitle").textContent="大問3 第"+RX.setNo+"回の結果";
+  $("rscore").innerHTML='<b>'+c+'</b><span> / '+n+'</span>';
+  $("rpct").textContent="正答率 "+pct+"％";
+  $("rtime").textContent="所要時間 "+(mm?mm+"分":"")+ss+"秒";
+  $("rcmt").textContent=pct>=90?"とても安定しています。本番では、Eメールは約6分、説明文は約10分が目安です。":(pct>=60?"あと少しです。選択肢の言いかえと、根拠の部分を見直しましょう。":"根拠になる部分を確かめてから、もう一度ためしましょう。");
+  var h="";
+  if(RX.wrong.length){
+    h='<h2 class="sec">まちがえた問題</h2><ul class="review">';
+    RX.wrong.forEach(function(w){
+      h+='<li><p class="r-n">'+(w.p.kind==="mail"?"A　Eメール":"B　説明文")+'　( '+w.q.no+' )</p><p class="r-s en">'+esc(w.q.q)+'</p><p class="r-s en">正解：<b class="ans">'+esc(w.q.k)+'</b></p><p class="r-ja">'+esc(w.q.m[w.q.k]||"")+'</p><p class="r-ex">'+esc(w.q.e)+'</p></li>';
+    });
+    h+='</ul>';
+  }else h='<p class="cmt">まちがえた問題はありません。</p>';
+  $("rrev").innerHTML=h;
+  show("result");
+  dock('<button type="button" class="btn ghost" data-act="go-top">トップへ</button><button type="button" class="btn" data-act="r-again">もう一度解く</button>');
+}
+function logR(done){logSession(RX,"大問3 内容一致","第"+RX.setNo+"回・"+labOf(RPARTS,rec.cfg.rpart),RX.tn,RX.ok,RX.ms,RX.tn,done);}
+document.addEventListener("click",function(e){
+  var el=e.target.closest?e.target.closest("[data-act]"):null;
+  if(!el)return;
+  var act=el.getAttribute("data-act");
+  if(act==="r-setup"){show("rsetup");rSetupRender();}
+  else if(act==="r-start"||act==="r-again"){rBegin();}
+  else if(act==="r-pick"){rPick(parseInt(el.getAttribute("data-i"),10));}
+  else if(act==="r-next"){rNext();}
+  else if(act==="r-toq"){try{$("rq").scrollIntoView({block:"start",behavior:"smooth"});}catch(x){}}
+  else if(act==="r-quit"){
+    if(el.getAttribute("data-armed")!=="1"){el.setAttribute("data-armed","1");el.textContent="もう一度押すと、やめます";
+      setTimeout(function(){el.removeAttribute("data-armed");el.textContent="やめる";},3500);}
+    else{el.removeAttribute("data-armed");el.textContent="やめる";logR(false);renderTop();show("top");}
+  }
+});
+document.addEventListener("keydown",function(e){
+  if(!$("rquiz").classList.contains("on"))return;
+  if(e.key>="1"&&e.key<="4"){rPick(parseInt(e.key,10)-1);}
+  else if(e.key==="Enter"&&RX.answered&&document.activeElement===document.body){rNext();}
+});
+window.__rpart={RP:RP};
+
+/* ===================================================================
+   大問4・5　ライティング（要約・意見）
+   ・書いた英文は、この端末に下書きとして保存される
+   ・「書き終えた」で解答例と自己チェックを表示し、先生にも送る
+   =================================================================== */
+var WRTYPES=[["sum","大問4　要約（45〜55語）"],["op","大問5　意見（80〜100語）"]];
+var WRSPEC={sum:{min:45,max:55,mins:15,part:"大問4 要約"},op:{min:80,max:100,mins:20,part:"大問5 意見"}};
+var WRX={t:null,t0:0,timer:null,saveT:null,done:false};
+function wrCount(t){return (String(t).match(/[A-Za-z0-9]+(?:['’-][A-Za-z0-9]+)*/g)||[]).length;}
+function wrState(id){if(!rec.wr||typeof rec.wr!=="object")rec.wr={};return rec.wr[id]||(rec.wr[id]={draft:"",n:0,last:0,d:""});}
+function wrSetupRender(){
+  if(!rec.cfg.wtype||!WRSPEC[rec.cfg.wtype])rec.cfg.wtype="sum";
+  var ty=rec.cfg.wtype,sp=WRSPEC[ty];
+  var list=WT.filter(function(w){return w.type===ty;});
+  var why=ty==="sum"
+    ?"英文を読んで、その内容を"+sp.min+"〜"+sp.max+"語の英語にまとめます。目安の時間は"+sp.mins+"分です。"
+    :"TOPICについて、自分の意見と理由を2つ、"+sp.min+"〜"+sp.max+"語の英語で書きます。目安の時間は"+sp.mins+"分です。";
+  $("wrsetup-body").innerHTML=
+    grp("書く問題の種類",why,seg("wtype",WRTYPES,ty))+
+    '<h3 class="wrh">問題を選ぶ</h3><div class="parts">'+list.map(function(w){
+      var st=wrState(w.id);
+      var info=st.n?"書いた回数 "+st.n+"回・前回 "+st.last+"語（"+st.d.slice(5).replace("-","/")+"）":(st.draft?"下書きあり":"まだ書いていません");
+      return '<button class="part on" data-act="wr-open" data-id="'+w.id+'"><span class="tx"><b class="en">'+esc(w.title)+'</b><span>'+esc(info)+'</span></span><span class="tag">'+(st.n?"もう一度":"書く")+'</span></button>';
+    }).join("")+'</div>'+
+    '<p class="why" style="margin-top:14px">書いた英文は、先生への記録をオンにしていれば、ニックネームといっしょに先生に送られます。下書きはこの端末に保存されるので、途中でやめても続きから書けます。</p>';
+  dock(null);
+}
+function wrOpen(id){
+  var w=null;WT.forEach(function(x){if(x.id===id)w=x;});if(!w)return;
+  var sp=WRSPEC[w.type],st=wrState(id);
+  WRX={t:w,t0:Date.now(),timer:null,saveT:null,done:false};
+  var h="";
+  if(w.type==="sum"){
+    h+='<p class="wrins">次の英文を読んで、その内容を英語で要約してください。語数の目安は'+sp.min+'語〜'+sp.max+'語です。</p>'+
+       '<div class="wrbox"><p class="ltitle en">'+esc(w.title)+'</p>'+w.paras.map(function(p){return '<p class="lpara en">'+esc(p)+'</p>';}).join("")+'</div>';
+  }else{
+    h+='<p class="wrins">次のTOPICについて、あなたの意見とその理由を2つ書いてください。POINTSは理由を書くときの参考となる観点です。これ以外の観点から理由を書いてもかまいません。語数の目安は'+sp.min+'語〜'+sp.max+'語です。</p>'+
+       '<div class="wrbox"><p class="wrlab">TOPIC</p><p class="wrtopic en">'+esc(w.topic)+'</p><p class="wrlab">POINTS</p><ul class="wrpts en">'+w.points.map(function(p){return '<li>'+esc(p)+'</li>';}).join("")+'</ul></div>';
+  }
+  h+='<details class="lja wrhint"><summary>ヒントを見る</summary>'+wrHintHTML(w)+'</details>'+
+     '<label class="wrlab2" for="wrtext">あなたの解答</label>'+
+     '<textarea id="wrtext" class="wrta en" spellcheck="false" autocapitalize="sentences" autocomplete="off" placeholder="ここに英語で書きます"></textarea>'+
+     '<p class="wrcount" id="wrcount" aria-live="polite"></p>';
+  $("wrbody").innerHTML=h;
+  $("wrtext").value=st.draft||"";
+  $("wrfb").hidden=true;$("wrfb").innerHTML="";
+  $("wrqno").textContent=sp.part;
+  show("wrwrite");
+  wrUpdateCount();
+  wrTick();WRX.timer=setInterval(wrTick,1000);
+  dock('<button type="button" class="btn" data-act="wr-finish">書き終えた</button>');
+  try{window.scrollTo(0,0);}catch(e){}
+}
+function wrHintHTML(w){
+  if(w.type==="sum"){
+    return '<p class="why">次の3つの内容を、本文とはちがう言い方でまとめると書きやすくなります。具体例や細かい数字は入れなくてかまいません。</p><ol class="wrkeys">'+
+      w.keys.map(function(k){return '<li>'+esc(k)+'</li>';}).join("")+'</ol>'+
+      '<p class="why">使える表現：<span class="en">However, ～ / In addition, ～ / because ～ / so ～</span></p>';
+  }
+  return '<p class="why">次の形にそって書くと、まとまった文章になります。</p><ol class="wrkeys en">'+
+    '<li>I think (that) ～. ／ I do not think (that) ～.</li><li>I have two reasons.</li><li>First, ～. （説明や例を1〜2文）</li><li>Second, ～. （説明や例を1〜2文）</li><li>For these reasons, I think ～.</li></ol>'+
+    '<p class="why">理由には、POINTSの観点を使うと書きやすくなります。賛成・反対のどちらで書いても点数は変わりません。書きやすいほうを選びましょう。</p>';
+}
+function wrTick(){
+  if(!WRX.t||WRX.done)return;
+  var s=Math.floor((Date.now()-WRX.t0)/1000),sp=WRSPEC[WRX.t.type];
+  var el=$("wrtime");if(el)el.textContent="経過 "+Math.floor(s/60)+":"+pad(s%60)+"（目安 "+sp.mins+"分）";
+}
+function wrUpdateCount(){
+  if(!WRX.t)return;
+  var sp=WRSPEC[WRX.t.type],n=wrCount($("wrtext").value),c=$("wrcount");
+  var msg="語数 "+n+"語（目安 "+sp.min+"〜"+sp.max+"語）";
+  c.className="wrcount"+(n>=sp.min&&n<=sp.max?" ok":(n>sp.max?" over":""));
+  c.textContent=msg+(n>sp.max?"　少し多いです":(n>=sp.min?"　ちょうどよい長さです":""));
+}
+function wrSaveDraft(){
+  if(!WRX.t)return;
+  wrState(WRX.t.id).draft=$("wrtext").value;save();
+}
+function wrFinish(){
+  if(!WRX.t||WRX.done)return;
+  var w=WRX.t,sp=WRSPEC[w.type],text=$("wrtext").value.trim(),n=wrCount(text);
+  if(n<5){var c=$("wrcount");c.className="wrcount over";c.textContent="もう少し書いてから「書き終えた」を押してください。";return;}
+  WRX.done=true;clearInterval(WRX.timer);
+  var mins=Math.max(1,Math.round((Date.now()-WRX.t0)/60000));
+  var st=wrState(w.id);st.draft=text;st.n++;st.last=n;st.d=dkey(new Date());
+  /* 書いた日も「練習した日」として連続日数に数える */
+  var td=dkey(new Date());if(rec.last!==td){var yd=new Date();yd.setDate(yd.getDate()-1);rec.streak=(rec.last===dkey(yd))?rec.streak+1:1;rec.last=td;if(rec.streak>rec.best)rec.best=rec.streak;}
+  save();
+  $("wrtext").readOnly=true;
+  /* 先生に送る */
+  var sent="";
+  if(REPORT_URL){
+    if(!rec.outbox)rec.outbox=[];
+    rec.outbox.push({type:"writing",k:newKey(),at:nowStamp(),part:sp.part,label:w.title,text:text,words:n,mins:mins});
+    save();flushOutbox();
+    sent=rec.nick?'<p class="wrsent">この解答は「'+esc(rec.nick)+'」として先生に送りました。</p>'
+                 :'<p class="wrsent">トップの「先生への記録」でニックネームを入れると、この解答が先生に送られます。</p>';
+  }
+  var verdict=n<sp.min?"目安より少し短いです。"+(w.type==="sum"?"3つの内容が入っているか確かめましょう。":"理由の説明や例を1文ずつ足してみましょう。")
+             :(n>sp.max?"目安より少し長いです。"+(w.type==="sum"?"具体例や細かい説明をけずってみましょう。":"同じことをくり返していないか確かめましょう。")
+                       :"語数はちょうどよい長さです。");
+  var checks=w.type==="sum"
+    ?["最初の段落の話題（何の話か）を書いた","利点（よい点）をまとめた","問題点をまとめた","本文の文をそのまま写さず、言いかえた","具体例や細かい数字を入れすぎていない","自分の意見を入れていない"]
+    :["最初に自分の立場（賛成・反対）をはっきり書いた","理由を2つ書いた","それぞれの理由に、説明や例を加えた","最後にもう一度、立場を書いた","TOPICの問いにきちんと答えている","スペルや、主語と動詞の形を見直した"];
+  var h='<div class="fb-head"><p class="fb-title good">おつかれさまでした</p></div>'+
+    '<p class="fb-ja">'+n+'語・'+mins+'分　'+esc(verdict)+'</p>'+sent+
+    '<div class="mean"><h4>自分でチェック</h4><ul class="wrcheck">'+checks.map(function(c,i){
+      return '<li><label><input type="checkbox"> '+esc(c)+'</label></li>';}).join("")+'</ul></div>'+
+    '<div class="mean"><h4>解答例（'+wrCount(w.model)+'語）</h4><p class="wrmodel en">'+esc(w.model)+'</p><p class="r-ja">'+esc(w.modelJa)+'</p></div>'+
+    (w.type==="sum"?'<div class="mean"><h4>入れたい3つの内容</h4><ol class="wrkeys">'+w.keys.map(function(k){return '<li>'+esc(k)+'</li>';}).join("")+'</ol></div>':'');
+  $("wrfb").innerHTML=h;$("wrfb").hidden=false;
+  dock('<button type="button" class="btn ghost" data-act="wr-edit">書き直す</button><button type="button" class="btn" data-act="wr-back">ほかの問題へ</button>');
+  try{$("wrfb").scrollIntoView({block:"start",behavior:"smooth"});}catch(e){}
+}
+function wrLeave(){
+  if(WRX.t&&!WRX.done)wrSaveDraft();
+  clearInterval(WRX.timer);WRX={t:null,t0:0,timer:null,saveT:null,done:false};
+}
+document.addEventListener("input",function(e){
+  if(e.target&&e.target.id==="wrtext"){
+    wrUpdateCount();
+    clearTimeout(WRX.saveT);WRX.saveT=setTimeout(wrSaveDraft,800);
+  }
+});
+document.addEventListener("click",function(e){
+  var el=e.target.closest?e.target.closest("[data-act]"):null;
+  if(!el)return;
+  var act=el.getAttribute("data-act");
+  if(act==="wr-setup"){show("wrsetup");wrSetupRender();}
+  else if(act==="wr-open"){wrOpen(el.getAttribute("data-id"));}
+  else if(act==="wr-finish"){wrFinish();}
+  else if(act==="wr-edit"){
+    if(!WRX.t)return;
+    WRX.done=false;WRX.t0=Date.now();$("wrtext").readOnly=false;$("wrfb").hidden=true;
+    WRX.timer=setInterval(wrTick,1000);wrTick();
+    dock('<button type="button" class="btn" data-act="wr-finish">書き終えた</button>');
+    try{$("wrtext").focus();}catch(x){}
+  }
+  else if(act==="wr-back"||act==="wr-quit"){wrLeave();show("wrsetup");wrSetupRender();}
+});
+window.__wr={WT:WT,count:wrCount};
 
 applySize();
 renderTop();
