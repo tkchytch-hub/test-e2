@@ -280,6 +280,9 @@ body.has-dock .wrap{padding-bottom:calc(104px + env(safe-area-inset-bottom,0px))
 .wrsent{margin:6px 0;font-size:14px;color:var(--muted)}
 .wrh{margin:18px 0 4px;font-size:16px}
 .wrtime{font-size:13px}
+.wi-h{margin:10px 0 8px;font-size:calc(19px*var(--fs,1));font-weight:700;line-height:1.5}
+.wi-list{margin:0 0 10px;padding-left:1.3em;line-height:1.8}
+.wi-s{margin:8px 0 0;color:var(--muted);font-size:14px}
 .wnote{margin:6px 0 8px;color:var(--muted);font-size:13px}
 .vword{font-family:var(--serif);font-size:calc(36px*var(--fs,1));font-weight:600;text-align:center;margin:14px 0 6px;line-height:1.3;word-break:break-word}
 .vmean{font-size:calc(22px*var(--fs,1));text-align:center;margin:14px 0 4px;font-weight:700;line-height:1.5}
@@ -564,7 +567,6 @@ mark.clue{background:#FFF1B8;color:inherit;padding:0 .1em;border-radius:2px}
     <span class="qno"><b>今日の単語チェック</b></span>
     <span class="qno" id="wqno"></span>
   </div>
-  <p class="wnote">毎日さいしょに5問（1問15秒）。まちがえやすい単語から出ます。終わると、いつもの練習に進めます。</p>
   <div class="pbar"><i id="wpbar"></i></div>
   <div class="tbar" id="wtbar" hidden><span>のこり</span><div class="tr"><i id="wtfill"></i></div><b id="wtsec"></b></div>
   <div class="qcard" id="wcard"></div>
@@ -5139,9 +5141,27 @@ function dailyStart(){
   var words=dailyPick();
   if(!words.length)return;
   W={list:words.map(function(o){return {o:o,retry:false};}),i:0,ok:0,n:0,ms:0,tn:0,t0:Date.now(),
-     answered:false,ch:[],qStart:0,wrong:[],logged:false};
+     answered:false,ch:[],qStart:0,wrong:[],logged:false,intro:true};
   show("wquiz");
-  wRender();
+  wIntro();
+}
+/* はじめに説明とスタートボタンを出す（いきなり問題が始まらないように） */
+function wIntro(){
+  $("wqno").textContent="全"+W.list.length+"問";
+  $("wpbar").style.width="0%";
+  $("wtbar").hidden=true;
+  $("wfb").hidden=true;$("wfb").innerHTML="";
+  $("wcard").innerHTML='<span class="qtag">今日の復習テスト</span>'+
+    '<p class="wi-h">今日の単語チェックから始めましょう</p>'+
+    '<ul class="wi-list">'+
+      '<li>英単語の意味を、4つの中から選びます。</li>'+
+      '<li>全'+W.list.length+'問、1問'+DAILY_SEC+'秒です。</li>'+
+      '<li>これまでにまちがえた単語を優先して出します。</li>'+
+      '<li>まちがえた単語は、最後にもう一度出ます。</li>'+
+      '<li>終わると、いつもの練習に進めます。</li>'+
+    '</ul>'+
+    '<p class="wi-s">準備ができたら「スタート」を押してください。</p>';
+  dock('<button type="button" class="btn" data-act="w-go">スタート</button>');
 }
 function wRender(){
   var it=W.list[W.i],o=it.o;
@@ -5228,7 +5248,8 @@ document.addEventListener("click",function(e){
   var el=e.target.closest?e.target.closest("[data-act]"):null;
   if(!el)return;
   var act=el.getAttribute("data-act");
-  if(act==="w-pick")wPick(parseInt(el.getAttribute("data-i"),10));
+  if(act==="w-go"){if(W&&W.intro){W.intro=false;wRender();}}
+  else if(act==="w-pick")wPick(parseInt(el.getAttribute("data-i"),10));
   else if(act==="w-next")wNext();
   else if(act==="w-done"){wStopTimer();W=null;stopSpeech();renderTop();show("top");}
 });
@@ -5236,7 +5257,7 @@ document.addEventListener("click",function(e){
 var renderTop0=renderTop;
 renderTop=function(){renderTop0();dailyMaybe();};
 document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")dailyMaybe();});
-window.__daily={pick:dailyPick,start:dailyStart,done:dailyDone,cur:function(){return W?{ok:W.ch.indexOf(W.list[W.i].o),answered:W.answered}:null;}};
+window.__daily={pick:dailyPick,start:dailyStart,done:dailyDone,cur:function(){return W?{ok:W.ch.indexOf(W.list[W.i].o),answered:W.answered,intro:!!W.intro}:null;}};
 
 /* ===================================================================
    大問3　長文の内容一致（1回分＝A：Eメール3問＋B：説明文5問）
